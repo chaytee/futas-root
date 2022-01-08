@@ -1,19 +1,24 @@
-FROM ruby:2.7.1
+FROM ruby:2.7.1-alpine
 
-ENV LANG C.UTF-8
-ENV TZ Asia/Tokyo
+ARG WORKDIR
 
-RUN apt-get update -qq && \
-    apt-get install -y build-essential \
-                       libpq-dev \
-                       nodejs \
-   && rm -rf /var/lib/apt/lists/*
+ENV RUNTIME_PACKAGES="linux-headers libxml2-dev make gcc libc-dev libc6-compat gcompat nodejs tzdata postgresql-dev postgresql git" \
+  DEV_PACKAGES="build-base curl-dev" \
+  HOME=/${WORKDIR} \
+  LANG=C.UTF-8 \
+  TZ=Asia/Tokyo
 
-RUN mkdir /app
-ENV APP_ROOT /app
-WORKDIR $APP_ROOT
+WORKDIR ${HOME}
 
-ADD ./Gemfile $APP_ROOT/Gemfile
-ADD ./Gemfile.lock $APP_ROOT/Gemfile.lock
+COPY Gemfile* ./
 
-RUN bundle install
+RUN apk update && \
+  apk upgrade && \
+  apk add --no-cache ${RUNTIME_PACKAGES} && \
+  apk add --virtual build-dependencies --no-cache ${DEV_PACKAGES} && \
+  bundle install -j4 && \
+  apk del build-dependencies
+
+COPY . .
+
+CMD ["rails", "server", "-b", "0.0.0.0"]

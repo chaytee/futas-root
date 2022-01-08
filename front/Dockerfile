@@ -1,10 +1,13 @@
-FROM node:12.18.3-alpine
+FROM node:16.13.1-alpine
 
-ENV APP_HOME /app
-RUN mkdir -p $APP_HOME
-WORKDIR $APP_HOME
+ARG WORKDIR
+ARG CONTAINER_PORT
 
-COPY package.json $APP_HOME
-COPY package.lock.json $APP_HOME
+ENV HOME=/${WORKDIR} \
+  LANG=C.UTF-8 \
+  TZ=Asia/Tokyo \
+  HOST=0.0.0.0
 
-RUN apk update && npm install -g @vue/cli
+WORKDIR ${HOME}
+
+EXPOSE ${CONTAINER_PORT}

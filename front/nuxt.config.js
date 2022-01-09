@@ -35,9 +35,15 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
+    '@nuxtjs/bulma'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    loaders: {
+          scss: {
+            implementation: require('sass')
+          }
+    }
   }
 }

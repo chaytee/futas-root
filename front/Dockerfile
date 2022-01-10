@@ -1,4 +1,4 @@
-FROM node:16.13.1-alpine
+FROM node:14.15.0-alpine3.12
 
 ARG WORKDIR
 ARG CONTAINER_PORT

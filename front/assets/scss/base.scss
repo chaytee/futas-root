@@ -190,4 +190,8 @@ img {
 		height: auto;
 		min-height: 100%;
 	}
+  #container {
+    height: 100vh;
+    box-sizing: border-box;
+  }
 }

@@ -42,8 +42,12 @@ export default {
   build: {
     loaders: {
           scss: {
-            implementation: require('sass')
+            implementation: require('sass'),
           }
     }
-  }
+  },
+  css: [
+    { src: '~/assets/scss/base.scss'},
+    { src: '~/assets/scss/common.scss' }
+  ]
 }

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="container" id="container">
+  <div class="wrap">
+    <div id="container">
       <nuxt />
     </div>
     <Footer />
@@ -16,3 +16,6 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+
+</style>

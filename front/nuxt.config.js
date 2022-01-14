@@ -35,8 +35,28 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-    '@nuxtjs/bulma'
+    '@nuxtjs/bulma',
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
+
   ],
+  axios: {
+    proxy: true,
+
+    // baseURL: "http://api:3000/",
+    // browserBaseURL: "http://localhost:3000"
+  },
+  proxy: {
+
+    //ログインのとき４０４エラーが出る
+    '/auth': {
+      target: 'http://localhost:3000',
+      pathRewrite: {
+        '^/auth': ''
+      }
+
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

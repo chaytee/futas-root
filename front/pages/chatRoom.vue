@@ -12,6 +12,6 @@ import ChatForm from '../components/ChatForm.vue';
 
 
 export default {
-  components: { Navbar, ChatWindow, ChatForm },
+  components: { ChatWindow, ChatForm },
 }
 </script>

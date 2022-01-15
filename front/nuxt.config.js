@@ -37,11 +37,10 @@ export default {
     'bootstrap-vue/nuxt',
     '@nuxtjs/bulma',
     '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    //'@nuxtjs/proxy'
 
   ],
   axios: {
-    proxy: true,
 
     // APR_URL: "http://localhost:3000"
   },

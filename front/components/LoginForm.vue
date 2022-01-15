@@ -12,7 +12,7 @@
             <input class="input mb-4" type="password" required placeholder="パスワード" v-model="password">
             <input type="password" required placeholder="パスワード（確認用）" v-model="passwordConfirmation">
             <div class="error">{{ error }}</div>
-            <div class="btn__wrap"><button class="btn__link">ログインする</button></div>
+            <div class="btn__wrap"><button class="btn__link" type="submit">ログインする</button></div>
           </form>
         </div>
       </div>
@@ -22,9 +22,9 @@
 </div>
 </template>
 <script>
-import axios from 'axios';
-
   export default {
+    emits: ['redirectToRelationship'],
+
     data () {
       return {
         email: '',
@@ -45,7 +45,7 @@ import axios from 'axios';
             try {
               this.error = null
 
-              const res = await axios.post('/auth/sign_in', {
+              const res = await this.$axios.post('/auth/sign_in', {
                 email: this.email,
                 password: this.password,
                 }
@@ -54,7 +54,9 @@ import axios from 'axios';
                 throw new Error('メールアドレスかパスワードが違います')
               }
 
-              console.log({ res })
+              if (!this.error) {
+                this.$emit('redirectToRelationship')
+              }
 
               return res
             } catch (error) {

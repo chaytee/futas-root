@@ -12,7 +12,7 @@
               <input class="input mb-4" type="email" required placeholder="メールアドレス" v-model="email">
               <input class="input mb-4" type="password" required placeholder="パスワード" v-model="password">
               <input type="password" required placeholder="パスワード（確認用）" v-model="passwordConfirmation">
-              <div class="btn__wrap"><button class="btn__link">登録する</button></div>
+              <div class="btn__wrap"><button class="btn__link" type="submit">登録する</button></div>
             </form>
           </div>
         </div>
@@ -23,9 +23,10 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 
   export default {
+    emits: ['redirectToRelationship'],
+
     data () {
       return {
         name: '',
@@ -50,20 +51,25 @@ import axios from 'axios';
         async signUp () {
 
         try {
-          const res = await axios.post('/auth/', {
-            name: this.name,
-            email: this.email,
-            password: this.password,
-            password_confirmation: this.passwordConfirmation
+            const res = await this.$axios.post('/auth/', {
+              name: this.name,
+              email: this.email,
+              password: this.password,
+              password_confirmation: this.passwordConfirmation
+              }
+            )
+            if (!res) {
+              throw new Error('アカウントを登録できませんでした')
             }
-          )
-          if (!res) {
-            throw new Error('アカウントを登録できませんでした')
+            if (!this.error) {
+              this.$emit('redirectToRelationship')
+            }
+
+            return res
           }
-          console.log(res);
-          return res
-          } catch (error) {
-          this.error = 'アカウントを登録できませんでした'
+          catch (error) {
+            this.error = 'アカウントを登録できませんでした'
+            return
           }
         }
     }

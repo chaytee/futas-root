@@ -43,19 +43,7 @@ export default {
   axios: {
     proxy: true,
 
-    // baseURL: "http://api:3000/",
-    // browserBaseURL: "http://localhost:3000"
-  },
-  proxy: {
-
-    //ログインのとき４０４エラーが出る
-    '/auth': {
-      target: 'http://localhost:3000',
-      pathRewrite: {
-        '^/auth': ''
-      }
-
-    }
+    // APR_URL: "http://localhost:3000"
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

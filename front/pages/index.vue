@@ -1,5 +1,20 @@
 <template>
   <div>
+    <div>
+      <button
+        type="button"
+        name="button"
+        @click="getMsg"
+      >
+        RailsからAPIを取得する
+      </button>
+      <div
+        v-for="(msg, i) in msgs"
+        :key="i"
+      >
+        {{ msg }}
+      </div>
+  </div>
       <div class="columns">
         <!-- 1列目 -->
         <div class="column" style="background: #fee;">Column1</div>
@@ -22,5 +37,16 @@ export default {
   name: 'task',
   layout: 'default',
   components: { Task, InputTask },
+    data () {
+    return {
+      msgs: []
+    }
+  },
+  methods: {
+    getMsg () {
+      this.$axios.$get('/api/v1/hello')
+        .then(res => this.msgs.push(res))
+    }
+  }
 }
 </script>

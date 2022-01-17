@@ -29,6 +29,7 @@ export default {
     return {};
   },
   methods: {
+    //認証コードが発行されていない場合は・・・に変更する
     redirectToRelationship(){
         this.$router.push("/relationship");
     },

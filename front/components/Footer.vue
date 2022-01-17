@@ -3,7 +3,7 @@
     <p class="copyright cen">Copyright © chisato shimahara 2022 Rights Reserved.</p>
   </footer>
 </template>
-<!--<style lang="scss">
+<style lang="scss">
   #footer {
     position: relative;
     z-index: 99;
@@ -12,4 +12,4 @@
     color: #fff;
     line-height: 60px;
   }
-</style>->
+</style>

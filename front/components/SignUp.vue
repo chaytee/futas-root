@@ -12,11 +12,11 @@
               <div class="control">
                 <label class="radio">
                   <input type="radio" name="answer" value="1" v-model="gender">
-                  男
+                  夫
                 </label>
                 <label class="radio">
                   <input type="radio" name="answer" value="2" v-model="gender">
-                  女
+                  妻
                 </label>
               </div>
               <input class="input mb-4" type="email" required placeholder="メールアドレス" v-model="email">
@@ -33,6 +33,7 @@
   </div>
 </template>
 <script>
+import setItem from '../auth/setItem'
 
   export default {
     emits: ['redirectToRelationship'],
@@ -42,6 +43,7 @@
         name: '',
         email: '',
         password: '',
+        gender: '',
         passwordConfirmation: '',
         isShow: false,
         error: null
@@ -54,9 +56,9 @@
         modalClose() {
           this.isShow = false
         },
-        // async signUp () {
-        //   console.log(this.name, this.email, this.password, this.passwordConfirmation)
-        // }
+        async signUp () {
+          console.log(this.name, this.email, this.password, this.passwordConfirmation)
+        },
 
         async signUp () {
 
@@ -64,6 +66,7 @@
             const res = await this.$axios.post('/auth/', {
               name: this.name,
               email: this.email,
+              gender: this.gender,
               password: this.password,
               password_confirmation: this.passwordConfirmation
               }
@@ -72,9 +75,10 @@
               throw new Error('アカウントを登録できませんでした')
             }
             if (!this.error) {
+              setItem(res.headers, res.data.data.name)
+
               this.$emit('redirectToRelationship')
             }
-            this.$router.push("/relationship");
             return res
           }
           catch (error) {

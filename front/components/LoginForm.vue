@@ -22,6 +22,8 @@
 </div>
 </template>
 <script>
+  import setItem from '../auth/setItem';
+
   export default {
     emits: ['redirectToRelationship'],
 
@@ -55,6 +57,8 @@
               }
 
               if (!this.error) {
+                setItem(res.headers, res.data.data.name)
+
                 this.$emit('redirectToRelationship')
               }
 

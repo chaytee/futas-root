@@ -35,8 +35,15 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-    '@nuxtjs/bulma'
+    '@nuxtjs/bulma',
+    '@nuxtjs/axios',
+    //'@nuxtjs/proxy'
+
   ],
+  axios: {
+
+    // APR_URL: "http://localhost:3000"
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

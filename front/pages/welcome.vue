@@ -7,8 +7,8 @@
         </div>
         <div class="box hero__box">
           <p class="cen">ようこそ！</p>
-          <LoginForm />
-          <SignUp />
+          <LoginForm @redirectToRelationship="redirectToRelationship" />
+          <SignUp @redirectToRelationship="redirectToRelationship" />
         </div>
         <div class="hero__img cen">
           <img src="~/assets/img/title_img.png" alt="" />
@@ -28,7 +28,11 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    redirectToRelationship(){
+        this.$router.push("/relationship");
+    },
+  }
 };
 </script>
 

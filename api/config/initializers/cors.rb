@@ -7,10 +7,12 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:8080/'
+    origins ENV["API_DOMAIN"] || ""
 
     resource '*',
       headers: :any,
+      #ブラウザからアクセスできるheader情報を以下に絞る
+      expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
       methods: [:get, :post, :put, :patch, :delete, :options, :head]
   end
 end

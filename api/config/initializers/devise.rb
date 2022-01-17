@@ -14,7 +14,11 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
+<<<<<<< HEAD
   # config.secret_key = '92a8b052edb4a8fb297cfc7b4e38a1edbab38d224d4f21af65e3af157319c2fb91248b7cd71455153bd5b2c060eb9d31bd464c1a36ff7347ba9e2b0d37e7c613'
+=======
+  # config.secret_key = 'f0e648cf864acb9967d1465bc38c2772a18678ba96d02adeee181264a92722154243379b5ab28856c3bbd068fc8b2142a24d5b4470c7224c3b9322502e7e3e56'
+>>>>>>> master
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -126,7 +130,11 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
+<<<<<<< HEAD
   # config.pepper = 'f3c2ae79b122ca864d896769f1d96775415352866b7fc923fd79d71d7c0494d3d26b341e93c0cca6e933a15dabdd8cb30ee6d5ac5dc80f9f9812a1a7008fc56d'
+=======
+  # config.pepper = '7c1529662dbc9d08fbca109dd613dbdfb8ba49236c7da63cbe2367ef52b358e220d34fd79402caa5594eb37b8b62c3da23edd452daf0e0393e6d8c72df9aca81'
+>>>>>>> master
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -134,6 +142,58 @@ Devise.setup do |config|
   # Send a notification email when the user's password is changed.
   # config.send_password_change_notification = false
 
+<<<<<<< HEAD
+=======
+  # ==> Configuration for :invitable
+  # The period the generated invitation token is valid.
+  # After this period, the invited resource won't be able to accept the invitation.
+  # When invite_for is 0 (the default), the invitation won't expire.
+  # config.invite_for = 2.weeks
+
+  # Number of invitations users can send.
+  # - If invitation_limit is nil, there is no limit for invitations, users can
+  # send unlimited invitations, invitation_limit column is not used.
+  # - If invitation_limit is 0, users can't send invitations by default.
+  # - If invitation_limit n > 0, users can send n invitations.
+  # You can change invitation_limit column for some users so they can send more
+  # or less invitations, even with global invitation_limit = 0
+  # Default: nil
+  # config.invitation_limit = 5
+
+  # The key to be used to check existing users when sending an invitation
+  # and the regexp used to test it when validate_on_invite is not set.
+  # config.invite_key = { email: /\A[^@]+@[^@]+\z/ }
+  # config.invite_key = { email: /\A[^@]+@[^@]+\z/, username: nil }
+
+  # Ensure that invited record is valid.
+  # The invitation won't be sent if this check fails.
+  # Default: false
+  # config.validate_on_invite = true
+
+  # Resend invitation if user with invited status is invited again
+  # Default: true
+  # config.resend_invitation = false
+
+  # The class name of the inviting model. If this is nil,
+  # the #invited_by association is declared to be polymorphic.
+  # Default: nil
+  # config.invited_by_class_name = 'User'
+
+  # The foreign key to the inviting model (if invited_by_class_name is set)
+  # Default: :invited_by_id
+  # config.invited_by_foreign_key = :invited_by_id
+
+  # The column name used for counter_cache column. If this is nil,
+  # the #invited_by association is declared without counter_cache.
+  # Default: nil
+  # config.invited_by_counter_cache = :invitations_count
+
+  # Auto-login after the user accepts the invite. If this is false,
+  # the user will need to manually log in after accepting the invite.
+  # Default: true
+  # config.allow_insecure_sign_in_after_accept = false
+
+>>>>>>> master
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
   # confirming their account. For instance, if set to 2.days, the user will be

@@ -7,35 +7,71 @@
         <div class="modal-content">
           <div class="box p-4">
             <h2 class="welcome__title cen mb-5">アカウントを登録する</h2>
-            <form>
-              <input class="input mb-4" type="email" required placeholder="メールアドレス" v-model="email">
+            <form @submit.prevent="signUp">
+              <input class="input mb-4" type="text" required placeholder="名前" v-model="name">
               <input class="input mb-4" type="email" required placeholder="メールアドレス" v-model="email">
               <input class="input mb-4" type="password" required placeholder="パスワード" v-model="password">
+              <input type="password" required placeholder="パスワード（確認用）" v-model="passwordConfirmation">
+              <div class="btn__wrap"><button class="btn__link" type="submit">登録する</button></div>
             </form>
-            <div class="btn__wrap"><button class="btn__link">登録する</button></div>
           </div>
         </div>
+        <div class="error">{{ error }}</div>
         <button class="modal-close" @click="modalClose">×</button>
       </div>
     </transition>
   </div>
 </template>
 <script>
+
   export default {
+    emits: ['redirectToRelationship'],
+
     data () {
       return {
+        name: '',
         email: '',
         password: '',
+        passwordConfirmation: '',
         isShow: false,
+        error: null
       }
     },
     methods: {
         modalShow() {
-      this.isShow = true
-    },
-    modalClose() {
-      this.isShow = false
+        this.isShow = true
+        },
+        modalClose() {
+          this.isShow = false
+        },
+        // async signUp () {
+        //   console.log(this.name, this.email, this.password, this.passwordConfirmation)
+        // }
+
+        async signUp () {
+
+        try {
+            const res = await this.$axios.post('/auth/', {
+              name: this.name,
+              email: this.email,
+              password: this.password,
+              password_confirmation: this.passwordConfirmation
+              }
+            )
+            if (!res) {
+              throw new Error('アカウントを登録できませんでした')
+            }
+            if (!this.error) {
+              this.$emit('redirectToRelationship')
+            }
+            console.log({ res })
+            return res
+          }
+          catch (error) {
+            this.error = 'アカウントを登録できませんでした'
+            return
+          }
+        }
     }
-  }
 }
 </script>

@@ -190,6 +190,10 @@ img {
 		height: auto;
 		min-height: 100%;
 	}
+  #container.container {
+    max-width: 1000px;
+    margin: auto;
+  }
   #container {
     height: 100vh;
     box-sizing: border-box;

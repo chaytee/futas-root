@@ -7,21 +7,21 @@
         <div class="modal-content">
           <div class="box p-4">
             <h2 class="welcome__title cen mb-5">アカウントを登録する</h2>
-            <form @submit.prevent="signUp">
-              <input class="input mb-4" type="text" required placeholder="名前" v-model="name">
-              <div class="control">
+            <form @submit.prevent="signUp" class="form__box">
+              <input class="input mb-4 is-medium" type="text" required placeholder="名前" v-model="name">
+              <div class="control gender mb-3">
                 <label class="radio">
                   <input type="radio" name="answer" value="1" v-model="gender">
-                  夫
+                  <span class="gender__title ml-2">夫</span>
                 </label>
                 <label class="radio">
                   <input type="radio" name="answer" value="2" v-model="gender">
-                  妻
+                  <span class="gender__title ml-2">妻</span>
                 </label>
               </div>
-              <input class="input mb-4" type="email" required placeholder="メールアドレス" v-model="email">
-              <input class="input mb-4" type="password" required placeholder="パスワード" v-model="password">
-              <input type="password" required placeholder="パスワード（確認用）" v-model="passwordConfirmation">
+              <input class="input mb-4 is-medium" type="email" required placeholder="メールアドレス" v-model="email">
+              <input class="input mb-4 is-medium" type="password" required placeholder="パスワード" v-model="password">
+              <input class="input mb-4 is-medium" type="password" required placeholder="パスワード（確認用）" v-model="passwordConfirmation">
               <div class="btn__wrap"><button class="btn__link" type="submit">登録する</button></div>
             </form>
           </div>
@@ -89,3 +89,18 @@ import setItem from '../auth/setItem'
     }
 }
 </script>
+<style lang="scss">
+  #signup {
+    .gender {
+        display: flex;
+        justify-content: flex-start;
+      .radio {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;}
+    }
+    .radio+.radio {
+      margin-left: 15px;
+    }
+  }
+</style>

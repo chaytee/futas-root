@@ -7,10 +7,10 @@
       <div class="modal-content">
         <div class="box p-4">
           <h2 class="welcome_title cen mb-5">ログイン</h2>
-          <form @submit.prevent="login">
-            <input class="input mb-4" type="email" required placeholder="メールアドレス" v-model="email">
-            <input class="input mb-4" type="password" required placeholder="パスワード" v-model="password">
-            <input type="password" required placeholder="パスワード（確認用）" v-model="passwordConfirmation">
+          <form @submit.prevent="login" class="form__box">
+            <input class="input mb-4 is-medium" type="email" required placeholder="メールアドレス" v-model="email">
+            <input class="input mb-4 is-medium" type="password" required placeholder="パスワード" v-model="password">
+            <input class="input mb-4 is-medium" type="password" required placeholder="パスワード（確認用）" v-model="passwordConfirmation">
             <div class="error">{{ error }}</div>
             <div class="btn__wrap"><button class="btn__link" type="submit">ログインする</button></div>
           </form>

@@ -9,6 +9,16 @@
             <h2 class="welcome__title cen mb-5">アカウントを登録する</h2>
             <form @submit.prevent="signUp">
               <input class="input mb-4" type="text" required placeholder="名前" v-model="name">
+              <div class="control">
+                <label class="radio">
+                  <input type="radio" name="answer" value="1" v-model="gender">
+                  男
+                </label>
+                <label class="radio">
+                  <input type="radio" name="answer" value="2" v-model="gender">
+                  女
+                </label>
+              </div>
               <input class="input mb-4" type="email" required placeholder="メールアドレス" v-model="email">
               <input class="input mb-4" type="password" required placeholder="パスワード" v-model="password">
               <input type="password" required placeholder="パスワード（確認用）" v-model="passwordConfirmation">
@@ -64,7 +74,7 @@
             if (!this.error) {
               this.$emit('redirectToRelationship')
             }
-            console.log({ res })
+            this.$router.push("/relationship");
             return res
           }
           catch (error) {

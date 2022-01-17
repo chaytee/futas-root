@@ -3,11 +3,6 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-<<<<<<< HEAD
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-  include DeviseTokenAuth::Concerns::User
-=======
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
@@ -16,5 +11,4 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true
   validates :name, length: { maximum: 30 }
->>>>>>> master
 end

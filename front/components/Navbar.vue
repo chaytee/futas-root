@@ -23,10 +23,13 @@
   export default {
     data () {
       return {
-        //ローカルストレージより取得
-        name: window.localStorage.getItem('name'),
-        email: window.localStorage.getItem('uid'),
+        name:'',
+        email: '',
         error: null
+        //ローカルストレージより取得
+        // name: window.localStorage.getItem('name'),
+        // email: window.localStorage.getItem('uid'),
+        // error: null
       }
     },
     methods: {
@@ -62,7 +65,15 @@
             this.error = 'ログアウトできませんでした'
           }
         }
-      }
+      },
+       mounted() {
+        if (localStorage.name) {
+          this.name = localStorage.name;
+        }
+        if (localStorage.email) {
+          this.name = localStorage.email;
+        }
+      },
   }
 </script>
 <style lang="scss">
@@ -71,6 +82,7 @@
       padding: 0 30px;
       height: 100px;
       background: #FFFACA;
+      justify-content: space-between;
 
       .navbar-brand.title {
         align-items: center;

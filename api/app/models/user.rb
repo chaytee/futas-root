@@ -7,8 +7,12 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  attr_accessor :invitation_digest
+
   has_many :messages
+  has_many :tasks
 
   validates :name, presence: true
   validates :name, length: { maximum: 30 }
+
 end

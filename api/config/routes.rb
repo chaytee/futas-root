@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       # api test action
-      resources :hello, only:[:index]
+      resources :hello, only: [:index]
     end
   end
 
@@ -10,5 +10,8 @@ Rails.application.routes.draw do
     registrations: 'auth/registrations'
   }
 
-  resources :messages, only: ["index"]
+  resources :messages, only: [:index]
+
+  get    '/relationships/invitation_code', to: "relationships#invitation_code"
+  resources :relationships, only: [:index, :new, :create]
 end

@@ -21,10 +21,16 @@ export default {
     '@/assets/scss/base.scss',
     '@/assets/scss/common.scss'
   ],
+  //変数を使用している
+  styleResources: {
+    scss: [
+      '@/assets/scss/_variables.scss',
+    ],
+  },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-
+    //{ src: '@/plugins/action-cable.js', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -39,6 +45,7 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     '@nuxtjs/bulma',
     '@nuxtjs/axios',
+    '@nuxtjs/style-resources'
   ],
   axios: {
 

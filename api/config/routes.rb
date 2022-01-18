@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   resources :messages, only: [:index]
 
   get    '/relationships/invitation_code', to: "relationships#invitation_code"
-  resources :relationships, only: [:index, :new, :create]
+  resources :relationships, only: [:new, :create]
 end

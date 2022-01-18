@@ -1,9 +1,11 @@
 <template>
+<no-ssr>
   <section class="container">
     <p>chatroom</p>
     <ChatWindow @connectCable="connectCable" :messages="formattedMessages" ref="chatWindow" />
     <ChatForm @connectCable="connectCable" />
   </section>
+</no-ssr>
 </template>
 
 <script>

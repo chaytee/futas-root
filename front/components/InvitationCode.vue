@@ -3,11 +3,11 @@
     <p>コード発行</p>
     <div class="invitation-code-display">
       <!--ここはapiからaxiosで接続するのか？-->
-      <input class="form-control" id="copyTarget" type="text" readonly />
-      <p>{{msgs}}</p>
-      <button class="btn" type="button" @click="getInvitationCode">
+      <input class="form-control" id="copyTarget" type="text" readonly />‹
+      <button class="btn mb-3" type="button" @click="getInvitationCode">
         発行する
       </button>
+      <p>{{msgs}}</p>
     </div>
     <div>
       <p>

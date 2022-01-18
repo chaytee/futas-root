@@ -1,0 +1,22 @@
+$accentColor: #ED1E79;
+$wifeColor: #F7B4AB;
+$husbandColor: #9BDBC2;
+
+/*◆ＰＣのみ*/
+@mixin hp($min-width:769px) {
+	@media only screen and (min-width: $min-width) {
+		@content;
+	}
+}
+/*◆タブレット以下*/
+@mixin ta($max-width:768px) {
+	@media only screen and (max-width: $max-width) {
+		@content;
+	}
+}
+/*◆スマホのみ*/
+@mixin sm($max-width:640px) {
+	@media only screen and (max-width: $max-width) {
+		@content;
+	}
+}

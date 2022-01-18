@@ -12,21 +12,21 @@ class RelationshipsController < ApplicationController
     to_user = User.find_by(email: params[:relationship][:email])
     @relationship = Relationship.new(name: params[:relationship][:name])
 
-    # （１）パートナーのメールアドレスがDBに登録されていることを確認
-    if to_user.nil?
-      flash[:warning] = "そのメールアドレスのユーザーは登録されていません"
-      redirect_to new_relationship_path
-    # （２）パートナーがまだ相互フォローしていないことを確認
-    elsif !to_user.no_relationship?
-      flash[:danger] = "パートナーが既に他の方と家族登録しています"
-      redirect_to new_relationship_path
-    # （３）入力した招待コードをハッシュ化したものが、DBに保存されているパートナーのinvitation_digestと一致するかを確認
-    elsif BCrypt::Password.new(to_user.invitation_digest).is_password?(params[:relationship][:invitation_code])
+    # # （１）パートナーのメールアドレスがDBに登録されていることを確認
+    # if to_user.nil?
+    #   flash[:warning] = "そのメールアドレスのユーザーは登録されていません"
+    #   redirect_to new_relationship_path
+    # # （２）パートナーがまだ相互フォローしていないことを確認
+    # elsif !to_user.no_relationship?
+    #   flash[:danger] = "パートナーが既に他の方と家族登録しています"
+    #   redirect_to new_relationship_path
+    # # （３）入力した招待コードをハッシュ化したものが、DBに保存されているパートナーのinvitation_digestと一致するかを確認
+    # elsif BCrypt::Password.new(to_user.invitation_digest).is_password?(params[:relationship][:invitation_code])
 
-    else
-      flash[:warning] = "招待コードが間違っています"
-      redirect_to new_relationship_path
-    end
+    # else
+    #   flash[:warning] = "招待コードが間違っています"
+    #   redirect_to new_relationship_path
+    # end
   end
 
   private

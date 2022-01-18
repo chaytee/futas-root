@@ -24,13 +24,18 @@ export default {
 
   data() {
     return {
-      uid: localStorage.getItem("uid"),
+      uid: '',
     };
   },
   methods: {
     scrollToBottom() {
       const element = this.$refs.messages;
       element.scrollTop = element.scrollHeight;
+    }
+  },
+  mounted() {
+    if (localStorage.uid) {
+      this.name = localStorage.uid;
     }
   },
 };

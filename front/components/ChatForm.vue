@@ -1,25 +1,27 @@
 <template>
   <div id="chat" class="wife">
-    <form class="chat__form">
-      <textarea
-        class="textarea is-large"
-        rows="3"
-        placeholder="メッセージ"
-        v-model="message"
-      ></textarea>
-      <div class="btn__area">
-        <button class="btn__link" type="submit" @click.prevent="handleSubmit">
-          送信
-        </button>
-        <button
-          class="btn__link btn__clea"
-          type="submit"
-          @click.prevent="inputCrea"
-        >
-          クリア
-        </button>
-      </div>
-    </form>
+    <div class="box pt-3 chat__box">
+      <form class="chat__form">
+        <textarea
+          class="textarea is-large"
+          rows="3"
+          placeholder="メッセージ"
+          v-model="message"
+        ></textarea>
+        <div class="btn__area">
+          <button class="btn__link" type="submit" @click.prevent="handleSubmit">
+            送信
+          </button>
+          <button
+            class="btn__link btn__clea"
+            type="submit"
+            @click.prevent="inputCrea"
+          >
+            クリア
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 <script>
@@ -36,10 +38,10 @@ export default {
       this.$emit("connectCable", this.message);
       this.message = "";
     },
-    inputCrea () {
+    inputCrea() {
       this.message = "";
-      return
-    }
+      return;
+    },
   },
 };
 </script>
@@ -72,9 +74,12 @@ export default {
     .btn__clea {
       background-color: #ccc;
     }
-    .btn__link+.btn__link {
+    .btn__link + .btn__link {
       margin-left: 30px;
     }
+  }
+  .wife .chat__box {
+
   }
 }
 </style>

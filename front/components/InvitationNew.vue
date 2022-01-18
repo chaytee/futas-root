@@ -16,9 +16,9 @@
                 </div>
               </div>
               <div class="field">
-                <label for="label">登録する家族の名前</label>
+                <label for="label">登録する名前</label>
                 <div class="controle">
-                  <input class="form-label" type="text" required placeholder="登録する家族の名前">
+                  <input class="form-label" type="text" required placeholder="登録する名前">
                 </div>
               </div>
               <div class="control">

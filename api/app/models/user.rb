@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
-  attr_accessor :invitation_digest
+  attr_accessor :invitation_token
+
 
   has_many :messages
   has_many :tasks
@@ -15,4 +16,13 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :name, length: { maximum: 30 }
 
+  # ランダムなトークンを返す
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+  #invitation_tokenのハッシュ値をデータベースへ
+  def invitation
+    self.invitation_token = User.new_token
+    update_attribute(:invitation_digest, User.digest(invitation_token))
+  end
 end

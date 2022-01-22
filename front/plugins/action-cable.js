@@ -5,4 +5,4 @@
 //Vue.component('ActionCable', ActionCable)
 
 //公式のやり方 https://nuxtjs.org/ja/docs/configuration-glossary/configuration-plugins/
-// Vue.use(ActionCable)
+//Vue.use(ActionCable)

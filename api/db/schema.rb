@@ -16,16 +16,17 @@ ActiveRecord::Schema.define(version: 2022_01_18_003314) do
   enable_extension "plpgsql"
 
   create_table "messages", force: :cascade do |t|
-    t.bigint "user_id"
+    t.bigint "relationship_id"
     t.string "content"
     t.integer "priority"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_messages_on_user_id"
+    t.index ["relationship_id"], name: "index_messages_on_relationship_id"
   end
 
   create_table "relationships", force: :cascade do |t|
     t.bigint "user_id"
+    t.string "paircode"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_relationships_on_user_id"
@@ -34,9 +35,12 @@ ActiveRecord::Schema.define(version: 2022_01_18_003314) do
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.boolean "is_done", default: false
-    t.date "limit"
+    t.date "limit_day"
+    t.time "limit_time"
+    t.bigint "relationship_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["relationship_id"], name: "index_tasks_on_relationship_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,23 +51,10 @@ ActiveRecord::Schema.define(version: 2022_01_18_003314) do
     t.string "name"
     t.string "email"
     t.integer "gender"
-    t.string "invitation_digest"
-    t.datetime "invitation_made_at"
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer "invitation_limit"
-    t.string "invited_by_type"
-    t.bigint "invited_by_id"
-    t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
-    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
-    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["relationship_id"], name: "index_users_on_relationship_id"
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end

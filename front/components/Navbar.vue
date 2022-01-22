@@ -4,7 +4,7 @@
 
     <div class="side">
       <div class="account__main columns">
-        <p class="account__txt">こんにちは、<span class="name">{{ name }}</span>さん <span class="email">現在、 {{ email }} でログイン中です</span></p>
+        <!-- <p class="account__txt">こんにちは、<span class="name">{{ name }}</span>さん <span class="email">現在、 {{ email }} でログイン中です</span></p> -->
         <ul class="account__switch">
           <li><button class="btn" @click="logout">ログアウト</button></li>
           <li><div class="error">{{ error }}</div></li>
@@ -25,11 +25,11 @@
       return {
         name:'',
         email: '',
-        error: null
-        //ローカルストレージより取得
+        error: null,
+        //ローカルストレージより取得 この場合だとログアウトができない
+        //更新するとwindow is not defined
         // name: window.localStorage.getItem('name'),
         // email: window.localStorage.getItem('uid'),
-        // error: null
       }
     },
     methods: {
@@ -37,43 +37,53 @@
         async logout () {
           this.error = null
 
-          try {
-            const res = await this.$axios.delete('/auth/sign_out', {
-              headers: {
-                uid: this.email,
-                "access-token": window.localStorage.getItem('access-token'),
-                client: window.localStorage.getItem('client')
-              }
-            })
+          await this.$auth.logout()
+          .then(
+            ()=>{
+              localStorage.removeItem("access-token")
+              localStorage.removeItem("client")
+              localStorage.removeItem("uid")
+              localStorage.removeItem("token-type")
+            }
+          )
 
-          if (!res) {
-            new Error('ログアウトできませんでした')
-          }
+        //   try {
+        //     const res = await this.$axios.delete('/auth/sign_out', {
+        //       headers: {
+        //         uid: this.email,
+        //         "access-token": window.localStorage.getItem('access-token'),
+        //         client: window.localStorage.getItem('client')
+        //       }
+        //     })
 
-        if (!this.error) {
-            console.log("ログアウトしました")
-            window.localStorage.removeItem('access-token')
-            window.localStorage.removeItem('client')
-            window.localStorage.removeItem('uid')
-            window.localStorage.removeItem('name')
+        //   if (!res) {
+        //     new Error('ログアウトできませんでした')
+        //   }
 
-            this.$router.push('/welcome');
-          }
+        // if (!this.error) {
+        //     console.log("ログアウトしました")
+        //     window.localStorage.removeItem('access-token')
+        //     window.localStorage.removeItem('client')
+        //     window.localStorage.removeItem('uid')
+        //     window.localStorage.removeItem('name')
 
-            return res
-          } catch (error) {
-            this.error = 'ログアウトできませんでした'
-          }
+        //     this.$router.push('/welcome');
+        //   }
+
+        //     return res
+        //   } catch (error) {
+        //     this.error = 'ログアウトできませんでした'
+        //   }
         }
-      },
-       mounted() {
-        if (localStorage.name) {
-          this.name = localStorage.name;
-        }
-        if (localStorage.email) {
-          this.name = localStorage.email;
-        }
-      },
+      },//ログアウトできない
+      // beforeCreated(){
+      //   if (localStorage.name) {
+      //     this.name = localStorage.name;Ï
+      //   }
+      //   if (localStorage.email) {
+      //     this.name = localStorage.email;
+      //   }
+      // },
   }
 </script>
 <style lang="scss">
@@ -113,6 +123,7 @@
             font-size: 12px;
             background: none;
             text-decoration: underline;
+            border: none;
           }
         }
 

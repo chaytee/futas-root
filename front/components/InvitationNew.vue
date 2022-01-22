@@ -1,12 +1,12 @@
 <template>
   <div class="invitation-new">
-      <p>相互フォロー実行のフォーム</p>
+      <p>パートナーが合言葉を発行した場合</p>
       <div class="invitation-code-form">
             <form>
               <div class="field">
-                <label for="label">パートナーの招待コード</label>
+                <label for="label">パートナーから伝えられた『合言葉』を入力してください。</label>
                 <div class="controle">
-                  <input class="form-label" type="text" required placeholder="パートナーの招待コード">
+                  <input class="form-label" type="text" required placeholder="合言葉の入力">
                 </div>
               </div>
               <div class="field">
@@ -16,13 +16,13 @@
                 </div>
               </div>
               <div class="field">
-                <label for="label">登録する名前</label>
+                <label for="label">あなたの名前（登録するお名前）</label>
                 <div class="controle">
-                  <input class="form-label" type="text" required placeholder="登録する名前">
+                  <input class="form-label" type="text" required placeholder="あなたの名前">
                 </div>
               </div>
               <div class="control">
-                <button class="button is-primary">登録</button>
+                <button class="button is-primary">登録する</button>
               </div>
             </form>
         </div>

@@ -2,6 +2,17 @@ $accentColor: #ED1E79;
 $wifeColor: #F7B4AB;
 $husbandColor: #9BDBC2;
 
+%btnBase {
+  text-decoration: none;
+  font-weight: normal;
+  border: 0;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+}
+
 /*◆ＰＣのみ*/
 @mixin hp($min-width:769px) {
 	@media only screen and (min-width: $min-width) {

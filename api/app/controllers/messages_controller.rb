@@ -5,12 +5,13 @@ class MessagesController < ApplicationController
     messages = Message.all
     messages_array = messages.map do |message|
       {
+        #relationships_idを入れないとおかしい
         id: message.id,
-        user_id: message.user.id,
-        name: message.user.name,
+        # user_id: message.user.id,
+        # name: message.user.name,
         content: message.content,
         priority: message.priority,
-        email: message.user.email,
+        # email: message.user.email,
         created_at: message.created_at
       }
     end

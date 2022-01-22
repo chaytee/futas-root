@@ -9,11 +9,11 @@
           v-model="message"
         ></textarea>
         <div class="btn__area">
-          <button class="btn__link" type="submit" @click.prevent="handleSubmit">
+          <button class="btn__grade" type="submit" @click.prevent="handleSubmit">
             送信
           </button>
           <button
-            class="btn__link btn__clea"
+            class="btn__clear btn__clea"
             type="submit"
             @click.prevent="inputCrea"
           >
@@ -71,15 +71,10 @@ export default {
     align-items: center;
     margin-top: 20px;
 
-    .btn__clea {
-      background-color: #ccc;
-    }
-    .btn__link + .btn__link {
+    .btn__clear {
       margin-left: 30px;
     }
   }
-  .wife .chat__box {
 
-  }
 }
 </style>

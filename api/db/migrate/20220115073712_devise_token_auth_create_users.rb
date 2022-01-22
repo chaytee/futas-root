@@ -35,8 +35,6 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.0]
       t.integer :gender
       # t.string :nickname
       # t.string :image
-      t.string :invitation_digest
-      t.datetime :invitation_made_at
 
       ## Tokens
       t.json :tokens

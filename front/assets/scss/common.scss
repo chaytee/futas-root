@@ -1,18 +1,51 @@
 #container p {
   font-size: 95%;
 }
+.section__title {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.sub__title {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.error {
+  font-size: 14px;
+  color: #ED1E79;
+}
 .btn__wrap {
   text-align: center;
   margin-top: 20px;
 }
-.btn__link {
-  text-decoration: none;
+.btn__grade {
   background: linear-gradient(90deg, rgba(244, 172, 172, 1) 0.95%, rgba(215, 237, 234, 1) 100%);
   color: #fff;
-  font-weight: bold;
-  border: 0;
-  border-radius: 3px;
-  padding: 10px 20px;
+  @extend %btnBase;
+}
+.btn__accent {
+  background-color: #ED1E79;
+  color: #fff;
+  @extend %btnBase;
+}
+.btn__clear {
+  background-color: #fff;
+  border: 1px solid #999;
+  color: #999;
+  @extend %btnBase;
+}
+.btn__gry {
+  background-color: #ccc;
+  color: #fff;
+  @extend %btnBase;
+}
+.btn__click {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #999;
+  text-decoration: none;
+  font-weight: normal;
+  border-radius: 5px;
+  padding: 8px 15px;
   cursor: pointer;
   display: inline-block;
   font-size: 14px;

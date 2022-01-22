@@ -3,6 +3,7 @@ class CreateRelationships < ActiveRecord::Migration[6.0]
     create_table :relationships do |t|
 
       t.references :user
+      t.string :paircode, unique: true
       t.timestamps
     end
   end

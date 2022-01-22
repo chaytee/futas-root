@@ -23,20 +23,14 @@
         <!-- 3列目 -->
         <div class="column" style="background: #eef;">Column3</div>
       </div>
-    <Task />
-    <InputTask />
   </div>
 </template>
 
 <script>
-import Task from '../components/Task.vue';
-import InputTask from '../components/InputTask.vue';
 
 
 export default {
-  name: 'task',
   layout: 'default',
-  components: { Task, InputTask },
     data () {
     return {
       msgs: []

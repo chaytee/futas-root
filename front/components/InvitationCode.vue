@@ -1,21 +1,18 @@
 <template>
   <div class="invitation-code">
-    <p>コード発行</p>
+    <p>合言葉が何も入ってない場合</p>
+    <p>1. パートナーと繋がるために『合言葉』を発行してください。</p>
+    <p>2. 発行した『合言葉』は忘れないように、パートナーへ伝えてください。</p>
     <div class="invitation-code-display">
       <!--ここはapiからaxiosで接続するのか？-->
-      <input class="form-control" id="copyTarget" type="text" readonly />‹
-      <button class="btn mb-3" type="button" @click="getInvitationCode">
-        発行する
-      </button>
-      <p>{{msgs}}</p>
+      <form action="">
+        <input class="form-control" type="text" v-model="paircode" />
+        <!-- <input class="form-control" type="text" v-model="user_id" /> -->
+        <!-- <input class="form-control" id="copyTarget" type="text" readonly /> -->
+        <button class="btn mb-3" type="button" @click="submit()">発行する</button>
+      </form>
     </div>
     <div>
-      <p>
-        こちらの招待コードをパートナーの方の招待コード入力欄に入力してください。
-      </p>
-      <p>
-        招待コードはこのURLに訪問したり、再読み込みをするたびに変わります。<br />忘れずにコピーをしてください。
-      </p>
     </div>
   </div>
 </template>
@@ -24,13 +21,31 @@ export default {
   data() {
 
     return {
-      msg: ''
+      paircode: '',
     }
 
   },
   methods: {
-    getInvitationCode() {
-      this.$axios.$get("/relationships/invitation_code").then((res) => this.msgs.push(res));
+    submit() {
+      const params = {
+        paircode: this.paircode,
+        aaa: this.aaa
+      };
+      this.create(params);
+      // this.todoId ? this.update(params, this.todoId) : this.create(params);
+    },
+    create(params) {
+      this.$axios.post("/relationships", params).then((res) => {
+        if (res.data) {
+          const errorMessage = `
+            こちらをパートナーに伝えてください \n
+            合言葉: ${res.data.paircode}
+          `;
+          console.log(params)
+          return window.alert(errorMessage);
+        }
+        //this.$router.push("/");
+      });
     },
   },
 };

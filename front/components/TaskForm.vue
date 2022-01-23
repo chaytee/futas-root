@@ -22,23 +22,30 @@
           <h3 class="sub__title">Limit</h3>
           <div class="limit__box">
             <div class="limit__btn">
-              <button class="btn__click">今日</button>
-              <button class="btn__click">明日</button>
-              <button class="btn__click">明後日</button>
-              <button class="btn__click">一週間以内</button>
+              <button class="btn__click" @click="getToday()">今日</button>
+              <button class="btn__click" @click="getTomorrow()">明日</button>
+              <button class="btn__click" @click="getDayAfterTomorrow()">
+                明後日
+              </button>
+              <button class="btn__click" @click="getAfterOneWeek()">
+                一週間以内
+              </button>
+              <button class="btn__click">日付指定</button>
             </div>
-            <input
-              class="input is_medium"
-              type="text"
-              placeholder="2021-07-14"
-              v-model="limit_day"
-            />
-            <input
-              class="input is_medium"
-              type="text"
-              placeholder="11:00:00"
-              v-model="limit_time"
-            />
+            <div class="put_limit">
+              <input
+                class="input is_medium"
+                type="text"
+                placeholder="2021-07-14"
+                v-model="datetime"
+              />
+              <input
+                class="input is_medium"
+                type="text"
+                placeholder="11:00:00"
+                v-model="limit_time"
+              />
+            </div>
           </div>
         </div>
       </form>
@@ -46,7 +53,10 @@
   </div>
 </template>
 <script>
+import dayjs from "dayjs";
+
 export default {
+  //_id.vueからedit()用
   props: {
     //task-id
     taskId: {
@@ -55,11 +65,18 @@ export default {
       default: "",
     },
   },
+  // watch: {
+  //   taskId(newValue) {
+  //     this.taskId = newValue
+
+  //   }
+  // }
   data() {
     return {
       title: "",
       limit_day: "",
       limit_time: "",
+      datetime: "",
     };
   },
   async created() {
@@ -78,7 +95,7 @@ export default {
         limit_day: this.limit_day,
         limit_time: this.limit_time,
       };
-      //新規であれば新規フォームへ
+      //新規であれば新規フォームへ既にtask-idのあるものは編集フォームへ
       //this.create(params);
       this.taskId ? this.update(params, this.taskId) : this.create(params);
     },
@@ -110,14 +127,33 @@ export default {
         if (res.data.taks) {
           const errorMessage = `
             下記の部分を確認してください. \n
-            タイトル: ${res.data.task.title}
-            日付: ${res.data.task.limit_day}
-            時間: ${res.data.task.limit_time}
+            タイトル: ${params.title}
+            日付: ${params.limit_day}
+            時間: ${params.limit_time}
           `;
           window.alert(errorMessage);
         }
         this.$router.push("/tasks");
       });
+    },
+    getToday() {
+      const now = dayjs();
+      console.log(now.format("YYYY/M/D"));
+    },
+    getTomorrow() {
+      const tomorrowData = dayjs().add(1, "day");
+      const tomorrow = tomorrowData.format("YYYY/M/D");
+      this.datetime = tomorrow;
+    },
+    getDayAfterTomorrow() {
+      const DayAfterTomorrowData = dayjs().add(2, "day");
+      const DayAfterTomorrow = DayAfterTomorrowData.format("YYYY/M/D");
+      console.log(DayAfterTomorrow);
+    },
+    getAfterOneWeek() {
+      const AfterOneWeekData = dayjs().add(1, "week");
+      const AfterOneWeek = AfterOneWeekData.format("YYYY/M/D");
+      console.log(AfterOneWeek);
     },
   },
 };

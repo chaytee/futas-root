@@ -84,29 +84,7 @@ export default {
             return;
           }
         );
-      // try {
-      //   this.error = null
 
-      //   const res = await this.$axios.post('/auth/sign_in', {
-      //     email: this.email,
-      //     password: this.password,
-      //     }
-      //   )
-      //   if (!res) {
-      //     throw new Error('メールアドレスかパスワードが違います')
-      //   }
-
-      //   if (!this.error) {
-      //     setItem(res.headers, res.data.data.name)
-
-      //     this.$emit('redirectToRelationship')
-      //   }
-
-      //   return res
-      // } catch (error) {
-      //   console.log({ error })
-      //   this.error = 'メールアドレスかパスワードが違います'
-      // }
     },
   },
 };

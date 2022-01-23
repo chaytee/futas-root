@@ -32,7 +32,6 @@ export default {
         aaa: this.aaa
       };
       this.create(params);
-      // this.todoId ? this.update(params, this.todoId) : this.create(params);
     },
     create(params) {
       this.$axios.post("/relationships", params).then((res) => {

@@ -47,43 +47,8 @@
             }
           )
 
-        //   try {
-        //     const res = await this.$axios.delete('/auth/sign_out', {
-        //       headers: {
-        //         uid: this.email,
-        //         "access-token": window.localStorage.getItem('access-token'),
-        //         client: window.localStorage.getItem('client')
-        //       }
-        //     })
-
-        //   if (!res) {
-        //     new Error('ログアウトできませんでした')
-        //   }
-
-        // if (!this.error) {
-        //     console.log("ログアウトしました")
-        //     window.localStorage.removeItem('access-token')
-        //     window.localStorage.removeItem('client')
-        //     window.localStorage.removeItem('uid')
-        //     window.localStorage.removeItem('name')
-
-        //     this.$router.push('/welcome');
-        //   }
-
-        //     return res
-        //   } catch (error) {
-        //     this.error = 'ログアウトできませんでした'
-        //   }
         }
-      },//ログアウトできない
-      // beforeCreated(){
-      //   if (localStorage.name) {
-      //     this.name = localStorage.name;Ï
-      //   }
-      //   if (localStorage.email) {
-      //     this.name = localStorage.email;
-      //   }
-      // },
+      },
   }
 </script>
 <style lang="scss">

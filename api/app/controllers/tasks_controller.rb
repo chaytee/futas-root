@@ -9,8 +9,11 @@ class TasksController < ApplicationController
   end
 
   def show
-    task = Task.find_by(id: params[:id])
-    unless task.nil?
+    #idでレコードそのものを取りたい時はfindでOK
+    @task = Task.find(params[:id])
+
+    #三項演算子で格納してrender jsonで返してもOK
+    if @task.present?
       render json: @task
     else
       render json: { error_message: 'Not Found'}

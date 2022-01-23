@@ -12,6 +12,9 @@ $husbandColor: #9BDBC2;
   display: inline-block;
   font-size: 15px;
 }
+%btnBase:hover {
+  opacity: 0.8;
+}
 
 /*◆ＰＣのみ*/
 @mixin hp($min-width:769px) {

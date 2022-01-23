@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     toEdit() {
-      this.$router.push(`tasks/${this.task.id}`);
+      this.$router.push(`/tasks/${this.task.id}`);
     },
     async complete() {
       await this.$axios.$patch(`/tasks/${this.task.id}`, {

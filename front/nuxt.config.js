@@ -82,5 +82,11 @@ export default {
           }
     }
   },
+  mode: 'spa',
+  watchers: {
+     webpack: {
+       poll: true
+      }
+  }
 
 }

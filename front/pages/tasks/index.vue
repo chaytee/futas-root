@@ -16,49 +16,33 @@ export default {
   },
   data() {
     return {
-      //initData: [],
+      initData: [],
       taskData: [],
       isDone: false,
     };
   },
-  async created() {
-    await this.$axios.get("/tasks").then((res) => {
-      this.taskData = res.data;
-    });
-  },
-
   // async created() {
-  //   await this.$axios.$get("/tasks")
-  //   .then((res) => {
-  //     this.initData = res;
-  //     this.todoData = res.filter((data) => {
-  //       return data.is_done === false;
-  //     });
+  //   await this.$axios.get("/tasks").then((res) => {
+  //     this.taskData = res.data;
   //   });
   // },
+
   //未完了のものだけ表示
   // async created() {
   //   await this.$axios.get("/tasks?is_done=false").then((res) => {
   //     this.taskData = res.data;
   //   });
   // },
-  //これだと何故かエラーfilterが見つからないと言われる
-  // async created() {
-  //   await this.$axios.$get("/tasks").then((res) => {
-  //     this.initData = res;
-  //     this.taskData = res.filter((data) => {
-  //       return data.is_done === false;
-  //     });
-  //   });
-  // },
-  //methods: {
-  //スイッチを押されたら実行。初期値はfalses
-  //switchTaskStatus(value) {
-  // this.taskData = this.initData.filter((data) => {
-  //   return data.is_done === value;
-  // });
-  // },
-  //},
+  //.filterでエラー？304
+  async created() {
+    await this.$axios.$get("/tasks").then((res) => {
+      this.initData = res;
+      this.taskData = Array.from(res).filter((data) => {
+        return data.is_done === false;
+      });
+    });
+  },
+
 };
 </script>
 <style lang="scss">

@@ -19,6 +19,7 @@
     "core-js": "^3.19.3",
     "css-loader": "^4.2.0",
     "date-fns": "^2.28.0",
+    "dayjs": "^1.10.7",
     "next-dart-sass": "^0.0.2",
     "nuxt": "^2.15.8",
     "style-loader": "^1.2.1",

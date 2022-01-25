@@ -183,7 +183,7 @@ img {
 }
 /*PC*/
 @media print, screen and (min-width:1200px) {
-	html, body, #wrap {
+	body {
 		height: 100%;
 	}
 	body > #wrap {

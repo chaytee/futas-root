@@ -1,14 +1,14 @@
-class TasksController < ApplicationController
-
-  #before_action :authenticate_api_user!
-  # before_action: set_user, only: index
+class Api::Users::TasksController < Api::UserController
 
 
   def index
-    # tasks = Task.all.order(created_at: :desc)
-    # #シリアライズでjson整形
+
+    render json:current_user.relationship.tasks
+
     # render json: tasks
-    render json: Task.all
+    #render json: Task.all
+
+    #current_user.relationship.tasks
   end
 
   def show

@@ -1,5 +1,7 @@
 class Message < ApplicationRecord
-  belongs_to :relationship, optional: true
+
+  #has_one :relationship
+  belongs_to :relationship
 
   validates :content, presence: true
 end

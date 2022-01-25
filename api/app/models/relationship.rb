@@ -1,6 +1,8 @@
 class Relationship < ApplicationRecord
-  has_many :users
+  belongs_to :user
   has_many :tasks
   has_many :messages
+
+  validates :paircode, presence: true
 
 end

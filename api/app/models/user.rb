@@ -7,8 +7,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
-
-  belongs_to :relationship, optional: true
+  has_one :relationship
 
 
   validates :name, presence: true

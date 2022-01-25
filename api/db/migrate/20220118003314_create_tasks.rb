@@ -6,7 +6,6 @@ class CreateTasks < ActiveRecord::Migration[6.0]
       t.boolean :is_done, default: false
       t.date :limit_day
       t.time :limit_time
-      t.references :relationship
 
       t.timestamps
     end

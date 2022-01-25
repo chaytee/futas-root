@@ -88,31 +88,6 @@
             this.error = 'アカウントを登録できませんでした'
             return
           }
-
-
-        // try {
-        //     const res = await this.$axios.post('/auth/', {
-        //       name: this.name,
-        //       email: this.email,
-        //       gender: this.gender,
-        //       password: this.password,
-        //       password_confirmation: this.passwordConfirmation
-        //       }
-        //     )
-        //     if (!res) {
-        //       throw new Error('アカウントを登録できませんでした')
-        //     }
-        //     if (!this.error) {
-        //       setItem(res.headers, res.data.data.name)
-
-        //       this.$emit('redirectToRelationship')
-        //     }
-        //     return res
-        //   }
-        //   catch (error) {
-        //     this.error = 'アカウントを登録できませんでした'
-        //     return
-        //   }
         }
     }
 }

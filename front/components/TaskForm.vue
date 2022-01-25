@@ -37,7 +37,7 @@
                 class="input is_medium"
                 type="text"
                 placeholder="2021-07-14"
-                v-model="datetime"
+                v-model="limit_day"
               />
               <input
                 class="input is_medium"
@@ -106,7 +106,7 @@ export default {
     },
     create(params) {
       this.$axios
-        .post("/tasks", params)
+        .post("/api/users/tasks", params)
         .then((res) => {
           if (params) {
             const errorMessage = `
@@ -123,7 +123,7 @@ export default {
         .catch((err) => console.error(err));
     },
     update(params, id) {
-      this.$axios.patch(`/tasks/${id}`, params).then((res) => {
+      this.$axios.patch(`/api/users/tasks/${id}`, params).then((res) => {
         if (res.data.taks) {
           const errorMessage = `
             下記の部分を確認してください. \n
@@ -143,7 +143,7 @@ export default {
     getTomorrow() {
       const tomorrowData = dayjs().add(1, "day");
       const tomorrow = tomorrowData.format("YYYY/M/D");
-      this.datetime = tomorrow;
+      this.limit_day = tomorrow;
     },
     getDayAfterTomorrow() {
       const DayAfterTomorrowData = dayjs().add(2, "day");

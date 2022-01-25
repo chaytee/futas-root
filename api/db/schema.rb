@@ -10,18 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_18_003314) do
+ActiveRecord::Schema.define(version: 2022_01_25_021928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "messages", force: :cascade do |t|
-    t.bigint "relationship_id"
     t.string "content"
     t.integer "priority"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["relationship_id"], name: "index_messages_on_relationship_id"
+    t.bigint "relationship_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -37,17 +36,15 @@ ActiveRecord::Schema.define(version: 2022_01_18_003314) do
     t.boolean "is_done", default: false
     t.date "limit_day"
     t.time "limit_time"
-    t.bigint "relationship_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["relationship_id"], name: "index_tasks_on_relationship_id"
+    t.bigint "relationship_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.bigint "relationship_id"
     t.string "name"
     t.string "email"
     t.integer "gender"
@@ -55,7 +52,6 @@ ActiveRecord::Schema.define(version: 2022_01_18_003314) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["relationship_id"], name: "index_users_on_relationship_id"
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 

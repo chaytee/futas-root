@@ -1,7 +1,7 @@
 class Task < ApplicationRecord
 
-  #作成のため一時的に許可 nilでも表示される
-  belongs_to :relationship, optional: true
+  #has_one :relationship
+  belongs_to :relationship
 
   validates :title, presence: true
 end

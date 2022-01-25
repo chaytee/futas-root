@@ -1,0 +1,30 @@
+Relationship
+Relationship.all
+user=User.find(14)
+relationship=user.build_relationship
+relationship.paircode= 'rrrr'
+relationship.valid?
+relationship.erres.full_messages
+relationship.erros.full_messages
+relationship.errors.full_messages
+user=User.find(14)
+relationship=user.build_relationship
+relationship.paircode= 'rrrr'
+relationship.valid?
+relationship.errors.full_messages
+relationship
+User
+relationship.valid?
+reload!
+relationship.valid?
+relationship.errors.full_messages
+user=User.find(14)
+relationship=user.build_relationship
+relationship.paircode= 'rrrr'
+relationship.valid?
+relationship.errors.full_messages
+Relationship.first
+Relationship.first.destroy
+r=Relationship.first
+r.tasks.create
+r.tasks.create(title: 'test')

@@ -28,3 +28,60 @@ Relationship.first.destroy
 r=Relationship.first
 r.tasks.create
 r.tasks.create(title: 'test')
+Relationship.all
+r=Relationship.first
+Relationship.first.destroy
+Relationship.all
+User.all
+Relationship.all
+Tasks.all
+Relationship.all
+current_user
+User
+User.all
+User.first
+User.last
+User.all
+relationship.errors.full_messages
+r=Relationship.first
+relationship.errors.full_messages
+user=User.find_by(email: 'example@example.com')
+user.relationship.paircode
+user=User.find_by(email: 'example@example.com')
+user.relationship.paircode
+user.relationship_id
+parrner=User.find_by(email: 'example4@example.com')
+current_user
+current_user.relationship
+parrner=User.find_by(email: 'example4@example.com')
+parrner.relationship.paircode
+User.relationship
+User.relationship_id
+user.relationship_id
+user.relationship_id.tasks
+Task.all
+user.relationship_id.tasks
+user.relationship_id
+s=Relationship(8)
+s=Relationship(id: 8)
+Relationship
+Relationship.all
+s=Relationship.find(8)
+s.tasks.create(title: 'test2')
+s.tasks.create(title: 'test3')
+s.tasks
+s.tasks.all
+user.relationship.tasks
+user.relationship
+user.tasks
+s.tasks
+task.all
+Task.all
+user.relationship
+Task.all
+User.all
+user.relationship
+s.tasks.create(title: 'test4')
+s.tasks.all
+User.all
+User.last

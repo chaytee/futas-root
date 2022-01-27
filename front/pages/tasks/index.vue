@@ -1,6 +1,8 @@
 <template>
   <div class="misson">
     <h2>Mission</h2>
+
+    <h2>Mission</h2>
     <Task v-for="task in taskData" :key="task.id" :task="task" />
     <TaskForm />
   </div>
@@ -22,7 +24,7 @@ export default {
     };
   },
   async created() {
-    await this.$axios.$get("/tasks").then((res) => {
+    await this.$axios.$get("/api/users/tasks").then((res) => {
       this.initData = res;
       this.taskData = Array.from(res).filter((data) => {
         return data.is_done === false;

@@ -1,6 +1,8 @@
 <template>
   <div class="misson">
     <h2>Mission</h2>
+
+    <h2>Mission</h2>
     <Task v-for="task in taskData" :key="task.id" :task="task" />
     <TaskForm />
   </div>

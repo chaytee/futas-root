@@ -7,6 +7,7 @@ export default {
         component: resolve(__dirname, 'pages/tasks/index.vue')
         },
 
+
       )
     },
   },
@@ -32,17 +33,19 @@ export default {
       login: '/welcome', //middleware:authを設定したURLにアクセスがあった場合の、リダイレクト先。
       logout: '/welcome', //ログアウト後のリダイレクト先
       callback: false,
-      home: '/tasks' ///ログイン後のリダイレクト先。
+      home: '/' ///ログイン後のリダイレクト先。
      },
     strategies: {
       local: {
         endpoints: {
-          //ログイン処理に関する設定
+          //ログイン処理に関する設定this.$auth.loginWith this.$auth.loggedIn
           login: { url: '/api/auth/sign_in', method: 'post',propertyName: 'access_token'},
           //ログアウト処理に関する設定
           logout: { url: '/api/auth/sign_out', method: 'delete' },
-          //ログイン時にユーザー情報を保存するか。
+          //ログイン時にユーザー情報を保存するか。this.$auth.user
           user: false
+          //使用しない時 user: false
+          //user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
          },
        }
      },

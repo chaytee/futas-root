@@ -24,11 +24,9 @@ ActiveRecord::Schema.define(version: 2022_01_25_021928) do
   end
 
   create_table "relationships", force: :cascade do |t|
-    t.bigint "user_id"
     t.string "paircode"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_relationships_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -51,6 +49,7 @@ ActiveRecord::Schema.define(version: 2022_01_25_021928) do
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "relationship_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end

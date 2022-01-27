@@ -8,6 +8,7 @@
         <ul class="account__switch">
           <li><button class="btn" @click="logout">ログアウト</button></li>
           <li><div class="error">{{ error }}</div></li>
+          <li>ログイン状態:{{ $auth.loggedIn }}</li>
         </ul>
       </div>
       <ul class="menu-list columns">

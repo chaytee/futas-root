@@ -5,5 +5,6 @@ class ChangeRelationShipId < ActiveRecord::Migration[6.0]
     add_column :messages, :relationship_id, :bigint
     remove_column :relationships, :message_id, :bigint
     remove_column :relationships, :task_id, :bigint
+    remove_column :relationships, :user_id, :bigint
   end
 end

@@ -1,16 +1,4 @@
 export default {
-  router: {
-    extendRoutes (routes, resolve) {
-      routes.push({
-        name: 'index',
-        path: '/',
-        component: resolve(__dirname, 'pages/tasks/index.vue')
-        },
-
-
-      )
-    },
-  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'app',
@@ -26,6 +14,20 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
+  },
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: 'index',
+        path: '/',
+        component: resolve(__dirname, 'pages/tasks/index.vue')
+        },
+
+
+      )
+    },
+    //ログイン済み→/ 未ログイン→welcome
+    middleware: ['auth']
   },
   //authの設定
   auth: {
@@ -50,7 +52,6 @@ export default {
        }
      },
    },
-
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/scss/base.scss',
@@ -65,6 +66,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '@/plugins/axios.js', ssr: false }
     //  { src: '@/plugins/action-cable.js', mode: 'client' }
   ],
 
@@ -84,7 +86,6 @@ export default {
     '@nuxtjs/auth'
   ],
   axios: {
-
     // APR_URL: "http://localhost:3000"
   },
 

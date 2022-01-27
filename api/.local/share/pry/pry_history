@@ -85,3 +85,11 @@ s.tasks.create(title: 'test4')
 s.tasks.all
 User.all
 User.last
+currnt_user
+current_user
+user=User.find_by(email: ‘example@example.com’)
+user=User.find_by(email: 'example@example.com')
+user.relationship.paircode
+partner=User.find_by(email: 'example4@example.com')
+partner.relationship.paircode
+user.relationship.paircode

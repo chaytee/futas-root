@@ -2,12 +2,12 @@ class Api::Users::TasksController < Api::UserController
 
 
   def index
-    # raise current_user.inspect
+    #raise current_user.inspect
     #render json: current_user.relationship.tasks
-    render json: current_user.relationship.tasks
+    #render json: current_user.relationship.tasks
 
     #これだと誰でも一覧見れる
-    #render json: Task.all
+    render json: Task.all
   end
 
   def show

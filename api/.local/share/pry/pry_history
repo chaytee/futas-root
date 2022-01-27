@@ -93,3 +93,29 @@ user.relationship.paircode
 partner=User.find_by(email: 'example4@example.com')
 partner.relationship.paircode
 user.relationship.paircode
+partner.relationship.paircode
+current_user
+current_user.tasks
+partner.relationship.paircode
+partner=User.find_by(email: 'example4@example.com')
+partner.relationship.paircode
+user.relationship.paircode
+user.relationship_id
+user
+user=User.find_by(email: 'example@example.com')
+user.relationship_id
+user.relationship
+user=User.find_by(email: 'example@example.com')
+partner=User.find_by(email: 'example4@example.com')
+user.relationship.paircode
+user2=User.find_by(email: 'example2@example.com')
+user2.relationship.paircode
+user=User.find_by(email: 'example@example.com')
+user.relationship.paircode
+partner=User.find_by(email: 'example4@example.com')
+partner.relationship.paircode
+s=Relationship.find(2)
+s.tasks.create(title: ‘test1’)
+s.tasks.create(title: 'test1')
+s.tasks.create(title: 'test2')
+s.tasks.create(title: 'test3')

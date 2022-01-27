@@ -43,14 +43,15 @@ ActiveRecord::Schema.define(version: 2022_01_25_021928) do
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.bigint "relationship_id"
     t.string "name"
     t.string "email"
     t.integer "gender"
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "relationship_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["relationship_id"], name: "index_users_on_relationship_id"
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 

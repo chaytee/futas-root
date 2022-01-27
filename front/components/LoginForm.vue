@@ -67,7 +67,7 @@ export default {
     async login() {
       this.error = null;
       //キャッシュが残るため
-      localStorage.clear();
+      //localStorage.clear();
 
       await this.$auth
         .loginWith("local", {

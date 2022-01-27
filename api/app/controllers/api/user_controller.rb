@@ -6,7 +6,8 @@ class Api::UserController < ApplicationController
   skip_before_action :method_name, raise: false
 
   def index
-    render json: current_user
+    # get_gender = current_user
+    # render json: get_gender
     # users = User.all
     # render json: users
   end

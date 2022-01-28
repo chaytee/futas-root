@@ -14,30 +14,28 @@
             />
           </div>
           <div class="btn__wrap">
-            <button class="btn__clear" @click="remove()">取り消す</button>
+            <button class="btn__clear" type="button" @click="remove()">取り消す</button>
             <button class="btn__accent" @click.prevent="submit()">送信</button>
           </div>
         </div>
         <div class="limit">
           <h3 class="sub__title">Limit</h3>
-          <input type="text" v-model="mtoday">
-          <p>ssss{{ mtoday }}</p>
-
           <div class="limit__box">
             <div class="limit__btn">
-              <button class="btn__click" @click="getToday()">今日</button>
-              <button class="btn__click" @click="getTomorrow()">明日</button>
-              <button class="btn__click" @click="getDayAfterTomorrow()">
+              <button class="btn__click" type="button" @click="getToday()">今日</button>
+              <button class="btn__click" type="button" @click="getTomorrow()">明日</button>
+              <button class="btn__click" type="button" @click="getDayAfterTomorrow()">
                 明後日
               </button>
-              <button class="btn__click" @click="getAfterOneWeek()">
+              <button class="btn__click" type="button" @click="getAfterOneWeek()">
                 一週間以内
               </button>
-              <button class="btn__click">日付指定</button>
+              <button class="btn__click" type="button">日付指定</button>
             </div>
             <div class="put_limit">
               <input
                 class="input is_medium"
+                id="limit_day"
                 type="text"
                 placeholder="2021-07-14"
                 v-model="limit_day"
@@ -58,7 +56,11 @@
 <script>
 import dayjs from "dayjs";
 
+const now = dayjs();
+const today = now.format("YYYY/M/D");
+
 export default {
+
   //_id.vueからedit()用
   props: {
     //task-id
@@ -80,7 +82,6 @@ export default {
       limit_day: "",
       limit_time: "",
       datetime: "",
-      today: "アイウエオ",
     };
   },
   async created() {
@@ -142,40 +143,20 @@ export default {
         this.$router.push("/tasks");
       });
     },
-    // getToday: function () {
-    //   const now = dayjs();
-    //   return now.format("YYYY/M/D");
-    // },
-    // getToday() {
-    //   const now = dayjs();
-    //   const today = now.format("YYYY/M/D");
-    //   console.log(today)
-    // },
-    // mtoday: function () {
-    //     return this.today = dayjs().format("YYYY/M/D");
-    //     //return this.today.split('').reverse().join('')
-    // },
-    getTomorrow() {
-      const tomorrowData = dayjs().add(1, "day");
-      const tomorrow = tomorrowData.format("YYYY/M/D");
-      // this.limit_day = tomorrow;
+    getToday: function() {
+      document.getElementById("limit_day").value = today;
     },
-    getDayAfterTomorrow() {
-      const DayAfterTomorrowData = dayjs().add(2, "day");
-      const DayAfterTomorrow = DayAfterTomorrowData.format("YYYY/M/D");
-      console.log(DayAfterTomorrow);
+    getTomorrow: function() {
+      const tomorrow = now.add(1, "day").format("YYYY/M/D");
+      document.getElementById("limit_day").value = tomorrow;
     },
-    getAfterOneWeek() {
-      const AfterOneWeekData = dayjs().add(1, "week");
-      const AfterOneWeek = AfterOneWeekData.format("YYYY/M/D");
-      console.log(AfterOneWeek);
+    getDayAfterTomorrow: function() {
+      const dayAfterTomorrow = now.add(2, "day").format("YYYY/M/D");
+      document.getElementById("limit_day").value = dayAfterTomorrow;
     },
-  },
-  computed: {
-
-    mtoday: function () {
-        return this.today = dayjs().format("YYYY/M/D");
-        //return this.today.split('').reverse().join('')
+    getAfterOneWeek: function() {
+      const afterOneWeek = now.add(1, "week").format("YYYY/M/D");
+      document.getElementById("limit_day").value = afterOneWeek;
     },
   }
 };

@@ -9,7 +9,8 @@
 import TaskForm from "../../components/TaskForm";
 export default {
   async asyncData({app, params}) {
-    const url = `tasks/${params.id}`;
+    const url = `api/users/tasks/${params.id}`;
+
     const response =  await app.$axios.get(url);
 
     console.log(response);

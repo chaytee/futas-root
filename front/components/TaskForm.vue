@@ -86,7 +86,7 @@ export default {
   },
   async created() {
     if (this.taskId) {
-      await this.$axios.$get(`/tasks/${this.taskId}`).then((res) => {
+      await this.$axios.$get(`api/users/tasks/${this.taskId}`).then((res) => {
         this.title = res.title;
         this.limit_day = res.limit_day;
         this.limit_time = res.limit_time;
@@ -118,11 +118,12 @@ export default {
           if (params) {
             const errorMessage = `
             下記の部分を確認してください. \n
-            タイトル: ${params.title}
-            日付: ${params.limit_day}
-            時間: ${params.limit_time}
+            タイトル: ${res.data.data.title}
+            日付: ${res.data.data.limit_day}
+            時間: ${res.data.data.limit_time}
           `;
             window.alert(errorMessage);
+            console.log(res);
           }
           window.location.reload();
           //this.$router.push("/tasks");

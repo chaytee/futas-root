@@ -1,8 +1,6 @@
 <template>
   <div class="misson">
     <h2>Mission</h2>
-
-    <h2>Mission</h2>
     <Task v-for="task in taskData" :key="task.id" :task="task" />
     <TaskForm />
   </div>
@@ -31,12 +29,6 @@ export default {
       });
     });
   },
-  maunted () {
-  // this.$axios.$get('/users')
-  //this.$axios.post("/api/v1/todos", params).then((res) => {
-
-  }
-  //   .then()
 }
 </script>
 <style lang="scss">

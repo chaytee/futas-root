@@ -17,10 +17,16 @@ export default {
   },
   router: {
     extendRoutes (routes, resolve) {
-      routes.push({
+      routes.push(
+        {
         name: 'index',
         path: '/',
         component: resolve(__dirname, 'pages/tasks/index.vue')
+        },
+        {
+          name: 'task_id',
+          path: '/api/users/tasks/:id',
+          component: resolve(__dirname, 'pages/tasks/_id.vue')
         },
 
 

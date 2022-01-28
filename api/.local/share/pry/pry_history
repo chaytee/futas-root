@@ -123,3 +123,20 @@ partner=User.find_by(email: 'example4@example.com')
 current_user
 Task.last
 Task.last
+current_user.tasks.create(title: 'test3')
+current_user.relationship.tasks
+user.relationship.tasks.create(title: 'test3')
+user.relationship.paircode
+user=User.find_by(email: ‘example@example.com’)
+user=User.find_by(email:'example@example.com')
+user.relationship.paircode
+user.relationship.tasks.create(title: 'test3')
+user.relationship.tasks.find(id: 1).destroy
+user.relationship.tasks.find(id: 4).destroy
+user.relationship.tasks.find(id: 4)
+user.relationship.tasks.find(4)
+user.relationship.tasks.find(4).destroy
+user.relationship.tasks.find(3)
+user.relationship.tasks.find(6)
+user.relationship.tasks.find(6).destroy
+Task.last

@@ -3,7 +3,7 @@
     <div>
       <div class="box">
         <p>{{ taskTitle }}</p>
-        <p>{{ taskDate }}</p>
+        <p>期限{{ taskDate }}</p>
         <p>{{ taskTime }}</p>
         <div>
           <button class="btn__clear" @click="remove()"> 削除する </button>
@@ -44,10 +44,10 @@ export default {
   },
   methods: {
     toEdit() {
-      this.$router.push(`/tasks/${this.task.id}`);
+      this.$router.push(`api/users/tasks/${this.task.id}`);
     },
     async complete() {
-      await this.$axios.$patch(`/tasks/${this.task.id}`, {
+      await this.$axios.$patch(`api/users/tasks/${this.task.id}`, {
         is_done: true,
       });
       this.$router.push(`tasks`);
@@ -62,7 +62,7 @@ export default {
     async remove() {
       const confirmation = window.confirm("本当に削除しますか？");
       if (confirmation) {
-        await this.$axios.delete(`/tasks/${this.task.id}`)
+        await this.$axios.delete(`api/users/tasks/${this.task.id}`)
         .then(() => {
              //window.location.href = process.env.hostUrl + "/todos";
              window.location.reload();

@@ -22,32 +22,38 @@ class Api::Users::TasksController < Api::UserController
   end
 
   def create
-    tasks = Task.new(set_params)
-    s = tasks.find_by(current_user)
-    if s.create
+    c = current_user.relationship.tasks.create(set_params)
+
+    if c.present?
       render json: { success_message: '保存しました' }
     else
       render json: tasks.errors.messages
     end
-    # tasks = Task.new(set_params)
-    # if tasks.save
-    #   render json: { success_message: '保存しました' }
-    # else
-    #   render json: tasks.errors.messages
-    # end
+
   end
 
   def update
-    task = Task.find(params[:id])
-    if task.update(set_params)
-      render json: { success_message: '更新しました' }
+
+    c = current_user.relationship.tasks.update(set_params)
+
+    if c.present?
+      render json: { success_message: '保存しました' }
     else
-      render json: task.errors.messages
+      render json: tasks.errors.messages
     end
+
+    # task = Task.find(params[:id])
+    # if task.update(set_params)
+    #   render json: { success_message: '更新しました' }
+    # else
+    #   render json: task.errors.messages
+    # end
   end
 
   def destroy
-    task = Task.find(params[:id])
+    task = current_user.relationship.tasks.find(params[:id])
+
+    # task = Task.find(params[:id])
     task.destroy
     render json: { success_message: '削除しました' }
   end

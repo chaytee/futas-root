@@ -3,7 +3,6 @@ class Api::Users::TasksController < Api::UserController
 
   def index
     #raise current_user.inspect
-    #render json: current_user.relationship.tasks
     render json: current_user.relationship.tasks
 
     #これだと誰でも一覧見れる
@@ -24,11 +23,18 @@ class Api::Users::TasksController < Api::UserController
 
   def create
     tasks = Task.new(set_params)
-    if tasks.save
+    s = tasks.find_by(current_user)
+    if s.create
       render json: { success_message: '保存しました' }
     else
       render json: tasks.errors.messages
     end
+    # tasks = Task.new(set_params)
+    # if tasks.save
+    #   render json: { success_message: '保存しました' }
+    # else
+    #   render json: tasks.errors.messages
+    # end
   end
 
   def update

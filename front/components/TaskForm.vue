@@ -20,6 +20,9 @@
         </div>
         <div class="limit">
           <h3 class="sub__title">Limit</h3>
+          <input type="text" v-model="mtoday">
+          <p>ssss{{ mtoday }}</p>
+
           <div class="limit__box">
             <div class="limit__btn">
               <button class="btn__click" @click="getToday()">今日</button>
@@ -77,6 +80,7 @@ export default {
       limit_day: "",
       limit_time: "",
       datetime: "",
+      today: "アイウエオ",
     };
   },
   async created() {
@@ -91,9 +95,11 @@ export default {
   methods: {
     submit() {
       const params = {
-        title: this.title,
-        limit_day: this.limit_day,
-        limit_time: this.limit_time,
+        task: {
+          title: this.title,
+          limit_day: this.limit_day,
+          limit_time: this.limit_time
+        },
       };
       //新規であれば新規フォームへ既にtask-idのあるものは編集フォームへ
       //this.create(params);
@@ -136,14 +142,23 @@ export default {
         this.$router.push("/tasks");
       });
     },
-    getToday() {
-      const now = dayjs();
-      console.log(now.format("YYYY/M/D"));
-    },
+    // getToday: function () {
+    //   const now = dayjs();
+    //   return now.format("YYYY/M/D");
+    // },
+    // getToday() {
+    //   const now = dayjs();
+    //   const today = now.format("YYYY/M/D");
+    //   console.log(today)
+    // },
+    // mtoday: function () {
+    //     return this.today = dayjs().format("YYYY/M/D");
+    //     //return this.today.split('').reverse().join('')
+    // },
     getTomorrow() {
       const tomorrowData = dayjs().add(1, "day");
       const tomorrow = tomorrowData.format("YYYY/M/D");
-      this.limit_day = tomorrow;
+      // this.limit_day = tomorrow;
     },
     getDayAfterTomorrow() {
       const DayAfterTomorrowData = dayjs().add(2, "day");
@@ -156,6 +171,13 @@ export default {
       console.log(AfterOneWeek);
     },
   },
+  computed: {
+
+    mtoday: function () {
+        return this.today = dayjs().format("YYYY/M/D");
+        //return this.today.split('').reverse().join('')
+    },
+  }
 };
 </script>
 <style lang="scss">

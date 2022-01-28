@@ -61,7 +61,7 @@ export default {
   },
   mounted() {
     if (localStorage.uid) {
-      this.name = localStorage.getItem('uid');
+      this.name = localStorage.getItem('name');
     }
   },
 };

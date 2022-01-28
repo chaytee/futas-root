@@ -119,3 +119,7 @@ s.tasks.create(title: ‘test1’)
 s.tasks.create(title: 'test1')
 s.tasks.create(title: 'test2')
 s.tasks.create(title: 'test3')
+partner=User.find_by(email: 'example4@example.com')
+current_user
+Task.last
+Task.last

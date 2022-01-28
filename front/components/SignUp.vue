@@ -100,6 +100,8 @@ export default {
     async signUp() {
       this.error = null;
 
+      localStorage.clear();
+
       // try{
       //   //axiosでアクセス
       //   const res = await this.$axios.post('api/auth',{
@@ -145,13 +147,10 @@ export default {
           },
         })
         .then(
-          (response) => {
+          (res) => {
             // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
-            // localStorage.setItem('access-token', response.headers['access-token'])
-            // localStorage.setItem('client', response.headers.client)
-            localStorage.setItem('uid', response.headers.uid)
-            //localStorage.setItem('token-type', response.headers['token-type'])
-            return response
+            window.localStorage.setItem('name', res.data.data.name)
+            return res
           },
           (error) => {
             // this.error = error.response.data.errors;

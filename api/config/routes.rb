@@ -23,6 +23,8 @@ Rails.application.routes.draw do
       resources :messages
       resource :dashbord, only: [:show]
     end
+
+    resources :user, only: [:index]
   end
 
   # namespace :api do
@@ -31,5 +33,4 @@ Rails.application.routes.draw do
   #   }
   # end
 
-  resources :user, only: [:index]
 end

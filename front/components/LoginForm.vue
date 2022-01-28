@@ -67,7 +67,7 @@ export default {
     async login() {
       this.error = null;
       //キャッシュが残るため
-      //localStorage.clear();
+      localStorage.clear();
 
       await this.$auth
         .loginWith("local", {
@@ -77,14 +77,10 @@ export default {
           },
         })
         .then(
-          (response) => {
+          (res) => {
             // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
-            // 下記なくても大丈夫
-            // localStorage.setItem('access-token', response.headers['access-token'])
-            // localStorage.setItem('client', response.headers.client)
-            localStorage.setItem('uid', response.headers.uid)
-            // localStorage.setItem('token-type', response.headers['token-type'])
-            return response
+            window.localStorage.setItem('name', res.data.data.name)
+            return res
           },
           (error) => {
             this.error = error.response.data.errors;

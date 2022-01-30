@@ -1,7 +1,7 @@
 <template>
-  <div id="chat" class="wife">
+  <div class="chat-form wife">
     <div class="box pt-3 chat__box">
-      <form class="chat__form">
+      <form class="chat_form_in">
         <textarea
           class="textarea is-large"
           rows="3"
@@ -46,7 +46,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-#chat {
+.chat-form {
   &__form {
     max-width: 500px;
     box-sizing: border-box;

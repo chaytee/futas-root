@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div class="login-form">
     <div class="btn__wrap">
       <button class="btn__grade modal-show" @click="modalShow">ログイン</button>
     </div>

@@ -1,5 +1,6 @@
 <template>
   <div class="misson">
+    <TotalScore />
     <h2>Mission</h2>
     <Task v-for="task in taskData" :key="task.id" :task="task" />
     <TaskForm />
@@ -8,11 +9,13 @@
 <script>
 import Task from "../../components/Task.vue";
 import TaskForm from "../../components/TaskForm.vue";
+import TotalScore from "../../components/TotalScore.vue";
 
 export default {
   components: {
     Task,
     TaskForm,
+    TotalScore
   },
   data() {
     return {

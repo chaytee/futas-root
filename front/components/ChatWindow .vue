@@ -1,5 +1,5 @@
 <template>
-  <div id="chat__window">
+  <div class="chat-window">
     <div v-if="messages" class="messages" ref="messages">
       <ul v-for="message in messages" :key="message.id">
         <!--received or sent-->
@@ -41,7 +41,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-#chat__window {
+.chat-window {
   background: white;
   padding: 30px 20px;
   border-bottom: 1px solid #eee;

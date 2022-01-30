@@ -1,5 +1,5 @@
 <template>
-  <div id="task__form" class="wife">
+  <div class="task-form wife">
     <div class="box input__box">
       <h2 class="section__title">Mission input</h2>
       <form class="box__form">
@@ -39,7 +39,7 @@
                 placeholder="2021-07-14"
                 v-model="limit_day"
               /> -->
-              <input class="input is-large put_day" type="text" required v-bind:id="id" v-model="limit_day">
+              <input class="input is-large put_day" type="text" required v-bind:id="datePick" v-model="limit_day">
               <input
                 class="input is-large put_time"
                 type="time"
@@ -84,7 +84,7 @@ export default {
       limit_day: "",
       limit_time: "",
       datetime: "",
-      id: "datePick",
+      datePick: "datePick",
     };
   },
   async created() {
@@ -149,21 +149,21 @@ export default {
     },
     update(params, id) {
       this.$axios.patch(`/api/users/tasks/${id}`, params).then((res) => {
-        if (res.data.task) {
+        if (params.task) {
           const errorMessage = `
             下記の部分を確認してください. \n
-            タイトル: ${params.title}
-            日付: ${params.limit_day}
-            時間: ${params.limit_time}
+            タイトル: ${params.task.title}
+            日付: ${params.task.limit_day}
+            時間: ${params.task.limit_time}
           `;
-          window.alert(errorMessage);
+          window.confirm(errorMessage);
         }
         this.$router.push("/tasks");
       });
     },
   },
   mounted() {
-    flatpickr('#' + this.id);
+    flatpickr('#' + this.datePick);
   },
   computed: {
 
@@ -173,7 +173,7 @@ export default {
 </script>
 <style lang="scss">
 
-#task__form {
+.task-form {
   margin-top: 40px;
   .box {
     padding: 20px;

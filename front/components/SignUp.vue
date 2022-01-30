@@ -1,5 +1,5 @@
 <template>
-  <div id="signup">
+  <div class="signup">
     <div class="btn__wrap">
       <button class="btn__grade modal-show" @click="modalShow">
         アカウントを登録する
@@ -167,7 +167,7 @@ export default {
 };
 </script>
 <style lang="scss">
-#signup {
+.signup {
   .gender {
     display: flex;
     justify-content: flex-start;

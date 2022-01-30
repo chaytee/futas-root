@@ -1,5 +1,5 @@
 <template>
-   <div class="task__box wife">
+   <div class="task_box wife">
     <div>
       <div class="box">
         <p>{{ taskTitle }}</p>
@@ -79,7 +79,7 @@ export default {
 };
 </script>
 <style lang="scss">
-  .task__box+.task__box {
+  .task_box+.task_box {
     margin-top: 20px;
   }
 </style>

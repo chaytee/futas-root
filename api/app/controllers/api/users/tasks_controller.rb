@@ -40,33 +40,22 @@ class Api::Users::TasksController < Api::UserController
 
   def update
 
-    c = current_user.relationship.tasks.update(set_params)
+    task = current_user.relationship.tasks.find(params[:id])
 
-    if c.present?
+    if task.update(set_params)
       render json: { success_message: '保存しました' }
     else
-      render json: tasks.errors.messages
+      render json: task.errors.messages
     end
 
-    # task = Task.find(params[:id])
-    # if task.update(set_params)
-    #   render json: { success_message: '更新しました' }
-    # else
-    #   render json: task.errors.messages
-    # end
   end
 
   def destroy
     task = current_user.relationship.tasks.find(params[:id])
 
-    # task = Task.find(params[:id])
     task.destroy
     render json: { success_message: '削除しました' }
   end
-
-  # def set_user
-  #   @gender = User.find(params[:id]).gender
-  # end
 
   private
   def set_params

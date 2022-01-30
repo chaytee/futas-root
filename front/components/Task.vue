@@ -3,7 +3,7 @@
     <div>
       <div class="box">
         <p>{{ taskTitle }}</p>
-        <p>期限{{ taskDate }}</p>
+        <p>期限 {{ taskDate }}</p>
         <p>{{ taskTime }}</p>
         <div>
           <button class="btn__clear" @click="remove()"> 削除する </button>
@@ -23,6 +23,7 @@
   </div>
 </template>
 <script>
+import dayjs from "dayjs";
 export default {
   props: {
     task: {
@@ -36,18 +37,19 @@ export default {
       return this.task.title;
     },
     taskDate() {
-      return this.task.limit_day;
+      return dayjs(this.task.limit_day).format('YYYY/MM/DD');
     },
     taskTime() {
-      return this.task.limit_time;
+      //InvalidDateになってる
+      return  dayjs(this.task.limit_time).format('hh:mm') || "";
     },
   },
   methods: {
     toEdit() {
-      this.$router.push(`api/users/tasks/${this.task.id}`);
+      this.$router.push(`/tasks/${this.task.id}`);
     },
     async complete() {
-      await this.$axios.$patch(`api/users/tasks/${this.task.id}`, {
+      await this.$axios.$patch(`/tasks/${this.task.id}`, {
         is_done: true,
       });
       this.$router.push(`tasks`);

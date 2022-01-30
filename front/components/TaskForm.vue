@@ -30,20 +30,19 @@
               <button class="btn__click" type="button" @click="getAfterOneWeek()">
                 一週間以内
               </button>
-              <button class="btn__click" type="button">日付指定</button>
             </div>
             <div class="put_limit">
-              <input
+              <!-- <input
                 class="input is_medium"
                 id="limit_day"
                 type="text"
                 placeholder="2021-07-14"
                 v-model="limit_day"
-              />
+              /> -->
+              <input class="input is-large put_day" type="text" required v-bind:id="id" v-model="limit_day">
               <input
-                class="input is_medium"
-                type="text"
-                placeholder="11:00:00"
+                class="input is-large put_time"
+                type="time"
                 v-model="limit_time"
               />
             </div>
@@ -53,11 +52,14 @@
     </div>
   </div>
 </template>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
 import dayjs from "dayjs";
+import 'flatpickr/dist/themes/confetti.css';
+const flatpickr = require('flatpickr').default;
 
-const now = dayjs();
-const today = now.format("YYYY/M/D");
+// const now = dayjs();
+// const today = now.format("YYYY-MM-DD");
 
 export default {
 
@@ -82,6 +84,7 @@ export default {
       limit_day: "",
       limit_time: "",
       datetime: "",
+      id: "datePick",
     };
   },
   async created() {
@@ -94,6 +97,22 @@ export default {
     }
   },
   methods: {
+    getToday: function() {
+      document.getElementById("limit_day").value = today;
+      console.log(today)
+    },
+    getTomorrow: function() {
+      const tomorrow = now.add(1, "day").format("YYYY-MM-DD");
+      document.getElementById("limit_day").value = tomorrow;
+    },
+    getDayAfterTomorrow: function() {
+      const dayAfterTomorrow = now.add(2, "day").format("YYYY-MM-DD");
+      document.getElementById("limit_day").value = dayAfterTomorrow;
+    },
+    getAfterOneWeek: function() {
+      const afterOneWeek = now.add(1, "week").format("YYYY-M-DD");
+      document.getElementById("limit_day").value = afterOneWeek;
+    },
     submit() {
       const params = {
         task: {
@@ -103,7 +122,6 @@ export default {
         },
       };
       //新規であれば新規フォームへ既にtask-idのあるものは編集フォームへ
-      //this.create(params);
       this.taskId ? this.update(params, this.taskId) : this.create(params);
     },
     remove() {
@@ -116,23 +134,22 @@ export default {
         .post("/api/users/tasks", params)
         .then((res) => {
           if (params) {
-            const errorMessage = `
+          const errorMessage = `
             下記の部分を確認してください. \n
-            タイトル: ${res.data.data.title}
-            日付: ${res.data.data.limit_day}
-            時間: ${res.data.data.limit_time}
+            タイトル: ${params.task.title}
+            日付: ${params.task.limit_day}
+            時間: ${params.task.limit_time}
           `;
-            window.alert(errorMessage);
-            console.log(res);
+            window.confirm(errorMessage);
           }
           window.location.reload();
           //this.$router.push("/tasks");
         })
-        .catch((err) => console.error(err));
+        // .catch((err) => console.log(err));
     },
     update(params, id) {
       this.$axios.patch(`/api/users/tasks/${id}`, params).then((res) => {
-        if (res.data.taks) {
+        if (res.data.task) {
           const errorMessage = `
             下記の部分を確認してください. \n
             タイトル: ${params.title}
@@ -144,25 +161,18 @@ export default {
         this.$router.push("/tasks");
       });
     },
-    getToday: function() {
-      document.getElementById("limit_day").value = today;
-    },
-    getTomorrow: function() {
-      const tomorrow = now.add(1, "day").format("YYYY/M/D");
-      document.getElementById("limit_day").value = tomorrow;
-    },
-    getDayAfterTomorrow: function() {
-      const dayAfterTomorrow = now.add(2, "day").format("YYYY/M/D");
-      document.getElementById("limit_day").value = dayAfterTomorrow;
-    },
-    getAfterOneWeek: function() {
-      const afterOneWeek = now.add(1, "week").format("YYYY/M/D");
-      document.getElementById("limit_day").value = afterOneWeek;
-    },
+  },
+  mounted() {
+    flatpickr('#' + this.id);
+  },
+  computed: {
+
   }
+
 };
 </script>
 <style lang="scss">
+
 #task__form {
   margin-top: 40px;
   .box {
@@ -188,10 +198,12 @@ export default {
     margin-top: 15px;
 
     &__btn {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
-    .btn__click + .btn__click {
-      margin-left: 15px;
+
+    input {
+      max-width: 260px;
+      box-sizing: border-box;
     }
   }
 }

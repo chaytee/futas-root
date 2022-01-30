@@ -6,11 +6,9 @@ class Api::UserController < ApplicationController
   skip_before_action :method_name, raise: false
 
   def index
-    #フロントに渡したいものgender taskのis_done
-    #post = current_user
-    post = User.joins(relationship: :tasks)
-    render json: post
-    # users = User.all
-    # render json: users
+    #フロントに渡したいものgender
+    render json: current_user.to_json(only: [:name, :gender])
   end
+
+
 end

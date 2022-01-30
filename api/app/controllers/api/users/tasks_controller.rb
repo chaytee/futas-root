@@ -2,11 +2,17 @@ class Api::Users::TasksController < Api::UserController
 
 
   def index
-    #raise current_user.inspect
-    render json: current_user.relationship.tasks
+    render json: current_user.relationship.tasks.order(limit_day: :asc)
 
-    #これだと誰でも一覧見れる
-    #render json: Task.all
+    # post = Task.left_joins(relationship: :users).where(relationship_id: current_user.relationship_id).select('tasks.*', 'users.gender', 'users.name')
+
+    #taskのidが取れてない
+    # post = User.joins(relationship: :tasks).where(relationship_id: current_user.relationship_id).select('tasks.*', 'users.gender', 'users.name', 'users.id')
+
+    #これだとフロントでtask_idが見つからないということになる
+    # post = Task.joins(relationship: :users).where(relationship_id: current_user.relationship_id).select('tasks.*', 'users.gender', 'users.name', 'users.id')
+    # render json: post.order(limit_day: :asc)
+
   end
 
   def show

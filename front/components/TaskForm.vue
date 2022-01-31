@@ -1,5 +1,5 @@
 <template>
-  <div class="task-form wife">
+  <div class="task-form">
     <div class="box input__box">
       <h2 class="section__title">Mission input</h2>
       <form class="box__form">
@@ -54,12 +54,18 @@
 </template>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-import dayjs from "dayjs";
+const dayjs = require('dayjs');
+dayjs.extend(require('dayjs/plugin/timezone'));
+dayjs.extend(require('dayjs/plugin/utc'));
+dayjs.tz.setDefault('Asia/Tokyo');
+dayjs.extend(require('dayjs/plugin/relativeTime'));
+
 import 'flatpickr/dist/themes/confetti.css';
 const flatpickr = require('flatpickr').default;
 
-// const now = dayjs();
+const now = dayjs();
 // const today = now.format("YYYY-MM-DD");
+const toNow = dayjs().toNow();
 
 export default {
 
@@ -118,7 +124,7 @@ export default {
         task: {
           title: this.title,
           limit_day: this.limit_day,
-          limit_time: this.limit_time
+          limit_time: this.limit_time,
         },
       };
       //新規であれば新規フォームへ既にtask-idのあるものは編集フォームへ
@@ -143,7 +149,6 @@ export default {
             window.confirm(errorMessage);
           }
           window.location.reload();
-          //this.$router.push("/tasks");
         })
         // .catch((err) => console.log(err));
     },
@@ -164,6 +169,7 @@ export default {
   },
   mounted() {
     flatpickr('#' + this.datePick);
+
   },
   computed: {
 
@@ -205,11 +211,6 @@ export default {
       max-width: 260px;
       box-sizing: border-box;
     }
-  }
-}
-.wife {
-  .input__box {
-    background-color: #f7b4ab;
   }
 }
 </style>

@@ -31,12 +31,14 @@ ActiveRecord::Schema.define(version: 2022_01_25_021928) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
-    t.boolean "is_done", default: false
+    t.bigint "user_id"
+    t.integer "is_done", default: 0
     t.date "limit_day"
     t.time "limit_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "relationship_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,4 +57,5 @@ ActiveRecord::Schema.define(version: 2022_01_25_021928) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "tasks", "users"
 end

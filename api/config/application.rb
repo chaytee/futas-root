@@ -29,7 +29,7 @@ module App
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    # Railsアプリデフォルトのタイムゾーン(default 'UTC')
+    # Railsアプリデフォルトのタイムゾーン(default 'UTC')dockerfileに記載あり
     config.time_zone = ENV["TZ"]
     # データベースの読み書きに使用するタイムゾーン(:local | :utc(default))
     config.active_record.default_timezone = :utc

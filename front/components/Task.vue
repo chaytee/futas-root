@@ -1,17 +1,20 @@
 <template>
-   <div class="task_box wife">
-    <div>
-      <div class="box">
-        <p>{{ taskTitle }}</p>
-        <p>期限 {{ taskDate }}</p>
-        <p>{{ taskTime }}</p>
-        <div>
-          <button class="btn__clear" @click="remove()"> 削除する </button>
-          <button class="btn__gry" @click="toEdit()"> 編集する </button>
-          <button class="btn__accent"
-            v-if="!task.is_done"
-            @click="complete()"
-          >
+  <div class="task__box wife">
+    <div class="box">
+      <div class="box__icon"></div>
+      <div class="box__in">
+        <div class="box__main">
+          <div class="box__limit mb-3">
+            <span class="limit__day">{{ taskDate }}</span>
+            <span class="limit__time">{{ taskTime }}</span>
+          </div>
+          <p class="box__title">{{ taskTitle }}</p>
+          <p class="box__tonow">{{ testToNow }}</p>
+        </div>
+        <div class="box_controller">
+          <button class="btn__clear" @click="remove()">削除する</button>
+          <button class="btn__gry" @click="toEdit()">編集する</button>
+          <button class="btn__accent" v-if="!task.is_done" @click="complete()">
             完了
           </button>
           <!-- <button @click="incomplete()"
@@ -23,8 +26,23 @@
   </div>
 </template>
 <script>
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
+import 'dayjs/locale/ja'
+dayjs.extend(require('dayjs/plugin/timezone'));
+dayjs.extend(require('dayjs/plugin/utc'));
+dayjs.tz.setDefault('Asia/Tokyo');
+dayjs.extend(require('dayjs/plugin/relativeTime'));
+
+dayjs.locale('ja');
+const toNow = dayjs().toNow();
+
 export default {
+  deta(){
+    return {
+      testToNow: "",
+    }
+
+  },
   props: {
     task: {
       type: Object,
@@ -37,19 +55,22 @@ export default {
       return this.task.title;
     },
     taskDate() {
-      return dayjs(this.task.limit_day).format('YYYY/MM/DD');
+      return dayjs(this.task.limit_day).format("YYYY/MM/DD");
     },
     taskTime() {
       //InvalidDateになってる
-      return  dayjs(this.task.limit_time).format('hh:mm') || "";
+      return dayjs(this.task.limit_time).format("hh:mm") || "";
     },
+    testToNow: function() {
+      return dayjs().toNow();
+    }
   },
   methods: {
     toEdit() {
       this.$router.push(`/tasks/${this.task.id}`);
     },
     async complete() {
-      await this.$axios.$patch(`/tasks/${this.task.id}`, {
+      await this.$axios.$patch(`api/users/tasks/${this.task.id}`, {
         is_done: true,
       });
       this.$router.push(`tasks`);
@@ -64,22 +85,43 @@ export default {
     async remove() {
       const confirmation = window.confirm("本当に削除しますか？");
       if (confirmation) {
-        await this.$axios.delete(`api/users/tasks/${this.task.id}`)
-        .then(() => {
-             //window.location.href = process.env.hostUrl + "/todos";
-             window.location.reload();
-        })
-        .catch((err)=> {
-             const message = err.response.data;
-             console.log(message);
-        })
+        await this.$axios
+          .delete(`api/users/tasks/${this.task.id}`)
+          .then(() => {
+            //window.location.href = process.env.hostUrl + "/todos";
+            window.location.reload();
+          })
+          .catch((err) => {
+            const message = err.response.data;
+            console.log(message);
+          });
       }
     },
   },
 };
 </script>
 <style lang="scss">
-  .task_box+.task_box {
-    margin-top: 20px;
+.task__box + .task__box {
+  margin-top: 20px;
+}
+.task__box {
+  .box {
+    display: flex;
+    justify-content: flex-start;
+    padding: 15px 20px;
   }
+  .box__in {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    align-items: center;
+  }
+
+  .box__icon {
+    width: 60px;
+    height: 60px;
+    margin-right: 25px;
+  }
+}
 </style>

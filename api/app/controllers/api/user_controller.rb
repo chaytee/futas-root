@@ -5,9 +5,14 @@ class Api::UserController < ApplicationController
   #skip_before_action :verify_authenticity_token
   skip_before_action :method_name, raise: false
 
+  # user 一覧の取得
   def index
     #フロントに渡したいものgender
-    render json: current_user.to_json(only: [:name, :gender])
+    render json: current_user.to_json(only: [:id, :name, :gender])
+  end
+
+  def show
+    render json: current_user.to_json(only: [:id, :name, :gender])
   end
 
 

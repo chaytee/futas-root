@@ -140,3 +140,29 @@ user.relationship.tasks.find(3)
 user.relationship.tasks.find(6)
 user.relationship.tasks.find(6).destroy
 Task.last
+Time.now
+Time.current
+user=User.find_by(email: ‘example@example.com’)
+user=User.find_by(email: 'example@example.com')
+user.relationship.paircode
+partner=User.find_by(email: 'example4@example.com')
+partner.relationship.paircode
+current_user
+user.tasks.all
+user.relationship.tasks.all
+user.relationship.tasks
+current_user.tasks
+user
+user.relationship.tasks.all
+current_user.tasks
+partner.relationship.paircode
+user=User.find_by(email: 'example@example.com')
+user.relationship.tasks.all
+user.relationship.tasks
+s=Relationship.find(1)
+s.tasks.create(title: 'testtesttest22')
+Time.local(2022).zone
+Time.current
+exit
+Time.current
+Time.now

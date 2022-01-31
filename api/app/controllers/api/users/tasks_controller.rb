@@ -4,8 +4,6 @@ class Api::Users::TasksController < Api::UserController
   def index
     render json: current_user.relationship.tasks.order(limit_day: :asc)
 
-    # post = Task.left_joins(relationship: :users).where(relationship_id: current_user.relationship_id).select('tasks.*', 'users.gender', 'users.name')
-
     #taskのidが取れてない
     # post = User.joins(relationship: :tasks).where(relationship_id: current_user.relationship_id).select('tasks.*', 'users.gender', 'users.name', 'users.id')
 
@@ -28,13 +26,19 @@ class Api::Users::TasksController < Api::UserController
   end
 
   def create
-    c = current_user.relationship.tasks.create(set_params)
-
-    if c.present?
+    task = current_user.relationship.tasks
+    if task.create(set_params)
       render json: { success_message: '保存しました' }
     else
-      render json: tasks.errors.messages
+      render json: task.errors.messages
     end
+    # c = current_user.relationship.tasks.create(set_params)
+
+    # if c.present?
+    #   render json: { success_message: '保存しました' }
+    # else
+    #   render json: tasks.errors.messages
+    # end
 
   end
 

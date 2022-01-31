@@ -11,7 +11,7 @@
 }
 .error {
   font-size: 14px;
-  color: #ED1E79;
+  color: $accentColorW;
 }
 .btn__wrap {
   text-align: center;
@@ -23,7 +23,7 @@
   @extend %btnBase;
 }
 .btn__accent {
-  background-color: #ED1E79;
+  background-color: $accentColorW;
   color: #fff;
   @extend %btnBase;
 }
@@ -50,16 +50,48 @@
   display: inline-block;
   font-size: 14px;
 }
-.wife {
-  .btn__link {
-    background: #f7b4ab;
+/**/
+.btn__link {
+  background: $wifeColor;
+}
+.task-form {
+  .input__box {
+    background-color: $wifeColor;
   }
+}
+.task__box {
+  .box__limit {
+    display: inline-block;
+    font-size: 14px;
+    padding: 5px 15px 5px 40px;
+    background: url(~/assets/img/limit.png) no-repeat left 10px center;
+    background-size: 23px;
+    border-radius: 5px;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    background-color: $wifeColor;
+  }
+
 }
 .husband {
+  .task-form {
+    .input__box {
+      background-color: $husbandColor;
+    }
+  }
   .btn__link {
-    background: #9bdbc2;
+    background: #DBF3ED;
+  }
+  .btn__accent {
+    background-color: $accentColorH;
+    color: #fff;
+    @extend %btnBase;
+  }
+  .task__box .box__limit {
+    background-color: $husbandColor;
   }
 }
+/**/
 .welcome__title {
   font-size: 110%;
 }

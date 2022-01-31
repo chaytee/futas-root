@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       resource :dashbord, only: [:show]
     end
 
-    resources :user, only: [:index]
+    resources :user, only: [:index, :show]
   end
 
   # namespace :api do

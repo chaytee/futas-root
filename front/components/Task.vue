@@ -1,17 +1,18 @@
 <template>
-  <div class="task__box wife">
+  <div class="task-box">
     <div class="box">
-      <div class="box__icon"></div>
-      <div class="box__in">
-        <div class="box__main">
-          <div class="box__limit mb-3">
+      <div class="task-box__icon" v-bind:class="{ hicon: isHusIcon }"></div>
+      <div class="task-box__in">
+        <div class="task-box__main">
+          <div class="task-box__limit mb-3">
             <span class="limit__day">{{ taskDate }}</span>
             <span class="limit__time">{{ taskTime }}</span>
           </div>
-          <p class="box__title">{{ taskTitle }}</p>
-          <p class="box__tonow">{{ testToNow }}</p>
+          <p>{{ iconWho }}</p>
+          <p class="task-box__title">{{ taskTitle }}</p>
+          <p class="task-box__tonow nm">{{ testToNow }}</p>
         </div>
-        <div class="box_controller">
+        <div class="task-box__controller">
           <button class="btn__clear" @click="remove()">削除する</button>
           <button class="btn__gry" @click="toEdit()">編集する</button>
           <button class="btn__accent" v-if="!task.is_done" @click="complete()">
@@ -37,10 +38,10 @@ dayjs.locale('ja');
 const toNow = dayjs().toNow();
 
 export default {
-  deta(){
+  data(){
     return {
-      testToNow: "",
-    }
+      isHusIcon: false,
+    };
 
   },
   props: {
@@ -55,14 +56,23 @@ export default {
       return this.task.title;
     },
     taskDate() {
-      return dayjs(this.task.limit_day).format("YYYY/MM/DD");
+      return dayjs(this.task.limit_day).tz().format("YYYY/MM/DD");
     },
     taskTime() {
-      //InvalidDateになってる
-      return dayjs(this.task.limit_time).format("hh:mm") || "";
+      //InvalidDateになってる null
+      console.log(this.task.limit_time);
+      console.log('今日です');
+      console.log(dayjs().format());
+      return dayjs(this.task.limit_time).tz().format("hh:mm") || "";
     },
     testToNow: function() {
-      return dayjs().toNow();
+      return dayjs().tz().toNow();
+    },
+    iconWho: function() {
+      console.log(this.task);
+      if(this.task.gender === 1){
+        return this.isHusIcon = !this.isHusIcon
+      }
     }
   },
   methods: {
@@ -100,28 +110,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.task__box + .task__box {
-  margin-top: 20px;
-}
-.task__box {
-  .box {
-    display: flex;
-    justify-content: flex-start;
-    padding: 15px 20px;
-  }
-  .box__in {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    align-items: center;
-  }
-
-  .box__icon {
-    width: 60px;
-    height: 60px;
-    margin-right: 25px;
-  }
-}
-</style>

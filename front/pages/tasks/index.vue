@@ -1,5 +1,5 @@
 <template>
-  <div class="misson" v-bind:class="{ husband: isActive}">
+  <div class="mission" v-bind:class="{ husband: isActive }">
     <TotalScore />
     <h2>Mission</h2>
     <Task v-for="task in taskData" :key="task.id" :task="task" />
@@ -19,25 +19,24 @@ export default {
   },
   data() {
     return {
-      initData: [],
       taskData: [],
-      isDone: '0',
       genderData: '',
       isActive: false,
     };
   },
   async created() {
     await this.$axios.$get("/api/users/tasks").then((res) => {
-      console.log(res);
+      // console.log(res);
       //タスク情報の取得
-      this.initData = res;
       this.taskData = Array.from(res).filter((data) => {
-        return data.is_done === 0;
+        return data.is_done === 0 || data.is_done === null;
       });
+
     });
   },
   async mounted() {
     await this.$axios.$get("/api/user/?id").then((res)=> {
+      // console.log(res.gender);
       this.genderData = res.gender;
       //性別が男だったらhusbandをつける
       if(this.genderData === 1 ) {

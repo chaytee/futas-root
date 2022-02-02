@@ -1,4 +1,4 @@
-#container p {
+.container p {
   font-size: 95%;
 }
 .section__title {
@@ -59,38 +59,86 @@
     background-color: $wifeColor;
   }
 }
-.task__box {
-  .box__limit {
-    display: inline-block;
-    font-size: 14px;
-    padding: 5px 15px 5px 40px;
-    background: url(~/assets/img/limit.png) no-repeat left 10px center;
-    background-size: 23px;
-    border-radius: 5px;
-    color: #fff;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-    background-color: $wifeColor;
-  }
+/* task-box */
 
+.mission {
+  .task-box + .task-box {
+    margin-top: 20px;
+  }
+  .task-box {
+    .box {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: flex-start;
+      justify-content: flex-start;
+      -webkit-align-items: center;
+      align-items: center;
+      padding: 15px 20px;
+    }
+    &__in {
+      width: 100%;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+      position: relative;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+    &__limit {
+      display: inline-block;
+      font-size: 14px;
+      padding: 5px 15px 5px 40px;
+      background: url(~/assets/img/limit.png) no-repeat left 10px center;
+      background-size: 23px;
+      border-radius: 5px;
+      color: #fff;
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+      background-color: $wifeColor;
+    }
+    &__icon {
+      width: 50px;
+      height: 50px;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-align-items: center;
+      align-items: center;
+      margin-right: 20px;
+      background: url(~/assets/img/icon01.png) no-repeat center / 100% auto;
+    }
+    &__tonow {
+      font-size: 12px;
+    }
+  }
 }
-.husband {
+.mission.husband {
   .task-form {
     .input__box {
       background-color: $husbandColor;
     }
   }
   .btn__link {
-    background: #DBF3ED;
+    background: #dbf3ed;
   }
   .btn__accent {
     background-color: $accentColorH;
     color: #fff;
     @extend %btnBase;
   }
-  .task__box .box__limit {
-    background-color: $husbandColor;
+  .task-box {
+    &__limit {
+      background-color: $husbandColor;
+    }
   }
 }
+.task-box {
+  &__icon.hicon {
+    background-image: url(~/assets/img/icon02.png);
+  }
+}
+
 /**/
 .welcome__title {
   font-size: 110%;
@@ -112,14 +160,13 @@
   color: #fff;
   line-height: 60px;
   font-size: 14px;
-
 }
 @media screen and (min-width: 1150px) {
   #container {
     padding-bottom: 60px;
   }
 }
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 768px) {
   #footer {
     min-height: 50px;
     margin-top: -50px;
@@ -129,7 +176,7 @@
     line-height: 50px;
   }
 }
-@media only screen and (max-width: 640px){
+@media only screen and (max-width: 640px) {
   .form__box {
     max-width: 280px;
     margin: auto;

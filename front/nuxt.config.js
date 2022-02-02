@@ -51,9 +51,9 @@ export default {
           //ログアウト処理に関する設定
           logout: { url: '/api/auth/sign_out', method: 'delete' },
           //ログイン時にユーザー情報を保存するか。this.$auth.user
-          user: false
-          //使用しない時 user: false
-          //user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+          //user: false,
+          //使用しない時 user: false /this.$auth.user でuser情報を取得
+          user: { url: '/api/user', method: 'get', propertyName:false }
          },
        }
      },

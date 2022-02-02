@@ -2,14 +2,15 @@ class Api::Users::TasksController < Api::UserController
 
 
   def index
-    render json: current_user.relationship.tasks.order(limit_day: :asc)
+
+    #render json: current_user.relationship.tasks.order(limit_day: :asc)
 
     #taskのidが取れてない
     # post = User.joins(relationship: :tasks).where(relationship_id: current_user.relationship_id).select('tasks.*', 'users.gender', 'users.name', 'users.id')
 
-    #これだとフロントでtask_idが見つからないということになる
-    # post = Task.joins(relationship: :users).where(relationship_id: current_user.relationship_id).select('tasks.*', 'users.gender', 'users.name', 'users.id')
-    # render json: post.order(limit_day: :asc)
+    #genderが欲しい
+    post = Task.joins(relationship: :users).where(relationship_id: current_user.relationship_id).select('tasks.*', 'users.gender', 'users.name', 'users.id')
+    render json: post.order(limit_day: :asc)
 
   end
 
@@ -26,25 +27,19 @@ class Api::Users::TasksController < Api::UserController
   end
 
   def create
-    task = current_user.relationship.tasks
-    if task.create(set_params)
+    task = current_user.tasks.new(relationship_id: current_user.relationship_id, title: set_params[:title], is_done: set_params[:is_done], limit_day: set_params[:limit_day], limit_time: set_params[:limit_time])
+
+    if task.save
       render json: { success_message: '保存しました' }
     else
       render json: task.errors.messages
     end
-    # c = current_user.relationship.tasks.create(set_params)
-
-    # if c.present?
-    #   render json: { success_message: '保存しました' }
-    # else
-    #   render json: tasks.errors.messages
-    # end
 
   end
 
   def update
 
-    task = current_user.relationship.tasks.find(params[:id])
+    task = current_user.tasks.find(params[:id])
 
     if task.update(set_params)
       render json: { success_message: '保存しました' }
@@ -55,7 +50,8 @@ class Api::Users::TasksController < Api::UserController
   end
 
   def destroy
-    task = current_user.relationship.tasks.find(params[:id])
+    # task = current_user.relationship.tasks.find(params[:id])
+    task = current_user.tasks.find(params[:id])
 
     task.destroy
     render json: { success_message: '削除しました' }

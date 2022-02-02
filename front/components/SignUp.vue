@@ -99,37 +99,8 @@ export default {
 
     async signUp() {
       this.error = null;
-
+      //初期化
       localStorage.clear();
-
-      // try{
-      //   //axiosでアクセス
-      //   const res = await this.$axios.post('api/auth',{
-      //       name: this.name,
-      //       email: this.email,
-      //       gender: this.gender,
-      //       password: this.password,
-      //       password_confirmation: this.password_confirmation
-      //   })
-      //   //ローカルストレージへ
-      //   await this.$auth.loginWith('local', {
-      //     data: {
-      //       password: this.password,
-      //       email: this.email
-      //     },
-      //   })
-      //   if (!res) {
-      //     throw new Error('アカウントを登録できませんでした')
-      //   }
-
-      //   this.$router.push("/relationship");
-
-      // }catch(error){
-      //   console.log(error.response.data.errors.full_messages);
-      //   //this.error = e.response.data.errors.full_messages;
-      //   this.error = 'アカウントを登録できませんでした'
-      //   return
-      // }
 
       //locallocalStorageに入れるならサインアップ後にログイン
       await this.$axios.post('api/auth',{
@@ -150,6 +121,7 @@ export default {
           (res) => {
             // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
             window.localStorage.setItem('name', res.data.data.name)
+            this.$router.push("/relationship");
             return res
           },
           (error) => {

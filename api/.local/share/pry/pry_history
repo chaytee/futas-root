@@ -166,3 +166,20 @@ Time.current
 exit
 Time.current
 Time.now
+Task.last
+Time.now
+Task.all
+User.last
+user=User.find_by(email: 'example@example.com')
+user.tasks
+user.tasks.all
+Task.all
+user.tasks
+current_user.tasks
+user.tasks
+user1=User.find_by(email: 'example1@example.com')
+user1.relationship.paircode
+user=User.find_by(email: 'example@example.com')
+user=User.find(1)
+Task.find(1)
+t=Task.find(1)

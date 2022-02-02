@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   belongs_to :relationship, optional: true
-  # has_many :tasks
+  has_many :tasks
 
   validates :name, presence: true
   validates :name, length: { maximum: 30 }

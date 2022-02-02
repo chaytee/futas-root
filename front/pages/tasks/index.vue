@@ -11,6 +11,16 @@ import Task from "../../components/Task.vue";
 import TaskForm from "../../components/TaskForm.vue";
 import TotalScore from "../../components/TotalScore.vue";
 
+const dayjs = require('dayjs');
+dayjs.extend(require('dayjs/plugin/timezone'));
+dayjs.extend(require('dayjs/plugin/utc'));
+dayjs.tz.setDefault('Asia/Tokyo');
+dayjs.extend(require('dayjs/plugin/relativeTime'));
+
+const now = dayjs();
+const tomorrow = now.add(1, "day");
+
+
 export default {
   components: {
     Task,
@@ -22,16 +32,26 @@ export default {
       taskData: [],
       genderData: '',
       isActive: false,
+      taskCount:{}
     };
   },
   async created() {
     await this.$axios.$get("/api/users/tasks").then((res) => {
-      // console.log(res);
+
       //タスク情報の取得
       this.taskData = Array.from(res).filter((data) => {
-        return data.is_done === 0 || data.is_done === null;
-      });
+        console.log(res);
 
+        // console.log(dayjs(data.limit_day));
+        // console.log(tomorrow );
+
+        return (data.is_done === 0 || data.is_done === null) && dayjs(data.limit_day) > now;
+      });
+      //夫婦別ハッシュにしたい
+      // this.taskCount  = Hash.from(res).filter((data) => {
+
+      //   return ;
+      // });
     });
   },
   async mounted() {

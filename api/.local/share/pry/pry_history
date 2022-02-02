@@ -183,3 +183,61 @@ user=User.find_by(email: 'example@example.com')
 user=User.find(1)
 Task.find(1)
 t=Task.find(1)
+Time.now
+Task.all
+User.all
+Tasks.all
+Message.all
+Tasks.all
+Task.all
+Task.new
+Task.count
+Task.all
+user=User.first
+task.where(relationship_id: relationship_id)
+Task.where(relationship_id: relationship_id)
+Task.where(relationship_id: user.relationship_id)
+Task.where(relationship_id: user.relationship_id).includes(:user)
+Task.where(relationship_id: user.relationship_id).joins(:user)
+current_user=User.first
+ars = Task.where(relationship_id: current_user.relationship_id).eager_load(:user)
+@items = ars.as_json(include: {user: {only: [:id, :name, :gender]}})
+current_user=User.first
+Task.joins(relationship: :users).where(relationship_id: current_user.relationship_id).select('tasks.*', 'users.gender', 'users.name', 'users.id')
+relationship_task = Task.where(relationship_id: current_user.relationship_id).where(limit_day: ...Time.current + 1.days).eager_load(:user).order(limit_day: :asc)
+items_json = relationship_task.as_json(include: {user: {only: [:id, :name, :gender]}})
+task=current_user.tasks.count
+taks.as _json
+taks.as_json
+tasks.as_json
+task
+task.to_json
+items_json << task
+items_json
+items_json = relationship_task.as_json(include: {user: {only: [:id, :name, :gender]}})
+items_json
+items_json << task
+current_user.tasks
+current_user.tasks.count
+Task.all
+exit
+Task.all
+User.all
+Task.all
+reload!
+Task.all
+reload!
+Task.all
+exit
+Task.all
+elationship_task = Task.where(relationship_id: current_user.relationship_id)
+Task.where(relationship_id: curwhere("limit_day = self.limit_day + 1.days < Time.current ").eager_load(:user).order(limit_day: :asc).he"limit_day = self.limit_day + 1.days < current ").eager_load(:user).order(limit.where("limit_day = self.limit_day + 1.days < Time.urrent ")eae_la(usr).order(limit_    .where("limit_day = self.limit_day + 1.days < Tme.current ").eager_load(:user).oder
+relationship_task = Task.where(relationship_id: current_user.relationship_id).where("limit_day = self.limit_day + 1.days < Time.current ").eager_load(:user).order(limit_day: :asc)
+q
+relationship_task = Task.where(relationship_id: current_user.relationship_id).where("limit_day = self.limit_day + 1.days < Time.current ").eager_load(:user).order(limit_day: :asc)
+qq
+rrntq
+qq
+current_user=User.first
+relationship_task = Task.where(relationship_id: current_user.relationship_id).where("limit_day = self.limit_day + 1.days < Time.current ").eager_load(:user).order(limit_day: :asc)
+relationship_task = Task.where(relationship_id: current_user.relationship_id).where("limit_day = #{self.limit_day} + #{1.days} < #{Time.current} ").eager_load(:user).order(limit_day: :asc)

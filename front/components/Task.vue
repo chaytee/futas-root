@@ -9,6 +9,7 @@
             <span class="limit__time">{{ taskTime }}</span>
           </div>
           <p>{{ iconWho }}</p>
+          <!-- <p>{{ doneDate }}</p> -->
           <p class="task-box__title">{{ taskTitle }}</p>
           <p class="task-box__tonow nm">{{ testToNow }}</p>
         </div>
@@ -31,8 +32,8 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/ja'
 dayjs.extend(require('dayjs/plugin/timezone'));
 dayjs.extend(require('dayjs/plugin/utc'));
-dayjs.tz.setDefault('Asia/Tokyo');
 dayjs.extend(require('dayjs/plugin/relativeTime'));
+dayjs.tz.setDefault('Asia/Tokyo');
 
 dayjs.locale('ja');
 const toNow = dayjs().toNow();
@@ -58,22 +59,30 @@ export default {
     taskDate() {
       return dayjs(this.task.limit_day).tz().format("YYYY/MM/DD");
     },
+    // doneDate: function () {
+    //   console.log(this.task.is_done);
+    // },
     taskTime() {
-      //InvalidDateになってる null
-      console.log(this.task.limit_time);
-      console.log('今日です');
-      console.log(dayjs().format());
-      return dayjs(this.task.limit_time).tz().format("hh:mm") || "";
+      if(this.task.limit_time === null || this.task.limit_time === undefined ) {
+        return this.task.limit_time = ""
+      }
+      return dayjs(this.task.limit_time).tz().format("HH:MM") || "";
     },
     testToNow: function() {
       return dayjs().tz().toNow();
     },
     iconWho: function() {
-      console.log(this.task);
-      if(this.task.gender === 1){
+      console.log(this.task.user);
+      if(this.task.user.gender === 1){
         return this.isHusIcon = !this.isHusIcon
       }
-    }
+    },
+    husbandTaskCount: function () {
+
+    },
+    wifeTaskCount: function () {
+
+    },
   },
   methods: {
     toEdit() {

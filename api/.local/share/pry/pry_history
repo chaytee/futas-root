@@ -241,3 +241,8 @@ qq
 current_user=User.first
 relationship_task = Task.where(relationship_id: current_user.relationship_id).where("limit_day = self.limit_day + 1.days < Time.current ").eager_load(:user).order(limit_day: :asc)
 relationship_task = Task.where(relationship_id: current_user.relationship_id).where("limit_day = #{self.limit_day} + #{1.days} < #{Time.current} ").eager_load(:user).order(limit_day: :asc)
+exit
+user=User.first
+user.tasks
+user.tasks.find(1)
+user.find(current_user.relationship.id)

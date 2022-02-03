@@ -72,7 +72,7 @@ export default {
       return dayjs().tz().toNow();
     },
     iconWho: function() {
-      console.log(this.task.user);
+      console.log(this.task);
       if(this.task.user.gender === 1){
         return this.isHusIcon = !this.isHusIcon
       }
@@ -90,7 +90,7 @@ export default {
     },
     async complete() {
       await this.$axios.$patch(`api/users/tasks/${this.task.id}`, {
-        is_done: true,
+        is_done: 1,
       });
       this.$router.push(`tasks`);
       window.location.reload();

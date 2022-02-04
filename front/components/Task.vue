@@ -59,9 +59,6 @@ export default {
     taskDate() {
       return dayjs(this.task.limit_day).tz().format("YYYY/MM/DD");
     },
-    // doneDate: function () {
-    //   console.log(this.task.is_done);
-    // },
     taskTime() {
       if(this.task.limit_time === null || this.task.limit_time === undefined ) {
         return this.task.limit_time = ""
@@ -72,16 +69,9 @@ export default {
       return dayjs().tz().toNow();
     },
     iconWho: function() {
-      console.log(this.task);
       if(this.task.user.gender === 1){
         return this.isHusIcon = !this.isHusIcon
       }
-    },
-    husbandTaskCount: function () {
-
-    },
-    wifeTaskCount: function () {
-
     },
   },
   methods: {
@@ -89,18 +79,17 @@ export default {
       this.$router.push(`/tasks/${this.task.id}`);
     },
     async complete() {
+
       await this.$axios.$patch(`api/users/tasks/${this.task.id}`, {
-        is_done: 1,
+
+        //夫だった場合is_done: 1　妻 is_done: 2
+        is_done: this.$auth.user.gender === 1 ? 1 : 2,
+        //is_done: this.$auth.user.id
+        // user.idごとのis_doneの個数
       });
       this.$router.push(`tasks`);
       window.location.reload();
     },
-    // async incomplete() {
-    //   await this.$axios.$patch(`/tasks/${this.task.id}`, {
-    //     is_done: false,
-    //   });
-    //   window.location.href = process.env.hostUrl + "/tasks";
-    // },
     async remove() {
       const confirmation = window.confirm("本当に削除しますか？");
       if (confirmation) {

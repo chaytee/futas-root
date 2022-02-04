@@ -126,11 +126,6 @@ export default {
           limit_day: this.limit_day,
           limit_time: this.limit_time,
 
-          // user: {
-          //   name: this.name,
-          //   gender: this.gender,
-          //   id: this.id
-          // }
         },
       };
       //新規であれば新規フォームへ既にtask-idのあるものは編集フォームへ

@@ -1,6 +1,6 @@
 <template>
   <div class="mission" v-bind:class="{ husband: isActive }">
-    <TotalScore />
+    <TotalScore :husband="this.husband" :wife="this.wife" />
     <h2>Mission</h2>
     <Task v-for="task in taskData" :key="task.id" :task="task" />
     <TaskForm />
@@ -32,31 +32,27 @@ export default {
       taskData: [],
       genderData: '',
       isActive: false,
-      taskCount:{}
+      taskCount:{},
+      husband: 0,
+      wife: 0,
     };
   },
   async created() {
     await this.$axios.$get("/api/users/tasks").then((res) => {
 
-      //タスク情報の取得
-      this.taskData = Array.from(res).filter((data) => {
-        console.log(res);
+      this.husband = res.husband;
+      this.wife = res.wife;
 
-        // console.log(dayjs(data.limit_day));
-        // console.log(tomorrow );
+      //タスク情報の取得
+      this.taskData = Array.from(res.tasks).filter((data) => {
 
         return (data.is_done === 0 || data.is_done === null) && dayjs(data.limit_day) > now;
       });
-      //夫婦別ハッシュにしたい
-      // this.taskCount  = Hash.from(res).filter((data) => {
-
-      //   return ;
-      // });
+    // console.log(res);
     });
   },
   async mounted() {
     await this.$axios.$get("/api/user/?id").then((res)=> {
-      // console.log(res.gender);
       this.genderData = res.gender;
       //性別が男だったらhusbandをつける
       if(this.genderData === 1 ) {

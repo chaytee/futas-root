@@ -11,15 +11,16 @@ class Api::Users::TasksController < Api::UserController
     #...現在以降
     relationship_task = Task.where(relationship_id: current_user.relationship_id).where(limit_day: Time.current... ).eager_load(:user).order(limit_day: :asc)
     # #as_json()の中を含んでjsonにするよ
-    items_json = relationship_task.as_json(include: {user: {only: [:id, :name, :gender]}})
+    #  items_json = relationship_task.as_json(include: {user: {only: [:id, :name, :gender]}})
+    items = relationship_task.as_json(include: {user: {only: [:id, :name, :gender]}})
     # render json: items_json
+    items_json = {tasks: items}
 
+    husband_tasks_count = Relationship.find(current_user.relationship.id).users.find_by(gender: 1).tasks.where(is_done: 1).count
+    wife_tasks_count = Relationship.find(current_user.relationship.id).users.find_by(gender: 2).tasks.where(is_done: 2).count
+    each_task_count = { husband: husband_tasks_count, wife: wife_tasks_count }
 
-    husband_tasks_count = Relationship.find(current_user.relationship.id).users.find_by(gender: 1).tasks.count
-    wife_tasks_count = Relationship.find(current_user.relationship.id).users.find_by(gender: 2).tasks.count
-    each_task_count = { husband: husband_tasks_count, wife: wife_tasks_count }.as_json
-    #<< シフト演算 配列への追加
-    request_json = items_json << each_task_count
+    request_json = items_json.merge each_task_count
     render json: request_json
 
   end
@@ -32,7 +33,8 @@ class Api::Users::TasksController < Api::UserController
     if task.present?
       render json: task
     else
-      render json: { error_message: 'Not Found'}
+    #front側で条件分岐しやすい status: :bad_request or not found
+      render json: { error_message: 'Not Found'}, status: :bad_request
     end
   end
 

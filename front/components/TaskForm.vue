@@ -2,6 +2,7 @@
   <div class="task-form">
     <div class="box input__box">
       <h2 class="section__title">Mission input</h2>
+      <div class="error">{{ error }}</div>
       <form class="box__form">
         <div class="box__in">
           <div class="box__input">
@@ -20,6 +21,7 @@
         </div>
         <div class="limit">
           <h3 class="sub__title">Limit</h3>
+          <p>※期限日は必ず入れてください。</p>
           <div class="limit__box">
             <div class="limit__btn">
               <button class="btn__click" type="button" @click="getToday()">今日</button>
@@ -54,21 +56,14 @@
 </template>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-const dayjs = require('dayjs');
-dayjs.extend(require('dayjs/plugin/timezone'));
-dayjs.extend(require('dayjs/plugin/utc'));
-dayjs.tz.setDefault('Asia/Tokyo');
-dayjs.extend(require('dayjs/plugin/relativeTime'));
-
 import 'flatpickr/dist/themes/confetti.css';
+// import { validationMixin } from 'vuelidate';
+// import { required } from 'vuelidate/lib/validators';
+
 const flatpickr = require('flatpickr').default;
 
-const now = dayjs();
-// const today = now.format("YYYY-MM-DD");
-const toNow = dayjs().toNow();
-
 export default {
-
+  // mixins: [validationMixin],
   //_id.vueからedit()用
   props: {
     //task-id
@@ -78,12 +73,12 @@ export default {
       default: "",
     },
   },
-  // watch: {
-  //   taskId(newValue) {
-  //     this.taskId = newValue
+  watch: {
+    taskId(newValue) {
+      this.taskId = newValue
 
-  //   }
-  // }
+    }
+  },
   data() {
     return {
       title: "",
@@ -91,6 +86,7 @@ export default {
       limit_time: "",
       datetime: "",
       datePick: "datePick",
+      error: null,
     };
   },
   async created() {
@@ -108,15 +104,15 @@ export default {
       console.log(today)
     },
     getTomorrow: function() {
-      const tomorrow = now.add(1, "day").format("YYYY-MM-DD");
+      const tomorrow = this.$dayjs().add(1, "day").format("YYYY-MM-DD");
       document.getElementById("limit_day").value = tomorrow;
     },
     getDayAfterTomorrow: function() {
-      const dayAfterTomorrow = now.add(2, "day").format("YYYY-MM-DD");
+      const dayAfterTomorrow = this.$dayjs().add(2, "day").format("YYYY-MM-DD");
       document.getElementById("limit_day").value = dayAfterTomorrow;
     },
     getAfterOneWeek: function() {
-      const afterOneWeek = now.add(1, "week").format("YYYY-M-DD");
+      const afterOneWeek = this.$dayjs().add(1, "week").format("YYYY-M-DD");
       document.getElementById("limit_day").value = afterOneWeek;
     },
     submit() {
@@ -137,9 +133,13 @@ export default {
       this.limit_time = "";
     },
     create(params) {
+
       this.$axios
         .post("/api/users/tasks", params)
         .then((res) => {
+          if (res.task.limit_day === '') {
+            return
+          }
           if (params) {
           const errorMessage = `
             下記の部分を確認してください. \n
@@ -150,8 +150,11 @@ export default {
             window.confirm(errorMessage);
           }
           window.location.reload();
+        }).catch(error => {
+          //console.log(error.res)
+           this.error = '登録できませんでした。'
+          //  window.location.reload();
         })
-        // .catch((err) => console.log(err));
     },
     update(params, id) {
       this.$axios.patch(`/api/users/tasks/${id}`, params).then((res) => {

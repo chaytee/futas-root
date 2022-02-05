@@ -14,7 +14,7 @@
           <li>
             <div class="error">{{ error }}</div>
           </li>
-          <li>ログイン状態:{{ $auth.loggedIn }}</li>
+          <!-- <li>ログイン状態:{{ $auth.loggedIn }}</li> -->
         </ul>
       </div>
       <ul class="menu-list columns">
@@ -68,6 +68,10 @@ export default {
 </script>
 <style lang="scss">
 #navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   box-sizing: border-box;
   padding: 0 30px;
   height: 100px;
@@ -105,6 +109,9 @@ export default {
         text-decoration: underline;
         border: none;
       }
+    }
+    .nuxt-link-exact-active  {
+      color: #ccc;
     }
   }
 }

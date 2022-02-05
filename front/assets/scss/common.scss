@@ -61,7 +61,6 @@
   }
 }
 /* task-box */
-
 .mission {
   .task-box + .task-box {
     margin-top: 20px;
@@ -114,7 +113,7 @@
     }
   }
 }
-.mission.husband {
+.mission.husband, .edit-block.husband {
   .task-form {
     .input__box {
       background-color: $husbandColor;
@@ -140,13 +139,33 @@
   }
 }
 
-/**/
+/* ページ別 */
 .welcome__title {
   font-size: 110%;
 }
 .form__box {
   max-width: 300px;
   margin: auto;
+}
+.invitation {
+  margin-top: 40px;
+  width: 80%;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 40px 50px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+
+  &__title {
+    font-size: 110%;
+    margin-bottom: 15px;
+    color: #fff;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    background-color: #ccc;
+    padding: 5px 15px;
+    border-radius: 15px;
+    display: inline-block;
+  }
 }
 #footer {
   background-color: #111;

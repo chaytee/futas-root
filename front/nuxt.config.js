@@ -74,7 +74,7 @@ export default {
   plugins: [
     { src: '@/plugins/axios.js', ssr: false },
     //  { src: '@/plugins/action-cable.js', mode: 'client' }
-    { src: '@/plugins/day.js', ssr: false }
+    { src: '@/plugins/day.js' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -84,16 +84,26 @@ export default {
   buildModules: [
   ],
 
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     '@nuxtjs/bulma',
     '@nuxtjs/axios',
     '@nuxtjs/style-resources',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/fontawesome'
   ],
   axios: {
     // APR_URL: "http://localhost:3000"
+  },
+  fontawesome: {
+    imports: [
+      {
+        set: '@fortawesome/free-solid-svg-icons',
+        icons: ['fas'],
+      },
+    ],
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

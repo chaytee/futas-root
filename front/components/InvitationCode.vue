@@ -1,21 +1,31 @@
 <template>
   <div class="invitation-code">
-    <p>合言葉を未設定の場合</p>
+    <h2 class="invitation__title">合言葉を未設定の場合</h2>
     <p>1. パートナーと繋がるために『合言葉』を発行してください。</p>
     <p>2. 発行した『合言葉』は忘れないように、パートナーへ伝えてください。</p>
     <div class="invitation-code-display">
       <!--ここはapiからaxiosで接続するのか？-->
       <form action="">
-        <input class="form-control" type="text" v-model="paircode" />
-        <input type="hidden" v-model="pass_type" />
+        <div class="control has-icons-left">
+          <input
+            class="form-control input is-large"
+            type="text"
+            v-model="paircode"
+          />
+          <span class="icon is-large is-left">
+            <font-awesome-icon icon="key" />
+          </span>
+        </div>
+        <input type="hidden" class="input is-large" v-model="pass_type" />
         <!-- <input class="form-control" type="text" v-model="user_id" /> -->
         <!-- <input class="form-control" id="copyTarget" type="text" readonly /> -->
-        <button class="btn mb-3" type="button" @click="submit()">
-          発行する
-        </button>
+        <div class="btn__wrap">
+          <button class="btn__grade" type="button" @click="submit()">
+            発行する
+          </button>
+        </div>
       </form>
     </div>
-    <div></div>
   </div>
 </template>
  <script>

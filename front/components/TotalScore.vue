@@ -1,5 +1,5 @@
 <template>
-  <div class="total-score">
+  <div class="total-score mt-3">
     <dl class="score__box">
       <dt class="score__title">total score</dt>
       <dd class="score__contents">
@@ -39,7 +39,6 @@ export default {
 .total-score {
   display: flex;
   justify-content: flex-end;
-  padding-bottom: 10px;
 
   .score__box {
     width: 420px;

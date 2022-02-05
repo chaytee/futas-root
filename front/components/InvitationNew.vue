@@ -1,48 +1,57 @@
 <template>
   <div class="invitation-new">
-    <p>パートナーが合言葉を発行した場合</p>
+    <h2 class="invitation__title">パートナーが合言葉を発行した場合</h2>
     <div class="invitation-code-form">
       <form>
         <div class="field">
           <label for="label"
             >パートナーから伝えられた『合言葉』を入力してください。</label
           >
-          <div class="controle">
+          <div class="control has-icons-left">
             <input
-              class="form-label"
+              class="form-label input is-large"
               type="text"
               required
               placeholder="合言葉の入力"
               v-model="paircode"
             />
-            <input type="hidden" v-model="pass_type" />
+            <input type="hidden" class="input is-large" v-model="pass_type" />
+            <span class="icon is-large is-left">
+              <font-awesome-icon icon="key" />
+            </span>
           </div>
         </div>
         <div class="field">
           <label for="label">パートナーの登録メールアドレス</label>
-          <div class="controle">
+          <div class="control has-icons-left">
             <input
-              class="form-label"
+              class="form-label input is-large"
               type="email"
               required
               placeholder="パートナーの登録メールアドレス"
               v-model="partner_email"
             />
+            <span class="icon is-large is-left">
+              <font-awesome-icon icon="envelope" />
+            </span>
           </div>
         </div>
         <div class="field">
           <label for="label">あなたの名前（登録するお名前）</label>
-          <div class="controle">
+          <div class="control has-icons-left">
             <input
-              class="form-label"
+              class="form-label input is-large"
               type="text"
               required
               placeholder="あなたの名前"
             />
+            <span class="icon is-large is-left">
+              <font-awesome-icon icon="user-check" />
+            </span>
           </div>
         </div>
-        <div class="control">
-          <button class="button is-primary" @click.prevent="submit()">登録する</button>
+        <div class="btn__wrap">
+          <button class="btn__grade" @click.prevent="submit()">登録する</button>
         </div>
       </form>
     </div>
@@ -63,13 +72,12 @@ export default {
         relationship: {
           paircode: this.paircode,
           pass_type: this.pass_type,
-          partner_email: this.partner_email
+          partner_email: this.partner_email,
         },
       };
       this.create(params);
     },
     create(params) {
-
       this.$axios
         .post("api/users/relationships", params)
         .then((res) => {
@@ -84,14 +92,12 @@ export default {
           this.$router.push("/");
         })
         .catch((error) => {
-
-        //   const errorMessage = `
-        //     ${error.errors}
-        //   `;
-        //   console.log(errorMessage);
-        console.log(error);
+          //   const errorMessage = `
+          //     ${error.errors}
+          //   `;
+          //   console.log(errorMessage);
+          console.log(error);
         });
-
     },
   },
 };

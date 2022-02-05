@@ -8,11 +8,11 @@ class Api::UserController < ApplicationController
   # user 一覧の取得
   def index
     #フロントに渡したいものgender
-    render json: current_user.to_json(only: [:id, :name, :gender])
+    render json: current_user.to_json(only: [:id, :name, :gender, :relationship_id])
   end
 
   def show
-    render json: current_user.to_json(only: [:id, :name, :gender])
+    render json: current_user.to_json(only: [:id, :name, :gender, :relationship_id])
   end
 
 

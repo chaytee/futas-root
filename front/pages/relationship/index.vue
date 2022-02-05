@@ -1,10 +1,9 @@
 <template>
   <div>
-      <div class="box">
+      <div v-if="!invitationShow" class="invitation" >
         <invitationCode />
       </div>
-      <hr>
-      <div class="box">
+      <div v-if="invitationShow" class="invitation">
         <invitationNew />
       </div>
   </div>
@@ -16,11 +15,15 @@
 
     export default {
     components: { InvitationCode, InvitationNew },
+    data() {
+      return {
+        invitationShow: true
+      }
+    },
+    mounted() {
+      if(this.$auth.user.relationship_id === null ){
+          return this.invitationShow = !this.invitationShow;
+      }
+    }
   }
-    // function copyToClipboard() {
-    //   var copyTarget = document.getElementById("copyTarget");
-    //   copyTarget.select();
-    //   //document.execCommand("Copy");
-    //   alert('コピーしました');
-    // }
 </script>

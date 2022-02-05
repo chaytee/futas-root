@@ -28,15 +28,8 @@
   </div>
 </template>
 <script>
-import dayjs from 'dayjs';
-import 'dayjs/locale/ja'
-dayjs.extend(require('dayjs/plugin/timezone'));
-dayjs.extend(require('dayjs/plugin/utc'));
-dayjs.extend(require('dayjs/plugin/relativeTime'));
-dayjs.tz.setDefault('Asia/Tokyo');
-
-dayjs.locale('ja');
-const toNow = dayjs().toNow();
+import { formatDistanceToNow } from 'date-fns'
+import { ja } from 'date-fns/locale'
 
 export default {
   data(){
@@ -57,16 +50,16 @@ export default {
       return this.task.title;
     },
     taskDate() {
-      return dayjs(this.task.limit_day).tz().format("YYYY/MM/DD");
+      return this.$dayjs(this.task.limit_day).tz().format("YYYY/MM/DD");
     },
     taskTime() {
       if(this.task.limit_time === null || this.task.limit_time === undefined ) {
         return this.task.limit_time = ""
       }
-      return dayjs(this.task.limit_time).tz().format("HH:MM") || "";
+      return this.$dayjs(this.task.limit_time).tz().format("HH:MM") || "";
     },
     testToNow: function() {
-      return dayjs().tz().toNow();
+      return formatDistanceToNow(new Date(this.task.created_at), { locale: ja })
     },
     iconWho: function() {
       if(this.task.user.gender === 1){

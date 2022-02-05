@@ -1,25 +1,18 @@
 <template>
   <div class="mission" v-bind:class="{ husband: isActive }">
     <TotalScore :husband="this.husband" :wife="this.wife" />
-    <h2>Mission</h2>
+    <h2 class="mb-2">Mission</h2>
     <Task v-for="task in taskData" :key="task.id" :task="task" />
     <TaskForm />
   </div>
 </template>
 <script>
+// import {mapGetters, mapActions } from 'vuex';
+
+
 import Task from "../../components/Task.vue";
 import TaskForm from "../../components/TaskForm.vue";
 import TotalScore from "../../components/TotalScore.vue";
-
-const dayjs = require('dayjs');
-dayjs.extend(require('dayjs/plugin/timezone'));
-dayjs.extend(require('dayjs/plugin/utc'));
-dayjs.tz.setDefault('Asia/Tokyo');
-dayjs.extend(require('dayjs/plugin/relativeTime'));
-
-const now = dayjs();
-const tomorrow = now.add(1, "day");
-
 
 export default {
   components: {
@@ -37,8 +30,16 @@ export default {
       wife: 0,
     };
   },
+  // computed: mapGetters(['allTasks']),
+  // methods: {
+  //   ...mapActions(['fetchTasks']),
+  // },
   async created() {
     await this.$axios.$get("/api/users/tasks").then((res) => {
+
+      console.log(this.$store.state);
+
+      const now = this.$dayjs();
 
       this.husband = res.husband;
       this.wife = res.wife;
@@ -46,10 +47,11 @@ export default {
       //タスク情報の取得
       this.taskData = Array.from(res.tasks).filter((data) => {
 
-        return (data.is_done === 0 || data.is_done === null) && dayjs(data.limit_day) > now;
+        return (data.is_done === 0 || data.is_done === null) && this.$dayjs(data.limit_day) > now;
       });
     // console.log(res);
     });
+    // this.fetchTasks();
   },
   async mounted() {
     await this.$axios.$get("/api/user/?id").then((res)=> {

@@ -18,10 +18,10 @@
         </ul>
       </div>
       <ul class="menu-list columns">
-        <li class="column">
+        <li class="column" v-bind:class="{menu_none : menuNone}">
           <nuxt-link to="/"><span class="menu_title">HOME</span></nuxt-link>
         </li>
-        <li class="column">
+        <li class="column" v-bind:class="{menu_none : menuNone}">
           <nuxt-link to="/chatroom"
             ><span class="menu_title">chatroom</span></nuxt-link
           >
@@ -29,7 +29,7 @@
         <li class="column">
           <nuxt-link to="/relationship"
             ><span class="menu_title"
-              ><span class="menu_title">relationship</span></span
+              ><span class="menu_title">Setting</span></span
             ></nuxt-link
           >
         </li>
@@ -45,6 +45,7 @@ export default {
       name: "",
       email: "",
       error: null,
+      menuNone: false,
     };
   },
   methods: {
@@ -62,6 +63,9 @@ export default {
   mounted() {
     if (localStorage.uid) {
       this.name = localStorage.getItem('name');
+    }
+    if(this.$auth.user.relationship_id === null ){
+        return this.menuNone= !this.menuNone;
     }
   },
 };
@@ -112,6 +116,11 @@ export default {
     }
     .nuxt-link-exact-active  {
       color: #ccc;
+    }
+  }
+  .menu-list {
+    li.menu_none {
+      display: none;
     }
   }
 }

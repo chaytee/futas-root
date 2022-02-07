@@ -8,8 +8,8 @@ class Api::Users::TasksController < Api::UserController
     # render json: post.order(limit_day: :asc)
 
     #genderが欲しい joins関連性のないものをくっつけるincludes関連性があるものの意味合い
-    #...現在以降
-    relationship_task = Task.where(relationship_id: current_user.relationship_id).where(limit_day: Time.current... ).eager_load(:user).order(limit_day: :asc)
+    #Time.current...現在以降
+    relationship_task = Task.where(relationship_id: current_user.relationship_id).where(limit_day: Time.current.yesterday... ).eager_load(:user).order(limit_day: :asc)
     # #as_json()の中を含んでjsonにするよ
     #  items_json = relationship_task.as_json(include: {user: {only: [:id, :name, :gender]}})
     items = relationship_task.as_json(include: {user: {only: [:id, :name, :gender]}})

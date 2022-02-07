@@ -15,39 +15,27 @@
             />
           </div>
           <div class="btn__wrap">
-            <button class="btn__clear" type="button" @click="remove()">取り消す</button>
+            <button class="btn__clear" type="button" @click="remove()">
+              取り消す
+            </button>
             <button class="btn__accent" @click.prevent="submit()">送信</button>
           </div>
         </div>
         <div class="limit">
           <h3 class="sub__title">Limit</h3>
-          <p>※期限日は必ず入れてください。</p>
           <div class="limit__box">
-            <div class="limit__btn">
-              <button class="btn__click" type="button" @click="getToday()">今日</button>
-              <button class="btn__click" type="button" @click="getTomorrow()">明日</button>
-              <button class="btn__click" type="button" @click="getDayAfterTomorrow()">
-                明後日
-              </button>
-              <button class="btn__click" type="button" @click="getAfterOneWeek()">
-                一週間以内
-              </button>
-            </div>
-            <div class="put_limit">
-              <!-- <input
-                class="input is_medium"
-                id="limit_day"
-                type="text"
-                placeholder="2021-07-14"
-                v-model="limit_day"
-              /> -->
-              <input class="input is-large put_day" type="text" required v-bind:id="datePick" v-model="limit_day">
-              <input
-                class="input is-large put_time"
-                type="time"
-                v-model="limit_time"
-              />
-            </div>
+            <input
+              class="input is-large put_day"
+              type="text"
+              required
+              v-bind:id="datePick"
+              v-model="defaultDate"
+            />
+            <input
+              class="input is-large put_time"
+              type="time"
+              v-model="limit_time"
+            />
           </div>
         </div>
       </form>
@@ -56,11 +44,13 @@
 </template>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-import 'flatpickr/dist/themes/confetti.css';
+import "flatpickr/dist/themes/confetti.css";
+import 'flatpickr/dist/flatpickr.min.css';
 // import { validationMixin } from 'vuelidate';
 // import { required } from 'vuelidate/lib/validators';
 
-const flatpickr = require('flatpickr').default;
+
+const flatpickr = require("flatpickr").default;
 
 export default {
   // mixins: [validationMixin],
@@ -75,9 +65,8 @@ export default {
   },
   watch: {
     taskId(newValue) {
-      this.taskId = newValue
-
-    }
+      this.taskId = newValue;
+    },
   },
   data() {
     return {
@@ -99,29 +88,13 @@ export default {
     }
   },
   methods: {
-    getToday: function() {
-      document.getElementById("limit_day").value = today;
-      console.log(today)
-    },
-    getTomorrow: function() {
-      const tomorrow = this.$dayjs().add(1, "day").format("YYYY-MM-DD");
-      document.getElementById("limit_day").value = tomorrow;
-    },
-    getDayAfterTomorrow: function() {
-      const dayAfterTomorrow = this.$dayjs().add(2, "day").format("YYYY-MM-DD");
-      document.getElementById("limit_day").value = dayAfterTomorrow;
-    },
-    getAfterOneWeek: function() {
-      const afterOneWeek = this.$dayjs().add(1, "week").format("YYYY-M-DD");
-      document.getElementById("limit_day").value = afterOneWeek;
-    },
+
     submit() {
       const params = {
         task: {
           title: this.title,
           limit_day: this.limit_day,
           limit_time: this.limit_time,
-
         },
       };
       //新規であれば新規フォームへ既にtask-idのあるものは編集フォームへ
@@ -133,15 +106,12 @@ export default {
       this.limit_time = "";
     },
     create(params) {
-
       this.$axios
         .post("/api/users/tasks", params)
         .then((res) => {
-          if (res.task.limit_day === '') {
-            return
-          }
+
           if (params) {
-          const errorMessage = `
+            const errorMessage = `
             下記の部分を確認してください. \n
             タイトル: ${params.task.title}
             日付: ${params.task.limit_day}
@@ -150,11 +120,12 @@ export default {
             window.confirm(errorMessage);
           }
           window.location.reload();
-        }).catch(error => {
-          //console.log(error.res)
-           this.error = '登録できませんでした。'
-          //  window.location.reload();
         })
+        .catch((error) => {
+          //console.log(error.res)
+          this.error = "登録できませんでした。";
+          //  window.location.reload();
+        });
     },
     update(params, id) {
       this.$axios.patch(`/api/users/tasks/${id}`, params).then((res) => {
@@ -171,22 +142,32 @@ export default {
       });
     },
   },
-  mounted() {
-    flatpickr('#' + this.datePick);
-
-  },
   computed: {
+    //flatpickrのdefaultDateがなぜか不具合
+    defaultDate: function () {
 
-  }
+      return this.limit_day = this.$dayjs().tz().format('YYYY-MM-DD');
+    }
+  },
+  mounted() {
+    //console.log(this.$dayjs().tz().format('YYYY-MM-DD'));
 
+    flatpickr("#" + this.datePick, {
+      minDate: "today", //当日以前を選択不可に
+      locale: {
+        firstDayOfWeek: 1 // 月曜日を週の始めに設定
+      },
+      //defaultDate : new Date(),
+    });
+  },
 };
 </script>
 <style lang="scss">
-
 .task-form {
   margin-top: 40px;
+  margin-bottom: 30px;
   .box {
-    padding: 20px;
+    padding: 30px 20px 50px;
     &__in {
       display: flex;
       justify-content: center;
@@ -207,14 +188,33 @@ export default {
   .limit {
     margin-top: 15px;
 
-    &__btn {
-      margin-bottom: 15px;
-    }
-
     input {
       max-width: 260px;
       box-sizing: border-box;
     }
   }
+}
+$red        : #f00;
+$blue       : #25bdcf;
+
+.flatpickr-day.selected {
+  background-color: #ccc;
+  border: none;
+}
+/* 日曜日：赤 */
+.flatpickr-calendar .flatpickr-innerContainer .flatpickr-weekdays .flatpickr-weekday:nth-child(7n),
+.flatpickr-calendar .flatpickr-innerContainer .flatpickr-days .flatpickr-day:not(.flatpickr-disabled):not(.prevMonthDay):not(.nextMonthDay):nth-child(7n) {
+  color: $red;
+}
+
+/* 土曜日：青 */
+.flatpickr-calendar .flatpickr-innerContainer .flatpickr-weekdays .flatpickr-weekday:nth-child(6),
+.flatpickr-calendar .flatpickr-innerContainer .flatpickr-days .flatpickr-day:not(.flatpickr-disabled):not(.prevMonthDay):not(.nextMonthDay):nth-child(7n - 1) {
+  color: $blue;
+}
+
+/* 祝日 */
+.flatpickr-day.is-holiday{
+  background: lighten($red, 40%) !important;
 }
 </style>

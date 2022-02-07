@@ -75,6 +75,19 @@
       align-items: center;
       padding: 15px 20px;
     }
+    .time_over {
+      position: relative;
+      &::before {
+      content: "";
+      width: 361px;
+      height: 92px;
+      position: absolute;
+      top: calc( 50% - 45px);
+      left: calc( 50% - 190px);
+      background: url(~/assets/img/time_over.png) no-repeat center / 100% auto;
+      z-index: 3;
+      }
+    }
     &__in {
       width: 100%;
       display: -webkit-flex;
@@ -93,8 +106,21 @@
       background-size: 23px;
       border-radius: 5px;
       color: #fff;
-      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
       background-color: $wifeColor;
+    }
+    &__limit.hurry {
+      background-color: #EB0000 !important;
+      position: relative;
+
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 36px;
+        height: 15px;
+        background: url(~/assets/img/hurry.png) no-repeat center / auto 100%;
+        margin-right: 10px;
+      }
     }
     &__icon {
       width: 50px;

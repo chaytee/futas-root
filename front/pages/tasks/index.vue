@@ -37,7 +37,7 @@ export default {
   async created() {
     await this.$axios.$get("/api/users/tasks").then((res) => {
 
-      console.log(this.$store.state);
+      // console.log(this.$store.state);
 
       const now = this.$dayjs();
 
@@ -47,9 +47,14 @@ export default {
       //タスク情報の取得
       this.taskData = Array.from(res.tasks).filter((data) => {
 
-        return (data.is_done === 0 || data.is_done === null) && this.$dayjs(data.limit_day) > now;
+        // const limitDayDo  = this.$dayjs(data.limit_day) < now;
+
+        // const yesterday = this.$dayjs().add(-1, "day");
+        // console.log(yesterday);
+        return (data.is_done === 0 || data.is_done === null) && this.$dayjs(data.limit_day)
+        // > yesterday;
       });
-    // console.log(res);
+    //  console.log(this.taskData);
     });
     // this.fetchTasks();
   },

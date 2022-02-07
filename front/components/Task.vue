@@ -1,14 +1,15 @@
 <template>
   <div class="task-box">
-    <div class="box">
+    <div class="box" v-bind:class="{time_over: isTimeOver}">
       <div class="task-box__icon" v-bind:class="{ hicon: isHusIcon }"></div>
       <div class="task-box__in">
         <div class="task-box__main">
-          <div class="task-box__limit mb-3">
+          <div class="task-box__limit mb-3" v-bind:class="{ hurry: isLimit }">
             <span class="limit__day">{{ taskDate }}</span>
             <span class="limit__time">{{ taskTime }}</span>
           </div>
-          <p>{{ iconWho }}</p>
+          <p>{{isTimeOver}}</p>
+          <!-- <p>{{ iconWho }}</p> -->
           <!-- <p>{{ doneDate }}</p> -->
           <p class="task-box__title">{{ taskTitle }}</p>
           <p class="task-box__tonow nm">{{ testToNow }}</p>
@@ -35,6 +36,8 @@ export default {
   data(){
     return {
       isHusIcon: false,
+      isLimit: false,
+      isTimeOver: false
     };
 
   },
@@ -99,5 +102,18 @@ export default {
       }
     },
   },
+  mounted(){
+    const today = this.$dayjs().tz().format("YYYY/MM/DD");
+    const yesterday = this.$dayjs().add(-1, "day").format("YYYY/MM/DD");
+
+    //タイムオーバー条件
+    if(this.$dayjs(this.task.limit_day).tz().format("YYYY/MM/DD") === yesterday) {
+      return this.isTimeOver = !this.isTimeOver
+    }
+    //Hurry!条件
+    if(this.$dayjs(this.task.limit_day).tz().format("YYYY/MM/DD") === today){
+      return this.isLimit = !this.isLimit
+    }
+  }
 };
 </script>

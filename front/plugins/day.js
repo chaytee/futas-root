@@ -9,4 +9,3 @@ dayjs.locale(ja);
 export default ({ app }, inject) => {
   inject('dayjs', ((string) => dayjs(string)))
 }
-//動かない

@@ -9,7 +9,27 @@
           v-model="message"
         ></textarea>
         <div class="btn__area">
-          <button class="btn__grade" type="submit" @click.prevent="handleSubmit">
+          <div class="control has-icons-left mr-5">
+            <div class="select is-large is-danger">
+              <select v-model="selected">
+                <option
+                  v-for="(option, key) in options"
+                  v-bind:value="option.value"
+                  :key="key"
+                >
+                  {{ option.text }}
+                </option>
+              </select>
+            </div>
+            <span class="icon is-medium is-left">
+              <font-awesome-icon icon="skull-crossbones" />
+            </span>
+          </div>
+          <button
+            class="btn__grade"
+            type="submit"
+            @click.prevent="handleSubmit"
+          >
             送信
           </button>
           <button
@@ -31,12 +51,20 @@ export default {
   data() {
     return {
       message: "",
+      selected: "1",
+      options: [
+        { text: "レベル1", value: 1 },
+        { text: "レベル２", value: 2 },
+        { text: "レベル３", value: 3 },
+      ],
     };
   },
   methods: {
     handleSubmit() {
-      this.$emit("connectCable", this.message);
+      this.$emit("connectCable", this.message, this.selected);
+
       this.message = "";
+      this.selected = "";
     },
     inputCrea() {
       this.message = "";
@@ -75,6 +103,5 @@ export default {
       margin-left: 30px;
     }
   }
-
 }
 </style>

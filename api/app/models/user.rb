@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   belongs_to :relationship, optional: true
   has_many :tasks
+  has_many :messages
 
   validates :name, presence: true
   validates :name, length: { maximum: 30 }

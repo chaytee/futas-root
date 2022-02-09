@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2022_01_25_021928) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "relationship_id"
+    t.bigint "user_id"
   end
 
   create_table "relationships", force: :cascade do |t|

@@ -31,7 +31,7 @@ export default {
   methods: {
     async getMessages() {
       try {
-        const res = await this.$axios.get("/messages", {
+        const res = await this.$axios.get("/api/users/messages", {
           headers: {
             uid: window.localStorage.getItem("uid"),
             "access-token": window.localStorage.getItem("access-token"),
@@ -41,15 +41,19 @@ export default {
         if (!res) {
           new Error("メッセージ一覧を取得できませんでした");
         }
-        console.log({ res });
+        console.log(res);
         this.messages = res.data;
       } catch (err) {
         console.log(err);
       }
     },
-    connectCable(message) {
+    connectCable(...args) {
+      console.log(args)
+      const [message, selected] = args
+
       this.messageChannel.perform("receive", {
         message: message,
+        priority: selected,
         email: window.localStorage.getItem("uid"),
       });
     },

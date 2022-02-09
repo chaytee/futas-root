@@ -71,10 +71,11 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+  //SSRをサポートしないVueプラグインがあるためfalseへ
   plugins: [
     { src: '@/plugins/axios.js', ssr: false },
     //  { src: '@/plugins/action-cable.js', mode: 'client' }
-    { src: '@/plugins/day.js' }
+    { src: '@/plugins/day.js',ssr: false},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

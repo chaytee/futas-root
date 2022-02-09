@@ -1,5 +1,5 @@
 <template>
-<div class="edit-block" v-bind:class="{ husband: isActive }">
+<div class="edit-block">
   <h2 class="mb-3">mission Edit</h2>
   <div class="btn__wrap">
     <button class="btn__grade" @click="editClose">一覧へ戻る</button>
@@ -32,15 +32,6 @@ export default {
     editClose() {
       this.$router.push("/tasks");
     }
-  },
-  async mounted() {
-    await this.$axios.$get("/api/user/?id").then((res)=> {
-      this.genderData = res.gender;
-      //性別が男だったらhusbandをつける
-      if(this.genderData === 1 ) {
-         return this.isActive = !this.isActive;
-      }
-    });
   },
 };
 </script>

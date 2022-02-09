@@ -95,6 +95,11 @@ export default {
           (res) => {
             // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
             window.localStorage.setItem("name", res.data.data.name);
+
+            if(!res.data.data.relationship_id){
+              this.$router.push("/relationship");
+            }
+
             return res;
           },
           (error) => {

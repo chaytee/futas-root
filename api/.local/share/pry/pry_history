@@ -246,3 +246,18 @@ user=User.first
 user.tasks
 user.tasks.find(1)
 user.find(current_user.relationship.id)
+Messages.all
+current_user=User.first
+current_user.messages
+current_user.relationship_id
+current_user.messages
+Messages.all
+Message.all
+user=User.first
+message=Message.create(content: 'tatatata', user_id: user.id
+  user.message
+Message.all
+message
+message=Message.create(content: 'tatatata', user_id: 1)
+Message.all
+message=Message.create(content: 'ahahahah', user_id: 1, relationship_id: 1)

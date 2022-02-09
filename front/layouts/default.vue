@@ -1,7 +1,7 @@
 <template>
   <div class="wrap">
     <Navbar />
-    <div class="container" id="container">
+    <div class="container" id="container" v-bind:class="{ husband: isHusbandIcon }">
       <nuxt />
     </div>
     <Footer />
@@ -16,6 +16,21 @@ export default {
   components: {
     Navbar,
     Footer,
-  }
+  },
+  data() {
+    return {
+      isHusbandIcon: false,
+    };
+  },
+  async mounted() {
+    //this.$api.getGender();
+    await this.$axios.$get("/api/user/?id").then((res)=> {
+      this.genderData = res.gender;
+      //性別が男だったらhusbandをつける
+      if(this.genderData === 1 ) {
+         return this.isHusbandIcon = !this.isHusbandIcon;
+      }
+    });
+  },
 }
 </script>

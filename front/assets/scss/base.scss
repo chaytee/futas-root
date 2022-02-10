@@ -179,7 +179,7 @@ img {
 	height: auto;
 }
 /*PC*/
-@media print, screen and (min-width:1200px) {
+@media print, screen and (min-width:1150px) {
 	body {
 		height: 100%;
 	}
@@ -198,6 +198,5 @@ img {
   #container {
     min-height: 100vh;
     box-sizing: border-box;
-    padding-top: 100px;
   }
 }

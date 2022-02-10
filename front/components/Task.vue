@@ -8,7 +8,7 @@
             <span class="limit__day">{{ taskDate }}</span>
             <span class="limit__time">{{ taskTime }}</span>
           </div>
-          <p>{{isTimeOver}}</p>
+          <!-- <p>{{isTimeOver}}</p> -->
           <!-- <p>{{ iconWho }}</p> -->
           <!-- <p>{{ doneDate }}</p> -->
           <p class="task-box__title">{{ taskTitle }}</p>

@@ -11,6 +11,8 @@ $husbandColor: #C0E9E0;
   padding: 10px 20px;
   cursor: pointer;
   display: inline-block;
+  box-sizing: border-box;
+  min-width: 100px;
   font-size: 15px;
 }
 %btnBase:hover {

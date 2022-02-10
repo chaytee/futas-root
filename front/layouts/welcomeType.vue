@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <div id="container">
+    <div id="container" class="welcome-type">
       <nuxt />
     </div>
     <Footer />
@@ -17,5 +17,7 @@ export default {
 }
 </script>
 <style lang="scss">
-
+  // #container.welcome-type {
+  //   padding-top: 0;
+  // }
 </style>

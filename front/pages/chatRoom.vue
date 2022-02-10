@@ -1,6 +1,6 @@
 <template>
-  <section class="container">
-    <p>chatroom</p>
+  <section class="section-pt">
+    <h2 class="section-title">chatroom</h2>
     <ChatWindow
       @connectCable="connectCable"
       :messages="formattedMessages"
@@ -48,8 +48,8 @@ export default {
       }
     },
     connectCable(...args) {
-      console.log(args)
-      const [message, selected] = args
+      console.log(args);
+      const [message, selected] = args;
 
       this.messageChannel.perform("receive", {
         message: message,

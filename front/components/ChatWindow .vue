@@ -64,6 +64,10 @@ export default {
   padding: 30px 20px;
   border-bottom: 1px solid #eee;
 
+  @include sm {
+    padding: 20px 15px;
+  }
+
   ul {
     list-style: none;
     margin: 0;

@@ -1,19 +1,23 @@
 <template>
-  <div class="total-score mt-3">
-    <dl class="score__box">
-      <dt class="score__title">total score</dt>
-      <dd class="score__contents">
-        <div class="score__item">
-          <p class="score__icon">
+  <div class="total-score">
+    <dl class="score-box">
+      <dt class="score-box__title mp">total score</dt>
+      <dd class="score-box__contents">
+        <div class="score-box__item">
+          <p class="score-box__icon nm">
             <img src="~/assets/img/icon01.png" alt="" />
           </p>
-          <p class="item__in">{{wifeScore}}<span class="item__txt">点</span></p>
+          <p class="item__in nm mp">
+            {{ wifeScore }}<span class="item__txt">点</span>
+          </p>
         </div>
-        <div class="score__item">
-          <p class="score__icon">
+        <div class="score-box__item">
+          <p class="score-box__icon nm">
             <img src="~/assets/img/icon02.png" alt="" />
           </p>
-          <p class="item__in">{{husbandScore}}<span class="item__txt">点</span></p>
+          <p class="item__in nm mp">
+            {{ husbandScore }}<span class="item__txt">点</span>
+          </p>
         </div>
       </dd>
     </dl>
@@ -23,16 +27,16 @@
 export default {
   props: {
     husband: Number,
-    wife: Number
+    wife: Number,
   },
   computed: {
-    husbandScore: function() {
+    husbandScore: function () {
       return this.husband;
     },
-    wifeScore: function() {
+    wifeScore: function () {
       return this.wife;
     },
-  }
+  },
 };
 </script>
 <style lang="scss">
@@ -40,7 +44,7 @@ export default {
   display: flex;
   justify-content: flex-end;
 
-  .score__box {
+  .score-box {
     width: 420px;
     box-sizing: border-box;
     padding: 15px 20px;
@@ -51,24 +55,58 @@ export default {
     justify-content: center;
     align-items: center;
 
-    .score__title {
+    @include ta {
+      width: auto;
+      padding: 10px;
+    }
+
+    &__title {
       margin-right: 25px;
+      font-weight: bold;
+      @include ta {
+        margin-right: 15px;
+      }
+      @include sm {
+        font-size: 13px;
+      }
     }
-    .score__contents {
+    &__contents {
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    .score__item {
+    &__item {
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    .score__item + .score__item {
+    &__item + .score-box__item {
       margin-left: 20px;
     }
-    .score__icon {
+    &__icon {
       margin-right: 15px;
+
+      @include ta {
+        width: 35px;
+      }
+      @include sm {
+        width: 25px;
+      }
+    }
+  }
+  .item__in {
+    font-size: 20px;
+    font-weight: bold;
+
+    @include sm {
+      font-size: 16px;
+    }
+    .item__txt {
+      font-size: 14px;
+
+      @include sm {
+        font-size: 10px;
+      }
     }
   }
 }

@@ -1,7 +1,15 @@
 <template>
-  <div class="task-form">
+  <div class="task-form" :class="{ 'input-switch': inputSwitch }">
+    <div class="btn__wrap input-btn">
+      <button
+        class="input-btn__link btn__grade"
+        @click="inputSwitch = !inputSwitch"
+      >
+        {{ !inputSwitch ? "Misshionを入力する" : "閉じる" }}
+      </button>
+    </div>
     <div class="box input__box">
-      <h2 class="section__title">Mission input</h2>
+      <h2 class="section-title">Mission input</h2>
       <div class="error">{{ error }}</div>
       <form class="box__form">
         <div class="box__in">
@@ -45,10 +53,9 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
 import "flatpickr/dist/themes/confetti.css";
-import 'flatpickr/dist/flatpickr.min.css';
+import "flatpickr/dist/flatpickr.min.css";
 // import { validationMixin } from 'vuelidate';
 // import { required } from 'vuelidate/lib/validators';
-
 
 const flatpickr = require("flatpickr").default;
 
@@ -76,6 +83,7 @@ export default {
       datetime: "",
       datePick: "datePick",
       error: null,
+      inputSwitch: false,
     };
   },
   async created() {
@@ -88,7 +96,6 @@ export default {
     }
   },
   methods: {
-
     submit() {
       const params = {
         task: {
@@ -109,7 +116,6 @@ export default {
       this.$axios
         .post("/api/users/tasks", params)
         .then((res) => {
-
           if (params) {
             const errorMessage = `
             下記の部分を確認してください. \n
@@ -144,9 +150,19 @@ export default {
   },
   computed: {
     //flatpickrのdefaultDateがなぜか不具合
-    defaultDate: function () {
-
-      return this.limit_day = this.$dayjs().tz().format('YYYY-MM-DD');
+    // defaultDate: function (day) {
+    //   // return (this.limit_day = this.$dayjs().tz().format("YYYY-MM-DD"));
+    //   console.log(day)
+    //   return this.limit_day = day;
+    // },
+    defaultDate: {
+      get: function (day) {
+        return this.limit_day = this.$dayjs().tz().format("YYYY-MM-DD");
+      },
+      set: function(day) {
+        console.log(day)
+        return this.limit_day = this.$dayjs(day).tz().format("YYYY-MM-DD");;
+      }
     }
   },
   mounted() {
@@ -155,7 +171,7 @@ export default {
     flatpickr("#" + this.datePick, {
       minDate: "today", //当日以前を選択不可に
       locale: {
-        firstDayOfWeek: 1 // 月曜日を週の始めに設定
+        firstDayOfWeek: 1, // 月曜日を週の始めに設定
       },
       //defaultDate : new Date(),
     });
@@ -164,57 +180,183 @@ export default {
 </script>
 <style lang="scss">
 .task-form {
-  margin-top: 40px;
-  margin-bottom: 30px;
+  .input-btn {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 10;
+    background-color: #fff;
+    display: none;
+
+    &__link {
+      display: inline-block;
+    }
+
+    @include sm {
+      display: block;
+    }
+  }
+  .input__box {
+    @include sm {
+      display: none;
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 9;
+
+      .section-title {
+        display: none;
+      }
+    }
+  }
+
   .box {
     padding: 30px 20px 50px;
+
+    @include ta {
+      padding: 20px;
+    }
+    @include sm {
+      padding: 30px 15px 15px;
+      border-radius: 10px 10px 0 0;
+    }
     &__in {
       display: flex;
       justify-content: center;
       align-items: center;
+
+      @include ta {
+        flex-flow: column;
+      }
     }
     &__input {
-      width: 80%;
+      width: 75%;
+      @include ta {
+        width: 100%;
+      }
       input {
         width: 100%;
         min-height: 45px;
       }
     }
     .btn__wrap {
-      width: 20%;
+      width: 25%;
       margin-top: 0;
+
+      @include ta {
+        width: auto;
+        margin-top: 10px;
+
+        button + button {
+          margin-left: 15px;
+        }
+      }
+      @include sm {
+        button {
+          min-width: 80px;
+          font-size: 13px;
+          padding: 10px 15px;
+        }
+      }
     }
   }
   .limit {
     margin-top: 15px;
 
+    @include sm {
+      margin-top: 5px;
+
+      .sub__title {
+        font-size: 12px;
+      }
+    }
+
     input {
       max-width: 260px;
       box-sizing: border-box;
     }
+    &__box {
+      @include sm {
+        display: flex;
+        justify-content: space-between;
+
+        input + input {
+          margin-left: 10px;
+        }
+      }
+    }
   }
 }
-$red        : #f00;
-$blue       : #25bdcf;
+.task-form.input-switch {
+  position: relative;
+  .input__box {
+    @include sm {
+      display: block;
+    }
+  }
+  .input-btn {
+    position: relative;
+    top: auto;
+    left: auto;
+    height: auto;
+
+    &__link {
+      position: absolute;
+      top: -120px;
+      right: 0;
+      z-index: 9;
+      min-width: 0;
+      padding: 0;
+      background: none;
+      text-decoration: underline;
+      color: #333;
+      font-size: 12px;
+    }
+  }
+}
+$red: #f00;
+$blue: #25bdcf;
 
 .flatpickr-day.selected {
   background-color: #ccc;
   border: none;
 }
 /* 日曜日：赤 */
-.flatpickr-calendar .flatpickr-innerContainer .flatpickr-weekdays .flatpickr-weekday:nth-child(7n),
-.flatpickr-calendar .flatpickr-innerContainer .flatpickr-days .flatpickr-day:not(.flatpickr-disabled):not(.prevMonthDay):not(.nextMonthDay):nth-child(7n) {
+.flatpickr-calendar
+  .flatpickr-innerContainer
+  .flatpickr-weekdays
+  .flatpickr-weekday:nth-child(7n),
+.flatpickr-calendar
+  .flatpickr-innerContainer
+  .flatpickr-days
+  .flatpickr-day:not(.flatpickr-disabled):not(.prevMonthDay):not(.nextMonthDay):nth-child(7n) {
   color: $red;
 }
 
 /* 土曜日：青 */
-.flatpickr-calendar .flatpickr-innerContainer .flatpickr-weekdays .flatpickr-weekday:nth-child(6),
-.flatpickr-calendar .flatpickr-innerContainer .flatpickr-days .flatpickr-day:not(.flatpickr-disabled):not(.prevMonthDay):not(.nextMonthDay):nth-child(7n - 1) {
+.flatpickr-calendar
+  .flatpickr-innerContainer
+  .flatpickr-weekdays
+  .flatpickr-weekday:nth-child(6),
+.flatpickr-calendar
+  .flatpickr-innerContainer
+  .flatpickr-days
+  .flatpickr-day:not(.flatpickr-disabled):not(.prevMonthDay):not(.nextMonthDay):nth-child(7n
+    -
+    1) {
   color: $blue;
 }
 
 /* 祝日 */
-.flatpickr-day.is-holiday{
+.flatpickr-day.is-holiday {
   background: lighten($red, 40%) !important;
 }
 </style>

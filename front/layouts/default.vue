@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrap default-type">
     <Navbar />
     <div class="container" id="container" v-bind:class="{ husband: isHusbandIcon }">
       <nuxt />
@@ -34,3 +34,10 @@ export default {
   },
 }
 </script>
+<style lang="scss">
+  .default-type #footer {
+    @include sm {
+      display: none;
+    }
+  }
+</style>

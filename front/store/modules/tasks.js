@@ -1,6 +1,7 @@
-export const state = {
-  tasks: [],
-};
+//$store.state.modules.tasks.tasks
+export const state = () => ({
+   tasks: [],
+});
 
 export const getters = {
   allTasks(state) {

@@ -6,6 +6,7 @@
       <Task v-for="task in taskData" :key="task.id" :task="task" />
     </div>
     <TaskForm />
+    <p>{{$store.state.modules.tasks.tasks}}</p>
   </div>
 </template>
 <script>

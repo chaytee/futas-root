@@ -4,14 +4,18 @@
     <h2 class="mb-2 section-title">Mission</h2>
     <div class="sq">
       <Task v-for="task in taskData" :key="task.id" :task="task" />
+      <!-- <Task /> -->
     </div>
     <TaskForm />
-    <p>{{$store.state.modules.tasks.tasks}}</p>
+    <!-- <p>{{ $store.state.modules.tasks.tasks }}</p> -->
+    <!-- <ul>
+      <li v-for="task in tasks" :key="task.id" >{{task.title}}</li>
+    </ul> -->
+    <!-- <p>{{tasks}}</p>
+    <p>{{tasks}}</p> -->
   </div>
 </template>
 <script>
-// import {mapGetters, mapActions } from 'vuex';
-
 import Task from "../../components/Task.vue";
 import TaskForm from "../../components/TaskForm.vue";
 import TotalScore from "../../components/TotalScore.vue";
@@ -31,10 +35,6 @@ export default {
       wife: 0,
     };
   },
-  // computed: mapGetters(['allTasks']),
-  // methods: {
-  //   ...mapActions(['fetchTasks']),
-  // },
   async created() {
     await this.$axios.$get("/api/users/tasks").then((res) => {
       // console.log(this.$store.state);
@@ -68,11 +68,11 @@ export default {
     .section-title {
       display: none;
     }
-      .sq {
-    margin-top: 15px;
-    overflow-y: scroll;
-    max-height: 432px;
-  }
+    .sq {
+      margin-top: 15px;
+      overflow-y: scroll;
+      max-height: 432px;
+    }
   }
 }
 </style>

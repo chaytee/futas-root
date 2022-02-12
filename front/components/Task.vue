@@ -1,6 +1,9 @@
 <template>
   <div class="task-box">
-    <div class="box" v-bind:class="{time_over: isTimeOver}">
+    <div
+      class="box"
+      v-bind:class="{ time_over: isTimeOver }"
+    >
       <div class="task-box__icon" v-bind:class="{ hicon: isHusIcon }"></div>
       <div class="task-box__in">
         <div class="task-box__main">
@@ -11,7 +14,7 @@
           <!-- <p>{{isTimeOver}}</p> -->
           <!-- <p>{{ iconWho }}</p> -->
           <!-- <p>{{ doneDate }}</p> -->
-          <p class="task-box__title">{{ taskTitle }}</p>
+          <p class="task-box__title">{{ taskTitle}}</p>
           <p class="task-box__tonow nm">{{ testToNow }}</p>
         </div>
         <div class="task-box__controller">
@@ -20,26 +23,23 @@
           <button class="btn__accent" v-if="!task.is_done" @click="complete()">
             完了
           </button>
-          <!-- <button @click="incomplete()"
-            >未完了</button
-          > -->
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { formatDistanceToNow } from 'date-fns'
-import { ja } from 'date-fns/locale'
+// import { mapState, mapGetters, mapActions } from "vuex";
+import { formatDistanceToNow } from "date-fns";
+import { ja } from "date-fns/locale";
 
 export default {
-  data(){
+  data() {
     return {
       isHusIcon: false,
       isLimit: false,
-      isTimeOver: false
+      isTimeOver: false,
     };
-
   },
   props: {
     task: {
@@ -48,36 +48,51 @@ export default {
       default: () => [],
     },
   },
+  // name: "Tasks",
   computed: {
+    //tasksは取れるけどtaskがない
+    // ...mapGetters("modules/tasks", ["task"]),
+    // ...mapState("modules/tasks", ["tasks"]),
+
+    //これができない
+    //   taskDate: function () {
+    //       this.tasks.map((task)=> {
+    //       return task.limit_day;
+    //     })
+    //   }
+
+
     taskTitle() {
       return this.task.title;
     },
     taskDate() {
       return this.$dayjs(this.task.limit_day).tz().format("YYYY/MM/DD");
     },
+
     taskTime() {
-      if(this.task.limit_time === null || this.task.limit_time === undefined ) {
-        return this.task.limit_time = ""
+      if (this.task.limit_time === null || this.task.limit_time === undefined) {
+        return (this.task.limit_time = "");
       }
       return this.$dayjs(this.task.limit_time).tz().format("HH:MM") || "";
     },
-    testToNow: function() {
-      return formatDistanceToNow(new Date(this.task.created_at), { locale: ja })
+    testToNow: function () {
+      return formatDistanceToNow(new Date(this.task.created_at), {
+        locale: ja,
+      });
     },
-    iconWho: function() {
-      if(this.task.user.gender === 1){
-        return this.isHusIcon = !this.isHusIcon
+    iconWho: function () {
+      if (this.task.user.gender === 1) {
+        return (this.isHusIcon = !this.isHusIcon);
       }
     },
   },
   methods: {
+    // ...mapActions("modules/tasks", ["getTasks", "setTask"]),
     toEdit() {
       this.$router.push(`/tasks/${this.task.id}`);
     },
     async complete() {
-
       await this.$axios.$patch(`api/users/tasks/${this.task.id}`, {
-
         //夫だった場合is_done: 1　妻 is_done: 2
         is_done: this.$auth.user.gender === 1 ? 1 : 2,
         //is_done: this.$auth.user.id
@@ -102,10 +117,13 @@ export default {
       }
     },
   },
-  mounted(){
+  // created() {
+  //   this.getTasks();
+  //   this.setTask(task);
+  // },
+  mounted() {
     const today = this.$dayjs().tz().format("YYYY/MM/DD");
     const yesterday = this.$dayjs().add(-1, "day").format("YYYY/MM/DD");
-
     //タイムオーバー条件
     if(this.$dayjs(this.task.limit_day).tz().format("YYYY/MM/DD") === yesterday) {
       return this.isTimeOver = !this.isTimeOver
@@ -114,6 +132,6 @@ export default {
     if(this.$dayjs(this.task.limit_day).tz().format("YYYY/MM/DD") === today){
       return this.isLimit = !this.isLimit
     }
-  }
+  },
 };
 </script>

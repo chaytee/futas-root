@@ -24,6 +24,8 @@
   </div>
 </template>
 <script>
+//import { mapState, mapGetters, mapActions } from "vuex";
+
 export default {
   props: {
     husband: Number,
@@ -37,6 +39,21 @@ export default {
       return this.wife;
     },
   },
+  // methods: {
+  //  ...mapActions("modules/score", ["getScore"]),
+
+  // },
+//   created() {
+//     // dispatchでstoreのactionが使えるらしいがダメだった
+//     // this.$store.dispatch('getScore')
+//     // this.getScore()
+//     this.$store.commit(
+//   //第1引数 ミューテーション名
+//   "setScore" ,
+//   //第2引数 ペイロード
+//   { husband : "01" ,
+//           wife : "1"  })
+//   }
 };
 </script>
 <style lang="scss">

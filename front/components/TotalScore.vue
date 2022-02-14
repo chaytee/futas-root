@@ -24,25 +24,40 @@
   </div>
 </template>
 <script>
-//import { mapState, mapGetters, mapActions } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
-  props: {
-    husband: Number,
-    wife: Number,
-  },
+
+  // props: {
+  //   husband: Number,
+  //   wife: Number,
+  // },
   computed: {
     husbandScore: function () {
-      return this.husband;
+      // return this.husband;
+      return this.$store.getters['modules/score/husbandScore']
     },
     wifeScore: function () {
-      return this.wife;
+      return this.$store.getters['modules/score/wifeScore']
     },
-  },
-  // methods: {
-  //  ...mapActions("modules/score", ["getScore"]),
 
-  // },
+
+    ...mapGetters("modules/score/allScores'", ['allScores'])
+  },
+  mounted (){
+    console.log(this.$store)
+     console.log(this.$store.getters['modules/score/husbandScore'])
+  },
+
+  methods: {
+    ...mapActions("modules/score", ["getScore"]),
+
+    },
+    created(){
+    // this.$store.dispatch('getScore')
+    this.getScore()
+
+  }
 //   created() {
 //     // dispatchでstoreのactionが使えるらしいがダメだった
 //     // this.$store.dispatch('getScore')

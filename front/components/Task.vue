@@ -4,7 +4,7 @@
       class="box"
       v-bind:class="{ time_over: isTimeOver }"
     >
-      <div class="task-box__icon" v-bind:class="{ hicon: isHusIcon }"></div>
+      <div class="task-box__icon" v-bind:class="{'hicon': (this.task.user.gender === 1)} "></div>
       <div class="task-box__in">
         <div class="task-box__main">
           <div class="task-box__limit mb-3" v-bind:class="{ hurry: isLimit }">
@@ -80,11 +80,12 @@ export default {
         locale: ja,
       });
     },
-    iconWho: function () {
-      if (this.task.user.gender === 1) {
-        return (this.isHusIcon = !this.isHusIcon);
-      }
-    },
+    //v-bind:class="{'hicon': (this.task.user.gender === 1)} "へ書き換え
+    // iconWho: function () {
+    //   if (this.task.user.gender === 1) {
+    //     return (this.isHusIcon = !this.isHusIcon);
+    //   }
+    // },
   },
   methods: {
     // ...mapActions("modules/tasks", ["getTasks", "setTask"]),

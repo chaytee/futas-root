@@ -16,8 +16,12 @@ class Api::Users::TasksController < Api::UserController
     # render json: items_json
     items_json = {tasks: items}
 
-    husband_tasks_count = Relationship.find(current_user.relationship.id).users.find_by(gender: 1).tasks.where(is_done: 1).count
-    wife_tasks_count = Relationship.find(current_user.relationship.id).users.find_by(gender: 2).tasks.where(is_done: 2).count
+    #以下のコードだと.users.find_by(gender: 1)で自分がis_doneしたものしかカウントしなかった
+    # husband_tasks_count = Relationship.find(current_user.relationship.id).users.find_by(gender: 1).tasks.where(is_done: 1).count
+    # wife_tasks_count = Relationship.find(current_user.relationship.id).users.find_by(gender: 2).tasks.where(is_done: 2).count
+
+    husband_tasks_count = Relationship.find(current_user.relationship.id).tasks.where(is_done: 1).count
+    wife_tasks_count = Relationship.find(current_user.relationship.id).tasks.where(is_done: 2).count
     each_task_count = { husband: husband_tasks_count, wife: wife_tasks_count }
 
     request_json = items_json.merge each_task_count

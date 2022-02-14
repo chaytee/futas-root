@@ -1,32 +1,48 @@
-export const state = {
-  tasks: [],
+const state = {
+
+  husband: null,
+  wife: null
+
 };
 
-export const getters = {
-  allTasks(state) {
-   return state.tasks
+const getters = {
+  husbandScore: (state) => state.husband,
+  wifeScore: (state) => state.wife
+};
+
+const mutations = {
+
+  setHusbandScore(state, husband) {
+    state.husband = husband
+  },
+  setWifeScore(state, wife) {
+    state.wife = wife
   }
 };
 
-export const mutations = {
-  setScore(state, {husband, wife}){
-    // state.tasks = tasks
-    state.tasks.husband = husband;
-    state.tasks.wife = wife;
-  }
-};
 
-export const actions = {
-  async getScore({ commit }, {husband, wife}) {
+const actions = {
+
+  async getScore({ commit }) {
 
     const res = await this.$axios.$get("/api/users/tasks")
 
-    this.husband = res.husband;
-    this.wife = res.wife;
-    //複数の引数を渡せない
+    const husband = res.husband
+    const wife = res.wife
+
+    await commit('setHusbandScore', husband)
+    await commit('setWifeScore', wife)
 
 
-    commit('getScore', res);
+    console.log(res.husband)
+
   },
 
+};
+export default {
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions
 };

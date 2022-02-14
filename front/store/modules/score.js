@@ -34,7 +34,7 @@ const actions = {
     await commit('setWifeScore', wife)
 
 
-    console.log(res.husband)
+    // console.log(res.husband)
 
   },
 

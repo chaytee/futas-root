@@ -1,10 +1,10 @@
 <template>
   <div class="task-box">
-    <div
-      class="box"
-      v-bind:class="{ time_over: isTimeOver }"
-    >
-      <div class="task-box__icon" v-bind:class="{'hicon': (this.task.user.gender === 1)} "></div>
+    <div class="box" v-bind:class="{ time_over: isTimeOver }">
+      <div
+        class="task-box__icon"
+        v-bind:class="{ hicon: this.task.user.gender === 1 }"
+      ></div>
       <div class="task-box__in">
         <div class="task-box__main">
           <div class="task-box__limit mb-3" v-bind:class="{ hurry: isLimit }">
@@ -14,8 +14,18 @@
           <!-- <p>{{isTimeOver}}</p> -->
           <!-- <p>{{ iconWho }}</p> -->
           <!-- <p>{{ doneDate }}</p> -->
-          <p class="task-box__title">{{ taskTitle}}</p>
+          <p class="task-box__title">{{ taskTitle }}</p>
           <p class="task-box__tonow nm">{{ testToNow }}</p>
+          <div class="mt-5">
+            <p>--vuex書き換え--</p>
+            <ul v-for="vtask in allTasks"
+    :key="vtask.id"
+>
+              <li>{{vtask.title}}</li>
+              <!-- <li>{{vtaskDate}}</li> -->
+            </ul>
+            <p>--終わり--</p>
+          </div>
         </div>
         <div class="task-box__controller">
           <button class="btn__clear" @click="remove()">削除する</button>
@@ -29,7 +39,8 @@
   </div>
 </template>
 <script>
-// import { mapState, mapGetters, mapActions } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
+
 import { formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
 
@@ -51,8 +62,8 @@ export default {
   // name: "Tasks",
   computed: {
     //tasksは取れるけどtaskがない
-    // ...mapGetters("modules/tasks", ["task"]),
-    // ...mapState("modules/tasks", ["tasks"]),
+    ...mapGetters("modules/tasks", ["allTasks"]),
+    // ...mapState("modules/tasks", ["vtasks"]),
 
     //これができない
     //   taskDate: function () {
@@ -61,12 +72,15 @@ export default {
     //     })
     //   }
 
-
     taskTitle() {
       return this.task.title;
     },
     taskDate() {
       return this.$dayjs(this.task.limit_day).tz().format("YYYY/MM/DD");
+    },
+    //vuexで書き換えたいがv-forで回した時に値を渡すのはどうすればよいか
+    vtaskDate() {
+      return this.$dayjs(task.limit_day).tz().format("YYYY/MM/DD");
     },
 
     taskTime() {
@@ -88,7 +102,8 @@ export default {
     // },
   },
   methods: {
-    // ...mapActions("modules/tasks", ["getTasks", "setTask"]),
+    ...mapActions("modules/tasks", ["getTasks"]),
+
     toEdit() {
       this.$router.push(`/tasks/${this.task.id}`);
     },
@@ -118,20 +133,22 @@ export default {
       }
     },
   },
-  // created() {
-  //   this.getTasks();
-  //   this.setTask(task);
-  // },
+  created() {
+    this.getTasks();
+    // this.setTask(task);
+  },
   mounted() {
     const today = this.$dayjs().tz().format("YYYY/MM/DD");
     const yesterday = this.$dayjs().add(-1, "day").format("YYYY/MM/DD");
     //タイムオーバー条件
-    if(this.$dayjs(this.task.limit_day).tz().format("YYYY/MM/DD") === yesterday) {
-      return this.isTimeOver = !this.isTimeOver
+    if (
+      this.$dayjs(this.task.limit_day).tz().format("YYYY/MM/DD") === yesterday
+    ) {
+      return (this.isTimeOver = !this.isTimeOver);
     }
     //Hurry!条件
-    if(this.$dayjs(this.task.limit_day).tz().format("YYYY/MM/DD") === today){
-      return this.isLimit = !this.isLimit
+    if (this.$dayjs(this.task.limit_day).tz().format("YYYY/MM/DD") === today) {
+      return (this.isLimit = !this.isLimit);
     }
   },
 };

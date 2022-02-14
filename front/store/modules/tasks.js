@@ -1,18 +1,16 @@
 //$store.state.modules.tasks.tasks
-export const state = () => {
-  return {
-    tasks: [],
-  };
+const state = {
+  tasks: [],
 };
 
-export const getters = {
+const getters = {
     allTasks(state) {
    return state.tasks
   }
-  // tasks: state => state.tasks.map(task => {
+  // vtasks: state => state.vtasks.map(vtask => {
   //   return {
-  //     ...task,
-  //     limit_d: task.limit_day,
+  //     ...vtask,
+  //     limit_d: vtask.limit_day,
 
   //   };
   // }),
@@ -20,14 +18,14 @@ export const getters = {
 
 };
 
-export const mutations = {
+const mutations = {
   setTasks(state, tasks){
     state.tasks = tasks
   },
 };
 
 //commit()でミューテーションにデータを渡す
-export const actions = {
+const actions = {
   async getTasks({ commit }) {
 
     const res = await this.$axios.$get("/api/users/tasks")
@@ -53,4 +51,11 @@ export const actions = {
 
 
 
+};
+export default {
+  namespaced: true,
+  state,
+  getters,
+  mutations,
+  actions
 };

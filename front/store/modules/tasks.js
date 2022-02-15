@@ -33,8 +33,8 @@ const actions = {
 
     const now = this.$dayjs();
 
-    this.husband = res.husband;
-    this.wife = res.wife;
+    const husband = res.husband;
+    const wife = res.wife;
 
     //タスク情報の取得
     this.taskData = Array.from(res.tasks).filter((data) => {

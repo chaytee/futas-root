@@ -4,17 +4,9 @@ const state = {
 };
 
 const getters = {
-    allTasks(state) {
+  allTasks(state) {
    return state.tasks
-  }
-  // vtasks: state => state.vtasks.map(vtask => {
-  //   return {
-  //     ...vtask,
-  //     limit_d: vtask.limit_day,
-
-  //   };
-  // }),
-
+  },
 
 };
 
@@ -31,11 +23,6 @@ const actions = {
     const res = await this.$axios.$get("/api/users/tasks")
 
 
-    const now = this.$dayjs();
-
-    const husband = res.husband;
-    const wife = res.wife;
-
     //タスク情報の取得
     this.taskData = Array.from(res.tasks).filter((data) => {
 
@@ -44,7 +31,6 @@ const actions = {
         this.$dayjs(data.limit_day)
       );
     });
-
 
     commit('setTasks', this.taskData);
   },

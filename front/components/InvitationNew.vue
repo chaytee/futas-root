@@ -1,6 +1,7 @@
 <template>
   <div class="invitation-new">
     <h2 class="invitation__title">パートナーが合言葉を発行した場合</h2>
+    <p class="error">{{error}}</p>
     <div class="invitation-code-form">
       <form>
         <div class="field">
@@ -64,6 +65,7 @@ export default {
       paircode: "",
       pass_type: "2",
       partner_email: "",
+      error: null,
     };
   },
   methods: {
@@ -92,11 +94,9 @@ export default {
           this.$router.push("/");
         })
         .catch((error) => {
-          //   const errorMessage = `
-          //     ${error.errors}
-          //   `;
-          //   console.log(errorMessage);
-          console.log(error);
+          //console.log(error);
+          this.error = "合言葉が違います";
+          return;
         });
     },
   },

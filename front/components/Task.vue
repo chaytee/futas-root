@@ -11,24 +11,8 @@
             <span class="limit__day">{{ taskDate }}</span>
             <span class="limit__time">{{ taskTime }}</span>
           </div>
-          <!-- <p>{{isTimeOver}}</p> -->
-          <!-- <p>{{ iconWho }}</p> -->
-          <!-- <p>{{ doneDate }}</p> -->
           <p class="task-box__title">{{ taskTitle }}</p>
           <p class="task-box__tonow nm">{{ testToNow }}</p>
-          <div class="mt-5">
-            <p>--vuex書き換え--</p>
-            <p>{{ allTasks }}</p>
-            <ul v-for="vtask in allTasks" :key="vtask.id">
-              <li>{{ vtask.title }}</li>
-              <li>{{ vtask.limit_day }}</li>
-              <li>{{ vtask.limit_time }}</li>
-              <li>{{ vtask.created_at }}</li>
-              <!-- <li>{{formatTaskDate(vtask.limit_day)}}</li> -->
-              <!-- <li>{{taskTime}}</li> -->
-            </ul>
-            <p>--終わり--</p>
-          </div>
         </div>
         <div class="task-box__controller">
           <button class="btn__clear" @click="remove()">削除する</button>
@@ -62,10 +46,8 @@ export default {
       default: () => [],
     },
   },
-  // name: "Tasks",
   computed: {
     ...mapGetters("modules/tasks", ["allTasks"]),
-    // ...mapState("modules/tasks", ["vtasks"]),
 
     taskTitle() {
       return this.task.title;
@@ -79,52 +61,14 @@ export default {
       }
       return this.$dayjs(this.task.limit_time).tz().format("HH:MM") || "";
     },
-    //v-forで回す前に修正したいカラムを取り出し、加工する
-    allTasks() {
-      const allTasks = this.$store.getters["modules/tasks/allTasks"];
-
-      const useAllTasks = allTasks.map((allTask) => {
-        const { title, limit_time, limit_day, created_at } = allTask;
-
-        //??nll合体演算子
-        //if (limit_time === null || limit_time === undefined) {
-        //   limit_time = ''
-        // }
-        const useTaskAtmic = {
-          title: title,
-          limit_time: limit_time ?? "",
-          limit_day: limit_day.replaceAll("-", "/"),
-          created_at: formatDistanceToNow(new Date(created_at), {
-            locale: ja,
-          }),
-        };
-        return useTaskAtmic;
-      });
-      return useAllTasks;
-    },
-
     testToNow: function () {
       return formatDistanceToNow(new Date(this.task.created_at), {
         locale: ja,
       });
     },
-
-    //v-bind:class="{'hicon': (this.task.user.gender === 1)} "へ書き換え
-    // iconWho: function () {
-    //   if (this.task.user.gender === 1) {
-    //     return (this.isHusIcon = !this.isHusIcon);
-    //   }
-    // },
   },
   methods: {
     ...mapActions("modules/tasks", ["getTasks"]),
-
-    //vuexで書き換えたいがv-forで回した時に値を渡すのはどうすればよいか
-    //関数を作成するパターン。しかし毎回メソッドが回るのであまりよくない
-    //<!-- <li>{{formatTaskDate(vtask.limit_day)}}</li> -->
-    // formatTaskDate(limit_day){
-    //   return limit_day.replaceAll('-', '/')
-    // },
 
     toEdit() {
       this.$router.push(`/tasks/${this.task.id}`);

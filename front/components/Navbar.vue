@@ -9,7 +9,6 @@
         >フータス</span
       >
     </h1>
-
     <div class="side">
       <div class="side__navi">
         <div class="account-main columns is-mobile">
@@ -164,7 +163,7 @@ export default {
       background-color: #000;
       border-radius: 4px;
       display: inline-block;
-      transition: all .5s;
+      transition: all 0.5s;
       box-sizing: border-box;
       position: absolute;
       border-radius: 4px;
@@ -246,7 +245,6 @@ export default {
       }
     }
   }
-
   .nuxt-link-exact-active {
     color: #999;
   }
@@ -301,7 +299,6 @@ export default {
         transform: translateY(-9px) rotate(135deg);
       }
     }
-
     .black-bg {
       opacity: 0.8;
       visibility: visible;

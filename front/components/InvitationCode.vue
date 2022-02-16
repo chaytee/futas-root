@@ -1,10 +1,10 @@
 <template>
   <div class="invitation-code">
     <h2 class="invitation__title">合言葉を未設定の場合</h2>
+    <div class="error">{{ error }}</div>
     <p>1. パートナーと繋がるために『合言葉』を発行してください。</p>
     <p>2. 発行した『合言葉』は忘れないように、パートナーへ伝えてください。</p>
     <div class="invitation-code-display">
-      <!--ここはapiからaxiosで接続するのか？-->
       <form action="">
         <div class="control has-icons-left">
           <input
@@ -17,8 +17,6 @@
           </span>
         </div>
         <input type="hidden" class="input is-large" v-model="pass_type" />
-        <!-- <input class="form-control" type="text" v-model="user_id" /> -->
-        <!-- <input class="form-control" id="copyTarget" type="text" readonly /> -->
         <div class="btn__wrap">
           <button class="btn__grade" type="button" @click="submit()">
             発行する
@@ -34,6 +32,7 @@ export default {
     return {
       paircode: "",
       pass_type: "1",
+      error: null
     };
   },
   methods: {
@@ -53,14 +52,15 @@ export default {
             こちらをパートナーに伝えてください \n
             合言葉: ${params.relationship.paircode}
           `;
-
             //return window.alert(errorMessage);
           }
           //this.$router.push("/");
           console.log(params);
         })
         .catch((error) => {
-          console.log(error.response);
+          this.error = "合言葉を発行できませんでした";
+          return;
+          // console.log(error.response);
         });
     },
   },

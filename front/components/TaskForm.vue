@@ -54,13 +54,10 @@
 <script>
 import "flatpickr/dist/themes/confetti.css";
 import "flatpickr/dist/flatpickr.min.css";
-// import { validationMixin } from 'vuelidate';
-// import { required } from 'vuelidate/lib/validators';
 
 const flatpickr = require("flatpickr").default;
 
 export default {
-  // mixins: [validationMixin],
   //_id.vueからedit()用
   props: {
     //task-id
@@ -128,7 +125,6 @@ export default {
           window.location.reload();
         })
         .catch((error) => {
-          //console.log(error.res)
           this.error = "登録できませんでした。";
           //  window.location.reload();
         });
@@ -149,12 +145,7 @@ export default {
     },
   },
   computed: {
-    //flatpickrのdefaultDateがなぜか不具合
-    // defaultDate: function (day) {
-    //   // return (this.limit_day = this.$dayjs().tz().format("YYYY-MM-DD"));
-    //   console.log(day)
-    //   return this.limit_day = day;
-    // },
+
     defaultDate: {
       get: function (day) {
         return this.limit_day = this.$dayjs().tz().format("YYYY-MM-DD");
@@ -166,14 +157,12 @@ export default {
     }
   },
   mounted() {
-    //console.log(this.$dayjs().tz().format('YYYY-MM-DD'));
 
     flatpickr("#" + this.datePick, {
       minDate: "today", //当日以前を選択不可に
       locale: {
         firstDayOfWeek: 1, // 月曜日を週の始めに設定
       },
-      //defaultDate : new Date(),
     });
   },
 };

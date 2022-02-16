@@ -75,7 +75,6 @@ export default {
   //SSRをサポートしないVueプラグインがあるためfalseへ
   plugins: [
     { src: '@/plugins/axios.js', ssr: false },
-    //  { src: '@/plugins/action-cable.js', mode: 'client' }
     { src: '@/plugins/day.js',ssr: false},
     //sotre/indexに直書きをしている
     // { src: '@/plugins/persistedstate.js', ssr: false}

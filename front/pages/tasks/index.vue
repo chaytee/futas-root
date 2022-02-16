@@ -4,15 +4,8 @@
     <h2 class="mb-2 section-title">Mission</h2>
     <div class="sq">
       <Task v-for="task in taskData" :key="task.id" :task="task" />
-      <!-- <Task /> -->
     </div>
     <TaskForm />
-    <!-- <p>{{ $store.state.modules.tasks.tasks }}</p> -->
-    <!-- <ul>
-      <li v-for="task in tasks" :key="task.id" >{{task.title}}</li>
-    </ul> -->
-    <!-- <p>{{tasks}}</p>
-    <p>{{tasks}}</p> -->
   </div>
 </template>
 <script>
@@ -46,19 +39,13 @@ export default {
 
       //タスク情報の取得
       this.taskData = Array.from(res.tasks).filter((data) => {
-        // const limitDayDo  = this.$dayjs(data.limit_day) < now;
 
-        // const yesterday = this.$dayjs().add(-1, "day");
-        // console.log(yesterday);
         return (
           (data.is_done === 0 || data.is_done === null) &&
           this.$dayjs(data.limit_day)
         );
-        // > yesterday;
       });
-      //  console.log(this.taskData);
     });
-    // this.fetchTasks();
   },
 };
 </script>

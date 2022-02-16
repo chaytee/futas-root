@@ -7,7 +7,6 @@
   </div>
 </template>
 <script>
-//import '@/assets/css/common.css'
 import Footer from '../components/Footer.vue'
 
 export default {
@@ -16,8 +15,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-  // #container.welcome-type {
-  //   padding-top: 0;
-  // }
-</style>

@@ -28,10 +28,6 @@ import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
 
-  // props: {
-  //   husband: Number,
-  //   wife: Number,
-  // },
   computed: {
     husbandScore: function () {
       // return this.husband;
@@ -40,8 +36,6 @@ export default {
     wifeScore: function () {
       return this.$store.getters['modules/score/wifeScore']
     },
-
-
     ...mapGetters("modules/score/allScores'", ['allScores'])
   },
   mounted (){
@@ -54,21 +48,9 @@ export default {
 
     },
     created(){
-    // this.$store.dispatch('getScore')
     this.getScore()
 
   }
-//   created() {
-//     // dispatchでstoreのactionが使えるらしいがダメだった
-//     // this.$store.dispatch('getScore')
-//     // this.getScore()
-//     this.$store.commit(
-//   //第1引数 ミューテーション名
-//   "setScore" ,
-//   //第2引数 ペイロード
-//   { husband : "01" ,
-//           wife : "1"  })
-//   }
 };
 </script>
 <style lang="scss">

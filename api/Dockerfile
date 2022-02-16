@@ -21,5 +21,3 @@ RUN apk update && \
 RUN apk add --update --no-cache less
 
 COPY . .
-
-CMD ["rails", "server", "-b", "0.0.0.0"]

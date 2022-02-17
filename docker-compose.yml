@@ -40,6 +40,7 @@ services:
         WORKDIR: $WORKDIR
         CONTAINER_PORT: $CONTAINER_PORT
         API_URL: "http://localhost:$API_PORT"
+    #開発環境用
     command: yarn run dev
     volumes:
       - ./front:/$WORKDIR
